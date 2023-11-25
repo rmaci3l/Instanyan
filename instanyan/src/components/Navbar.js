@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../assets/images/logo.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import {navLinks} from '../constants';
 
 function Navbar(){
     return(        
@@ -11,16 +11,15 @@ function Navbar(){
                     <h1 className="font-semibold text-2xl tracking-wider">Instanyan</h1>                            
             </div>
             <div className="p-6 flex w-full">
-                <a href="" className='flex items-center justify-center'>
-                    <FontAwesomeIcon icon={faHouse} />
-                    <span>Home</span>
-                </a>
-                <ul>
-                    <li>Home</li>
-                    <li>Search</li>                
-                    <li>Post</li>
-                    <li>Profile</li>
-                    <li>Notifications</li>
+                <ul className='font-light text-[18px] space-y-6'>
+                    {navLinks.map((nav, index)=>(
+                        <li key={nav.id}>                            
+                            <a className='space-x-4' href={`#${nav.id}`}>
+                                <FontAwesomeIcon icon={nav.icon} className='text-[16px]' />
+                                <span>{nav.title}</span>
+                            </a>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </div>
