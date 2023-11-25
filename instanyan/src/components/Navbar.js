@@ -7,7 +7,7 @@ function Navbar(){
     return(        
         <div className='w-3/10 flex flex-wrap justify-center items-center'>
             <div className='p-6 flex w-full items-center'>                
-                    <img className='h-14 w-14' src={Logo} alt='logo'/>                    
+                    <img className='h-14 w-14' src={Logo} alt='instanyan'/>                    
                     <h1 className="font-semibold text-2xl tracking-wider">Instanyan</h1>                            
             </div>
             <div className="p-6 flex w-full">
