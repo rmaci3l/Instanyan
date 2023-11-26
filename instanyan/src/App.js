@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
 import './tailwind.css';
-import {Navbar, Placeholder, PostGrid, RightMenu} from './components';
+import {Navbar, MobNav, PostGrid} from './components';
 
 function App() {
   return (
-    <div className='flex w-full'>
+    <div className='flex h-screen sm:flex-row flex-col w-full'>
       <Navbar />
       <PostGrid />
+      <MobNav />
     </div>
   );
 }

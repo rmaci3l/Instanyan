@@ -1,11 +1,9 @@
 import Navbar from './Navbar'
-import Placeholder from './Placeholder'
 import PostGrid from './PostGrid'
-import RightMenu from './RightMenu'
+import MobNav from './MobNav';
 
 export {
-    Navbar,
-    Placeholder,
+    Navbar,    
     PostGrid,
-    RightMenu
+    MobNav
 };
