@@ -1,9 +1,22 @@
 import Navbar from './Navbar'
-import PostGrid from './PostGrid'
 import MobNav from './MobNav';
+import Feed from './Feed'
+import ConfigPage from './Config';
+import Post from './Post';
+import Profile from './Profile';
+import Login from './Login';
+import Register from './Register'
+import NotFound from './NotFound'
+
 
 export {
     Navbar,    
-    PostGrid,
-    MobNav
+    MobNav,
+    Feed,
+    ConfigPage,
+    Post,
+    Profile,
+    Login,
+    Register,
+    NotFound
 };

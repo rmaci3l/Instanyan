@@ -1,15 +1,22 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import './tailwind.css';
-import {Navbar, MobNav, PostGrid} from './components';
+import {ConfigPage, Feed, Profile, Post, Login, Register, NotFound} from './components';
 
 function App() {
   return (
-    <div className='flex h-screen sm:flex-row flex-col w-full'>
-      <Navbar />
-      <PostGrid />
-      <MobNav />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Feed />} />
+        <Route path="settings" element={<ConfigPage />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="post" element={<Post />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>    
   );
 }
 
