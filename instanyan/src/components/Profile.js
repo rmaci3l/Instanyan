@@ -4,7 +4,7 @@ import picture from "../assets/templates/username1/profile.jpg";
 
 function Profile(){
     return(
-        <div className='flex h-screen sm:flex-row w-full sm:w-2/3 flex-col'>
+        <div className='flex h-screen sm:flex-row w-full sm:w-2/3 flex-col sm:gap-20'>
             <Navbar />
             <div className="flex flex-col sm:w-full sm:py-8">
                 <div className="flex p-4 sm:p-0 space-x-2">

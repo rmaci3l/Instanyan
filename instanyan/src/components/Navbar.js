@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function Navbar(){
     const configItem = navLinks.find(nav => nav.id === "configuration");
     return(     
-        <div className='sm:flex-initial sm:flex sm:w-2/3'>
+        <div className='sticky top-0 left-0 sm:flex-initial sm:flex sm:w-auto sm:min-w-fit'>
         <div className='p-2 sm:p-4 sm:pl-2 sm:pr-28 flex sm:flex-col sm:h-screen justify-between border-b sm:border-r sm:border-b-transparent border-gray-600'>
             <div className='flex w-full sm:flex-col items-center'>
                 <div className='p-2 items-center flex w-full'>

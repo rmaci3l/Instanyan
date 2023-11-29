@@ -40,6 +40,50 @@ export const navLinks = [
     }  
 ];
 
+
+export const configLinks = [    
+    {
+        id: "Edit Profile",
+        type: "account",
+        path: "edit"
+    },
+    {
+        id: "Language",
+        type: "account",
+        path: "language"
+    },
+    {
+        id: "Activity",
+        type: "account",
+        path: "activity"
+    },
+    {
+        id: "Notifications",
+        type: "account",
+        path: "notifications"
+    },
+    {
+        id: "About",
+        type: "company",
+        path: "about"
+    },
+    {
+        id: "Help",
+        type: "company",
+        path: "help"
+    },
+    {
+        id: "Report an Issue",
+        type: "company",
+        path: "report"
+    },        
+    {
+        id: "Log-out",
+        type: "action",
+        path: ""
+    }
+];
+
 export const postIcons = [faHeart, faComment, faShare];
 
 export const userTemplate = [
@@ -88,47 +132,4 @@ export const postTemplate = [
         path: "../assets/templates/username2/posts/2.jpg",
         caption: "Did a lot of stuff today at work!"
     }        
-];
-
-export const configLinks = [
-    {
-        id: "Edit Profile",
-        type: "account",
-        path: "edit"
-    },
-    {
-        id: "Language",
-        type: "account",
-        path: "language"
-    },
-    {
-        id: "Activity",
-        type: "account",
-        path: "activity"
-    },
-    {
-        id: "Notifications",
-        type: "account",
-        path: "notifications"
-    },
-    {
-        id: "About",
-        type: "company",
-        path: "about"
-    },
-    {
-        id: "Help",
-        type: "company",
-        path: "help"
-    },
-    {
-        id: "Report an Issue",
-        type: "company",
-        path: "report"
-    },        
-    {
-        id: "Log-out",
-        type: "action",
-        path: ""
-    }
 ];

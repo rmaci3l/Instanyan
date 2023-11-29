@@ -7,7 +7,7 @@ import {Navbar, MobNav} from './';
 
 function Feed(){     
     return(
-        <div className='flex h-screen sm:flex-row flex-col w-full sm:w-2/3'>
+        <div className='flex h-screen sm:flex-row flex-col w-full sm:w-2/3 sm:gap-20'>
             <Navbar />
             <div className="flex flex-col flex-grow">
                 <div style={{backgroundImage: `url(${imageUrl})`}} className='shadow-inner bg-cover bg-center flex p-4 flex-col h-4/5 w-full bg-stone-950'>
@@ -41,7 +41,7 @@ function Feed(){
                         <span className="break-words text-justify">s4d65as4d65as65as4dasdasj aksljd aslkjd lkasjd lkasjdlk askldaskdasjd asdsakldjaslkdjaslkdaslkjd lalskdjaslk djasd alskdj  askdjaslkdjsalkdjlkasjdlk saj alskdjem ipsum dolor sit ametaspdoaksdpa.</span>           
                     </div>
                 </div>
-            </div>
+            </div>            
             <MobNav />
         </div>
     );
