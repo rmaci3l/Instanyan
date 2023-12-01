@@ -4,6 +4,8 @@ import Logo from '../assets/images/logo.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+// To-do: função de validar username client side (sem espaços, etc).
+
 function Register(){
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
