@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/images/logo.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -9,23 +10,36 @@ function Register(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
+    
+    let navigate = useNavigate();
 
     const validate = () => {
         let tempErrors = {};
         tempErrors.email = (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) ? "" : "Email is not valid.";
         tempErrors.password = (password.length > 6) ? "" : "Password must be at least 7 characters long.";
-        setErrors(tempErrors)
+        setErrors(tempErrors);
+        if (tempErrors.password !== '') {
+            /*Future implement popup with password correction. */
+            console.log('Wrong pass');
+        }
+        if (tempErrors.email !== '') {
+            /* Future implement popup with email correction. */
+            console.log('Wrong mail.')
+        }
         return Object.values(tempErrors).every(x => x === "");
     };
 
     const handleRegister = async (e) =>{
         e.preventDefault();
-        if (true) {
+        if (validate()) {
             try {
-                const response = await axios.post('http://localhost:5000/register',{
-                    email, name, username, password
+                const response = await axios.post('http://localhost:5000/auth/register',{
+                    name, email, username, password
                 });
                 alert(response.data.message);
+                if (response.data.redirect){
+                    navigate(response.data.redirect);
+                }
             } catch (error) {
                 if (error.response) {
                     alert(error.response.data.message);
@@ -49,20 +63,18 @@ function Register(){
                     </span>
                 </div>
             </div>
-
-
             <div className="flex w-full justify-center mt-12">
                 <form className="" onSubmit={handleRegister}>
                     <label className="">E-mail</label>
                     <input className="w-full p-1 rounded text-black" type="email" id="email" value={email} onChange={e => setEmail(e.target.value)}></input>
                     <div className="py-1"></div>
-                    <label className="" htmlFor="password">Name</label>
+                    <label className="">Name</label>
                     <input className="w-full p-1 rounded text-black" type="text" id="name" value={name} onChange={e => setName(e.target.value)}></input>
                     <div className="py-1"></div>
-                    <label className="" htmlFor="password">Username</label>
+                    <label className="">Username</label>
                     <input className="w-full p-1 rounded text-black" type="text" id="username" value={username} onChange={e => setUsername(e.target.value)}></input>
                     <div className="py-1"></div>
-                    <label className="" htmlFor="password">Password</label>
+                    <label className="">Password</label>
                     <input className="w-full p-1 rounded text-black" type="password" id="password" value={password} onChange={e => setPassword(e.target.value)}></input>
 
                     <button className="mt-6 p-2 rounded-md w-full bg-gradient-to-r from-cyan-500 to-blue-500">Sign-up</button>

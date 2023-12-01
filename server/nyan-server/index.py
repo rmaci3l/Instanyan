@@ -1,29 +1,23 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_cors import CORS
+from routes.auth import auth_blueprint
+from flask_login import LoginManager
 
 app = Flask(__name__)
+app.secret_key = 'billybob'
+app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
-CORS(app)
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
 
-@app.route('/register', methods=['POST'])
-def register():
-    ...
+from models.user import User
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
     
 
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-
-    # Dummy check.
-    if username == 'catlover' and password == 'meow123':
-        return jsonify({"message" : "Login sucessfull"}), 200
-    else:
-        return jsonify({"message" : "Invalid credentials"}), 401
-
 @app.route('/')
-def hello_world():
-    return 'HEllo, world'
+def backend_home():
+    return 'Instanyan Server'

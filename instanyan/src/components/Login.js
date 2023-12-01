@@ -1,19 +1,26 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/images/logo.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Login(){
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    let navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/login',{
-                username, password
+            const response = await axios.post('http://localhost:5000/auth/login',{
+                email, password
             });
+            
             alert(response.data.message);
+            if (response.data.redirect){
+                navigate(response.data.redirect);
+            }
         } catch (error) {
             if (error.response){
                 alert(error.response.data.message);
@@ -41,10 +48,10 @@ function Login(){
 
             <div className="flex w-full justify-center mt-12">
                 <form className="" onSubmit={handleLogin}>
-                    <label className="">Username</label>
-                    <input className="w-full p-1 rounded text-black" id="username" type="text" value={username} onChange={e => setUsername(e.target.value)}></input>
+                    <label className="">E-mail</label>
+                    <input className="w-full p-1 rounded text-black" id="email" type="email" value={email} onChange={e => setEmail(e.target.value)}></input>
                     <div className="py-2"></div>
-                    <label className="" htmlFor="password">Password</label>
+                    <label className="">Password</label>
                     <input className="w-full p-1 rounded text-black" id="password" type="password" value={password} onChange={e => setPassword(e.target.value)}></input>
 
                     <button className="mt-6 p-2 rounded-md w-full bg-gradient-to-r from-cyan-500 to-blue-500">Login</button>
