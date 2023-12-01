@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import './tailwind.css';
 import {ConfigPage, Feed, Profile, Post, Login, Register, NotFound} from './components';
 
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+
   return (
     <Router>
       <Routes>
