@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from utils.user_operations import register_user, log_user
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+
 
 auth_blueprint = Blueprint('auth', __name__)
 CORS(auth_blueprint)

@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/authAction";
+import Error from "./Error";
 import Logo from '../../assets/images/logo.jpg';
 
 // To-do: função de validar username client side (sem espaços, etc).
@@ -11,22 +12,34 @@ function Register(){
     const {loading, userInfo, error, success } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
-    const [errors, setErrors] = useState({})
+
+    const navigate = useNavigate()
+
+    const [errors, setErrors] = useState({ message: "" })
+
+    useEffect(() => {
+        if (success) navigate('/login')
+    }, [navigate, success])
 
     function validate(userdata) {
-        let tempErrors = {};
-        tempErrors.email = (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(userdata.email)) ? "" : "Email is not valid.";
-        tempErrors.password = (userdata.password.length > 6) ? "" : "Password must be at least 7 characters long.";
-        tempErrors.confirmPassword = (userdata.password === userdata.confirmPassword) ? "" : "Confirm your password."
-        setErrors(tempErrors);
-        console.log(tempErrors);
-        return Object.values(tempErrors).every(x => x === "");
+        let errorMessage = "";        
+        if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(userdata.email))){
+            errorMessage = "Incorrect e-mail."
+        }else if (userdata.password.length < 6){
+            errorMessage = "Password must be at least 7 characters long."
+        }else if (userdata.password !== userdata.confirmPassword){
+            errorMessage = "Passwords don't match."
+        }
+        setErrors({message: errorMessage});
+        if (errors.message === ""){
+            return true
+        }else{
+            return false;
+        }
     };
-
 
     const submitForm = (data) => {
         // client-validate mail and password
-        console.log(validate(data));
         if (validate(data)){
             data.email = data.email.toLowerCase();
             dispatch(registerUser(data));
@@ -62,9 +75,11 @@ function Register(){
                     <div className="py-1"></div>
                     <label htmlFor="form-confirmPassword">Confirm Password</label>
                     <input className="form-input" type="password" {...register('confirmPassword')} required></input>                                                                           
-                    <button className="form-button">Sign-up</button>
+                    <button className="form-button" type='submit'>Sign-up</button>
                 </form>
-            </div>            
+            </div>
+            {error && <Error>{error}</Error>}    
+            {errors.message && <Error>{errors.message}</Error>}        
             <div className="mt-8 flex justify-center">
                 <p>Have an account?</p>
                 <Link to="/login">

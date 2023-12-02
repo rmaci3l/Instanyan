@@ -1,38 +1,27 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../redux/actions";
+import React, {useState, useEffect} from "react";
+import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../redux/authAction";
+import Error from "./Error";
 import Logo from '../../assets/images/logo.jpg';
 
 function Login(){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
+    const { loading, userInfo, error } = useSelector((state) => state.auth)
     let navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5000/auth/login',{
-                email, password
-            });           
-            alert(response.data.message);
-            const user = { name: 'John Doe', username: 'johndoe123'};
-            dispatch(loginUser(user));
-            if (response.data.redirect){
-                navigate(response.data.redirect);
-            }
-        } catch (error) {
-            if (error.response){
-                alert(error.response.data.message);
-            } else {
-                console.error("Error found: ", error);
-                alert("Error sending request");
-            }
+    const { register, handleSubmit } = useForm()
+    
+    useEffect(()=> {
+        if (userInfo) {
+            navigate('/profile')
         }
-    };
+    }, [navigate, userInfo])
+
+    const submitForm = (data) => {
+        dispatch(userLogin(data))
+    }    
+
 
     return(
         <div className="flex flex-col h-full p-8 sm:w-auto">
@@ -48,16 +37,17 @@ function Login(){
                 </div>
             </div>
             <div className="flex w-full justify-center mt-12">
-                <form className="" onSubmit={handleLogin}>
-                    <label className="">E-mail</label>
-                    <input className="w-full p-1 rounded text-black" id="email" type="email" value={email} onChange={e => setEmail(e.target.value)}></input>
-                    <div className="py-2"></div>
-                    <label className="">Password</label>
-                    <input className="w-full p-1 rounded text-black" id="password" type="password" value={password} onChange={e => setPassword(e.target.value)}></input>
-
+                <form className="w-full" onSubmit={handleSubmit(submitForm)}>
+                    <label htmlFor="form-email">E-mail</label>
+                    <input className="form-input" type="email" {...register('email')} required></input>
+                    <div className="py-1"></div>
+                    <label htmlFor="form-password">E-mail</label>
+                    <input className="form-input" type="password" {...register('password')} required></input>
+                    <div className="py-1"></div>                    
                     <button className="form-button">Login</button>
                 </form>
-            </div>            
+            </div>    
+            {error && <Error>{error}</Error>}        
             <div className="mt-8 flex justify-center">
                 <p>Don't have an account?</p>
                 <Link to="/register">
