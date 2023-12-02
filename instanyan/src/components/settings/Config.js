@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import { configLinks } from "../constants";
-import {Navbar, MobNav} from './'
+import { configLinks } from "../../constants";
 import { Link } from "react-router-dom";
 import { Routes, Route, useLocation, Switch } from 'react-router-dom';
-import {About, Activity, EditProfile, Help, Issue, Language, Notifications} from '../components/settings'
+import {About, Activity, EditProfile, Help, Issue, Language, Notifications} from '.'
 
 function ConfigSection({type}) {
     return(
@@ -29,7 +28,6 @@ function ConfigPage(){
 
     return(       
         <div className='flex h-screen sm:flex-row flex-col w-full'>
-            <Navbar />
             <div className={`flex flex-col sm:w-1/4 sm:border-r sm:border-gray-600`}>
                 <div className={classSettings}>
                     <ConfigSection type="account" />
@@ -47,7 +45,6 @@ function ConfigPage(){
                     <Route path="/report" element={<Issue setClassSettings={setClassSettings} />}></Route>
                 </Routes>           
             </div>
-            <MobNav />
         </div>
     );
 }

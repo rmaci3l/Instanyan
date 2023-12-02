@@ -1,17 +1,15 @@
 import React from "react";
-import {postIcons, userTemplate, postTemplate} from '../constants';
-import Profile from "../assets/templates/username1/profile.jpg";
-import imageUrl from "../assets/templates/username1/posts/1.jpg";
+import {postIcons, userTemplate, postTemplate} from '../../constants';
+import Profile from "../../assets/templates/username1/profile.jpg";
+import imageUrl from "../../assets/templates/username1/posts/1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Navbar, MobNav} from './';
 
 function Feed(){     
     return(
-        <div className='flex h-screen sm:flex-row flex-col w-full sm:w-2/3 sm:gap-20'>
-            <Navbar />
-            <div className="flex flex-col flex-grow">
+        <div className="sm:ml-20">
+            <div className="flex h-screen flex-col sm:w-2/3 flex-grow">
                 <div style={{backgroundImage: `url(${imageUrl})`}} className='shadow-inner bg-cover bg-center flex p-4 flex-col h-4/5 w-full bg-stone-950'>
-                    <div className="flex drop-shadow-lg">
+                    <div className="flex">
                         <img className="border border-neutral-50 rounded-full h-12" src={Profile}></img>
                         <div className="ml-2">
                             <span className="flex">Username</span>
@@ -41,9 +39,8 @@ function Feed(){
                         <span className="break-words text-justify">s4d65as4d65as65as4dasdasj aksljd aslkjd lkasjd lkasjdlk askldaskdasjd asdsakldjaslkdjaslkdaslkjd lalskdjaslk djasd alskdj  askdjaslkdjsalkdjlkasjdlk saj alskdjem ipsum dolor sit ametaspdoaksdpa.</span>           
                     </div>
                 </div>
-            </div>            
-            <MobNav />
-        </div>
+            </div>      
+        </div>      
     );
 }
 

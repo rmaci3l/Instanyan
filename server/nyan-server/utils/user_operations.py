@@ -39,6 +39,7 @@ def log_user(user_data):
 
 
 def register_user(user_data):
+    print(user_data)
     if (check_username(user_data) or check_mail(user_data)):
         return {"message" : "User already registered!", "redirect" : ""}
     else:

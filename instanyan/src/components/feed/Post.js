@@ -1,5 +1,4 @@
 import React, {useState, useRef} from "react";
-import {Navbar, MobNav} from './';
 
 function Post(params) {
     const fileInput = React.createRef();
@@ -22,10 +21,9 @@ function Post(params) {
     };
     
     return(
-        <div className='flex h-screen sm:flex-row flex-col w-full sm:w-2/3 sm:gap-20'>
-            <Navbar />
+        <div className="flex h-screen sm:ml-20 sm:w-2/5">
             <div className="flex flex-grow flex-col w-full p-4">
-                <div className="flex bg-stone-900 border-gray-600 w-full h-2/4 overflow-hidden rounded">
+                <div className="flex bg-stone-900 border-gray-600 w-full h-2/4 rounded">
                     {imageSrc && <div className=""><img src={imageSrc} className="max-w-full h-auto"/></div>}
                 </div>
                 <div className="flex w-full flex-grow py-4">
@@ -41,7 +39,6 @@ function Post(params) {
                     </button>
                 </div>
             </div>
-            <MobNav />
         </div>
     );
 }

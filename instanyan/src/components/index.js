@@ -1,22 +1,22 @@
-import Navbar from './Navbar'
-import MobNav from './MobNav';
-import Feed from './Feed'
-import ConfigPage from './Config';
-import Post from './Post';
-import Profile from './Profile';
-import Login from './Login';
-import Register from './Register'
+import Header from './Header';
+import Footer from './Footer';
+import Feed from './feed/Feed'
+import ConfigPage from './settings/Config';
+import Post from './feed/Post';
+import Profile from './profile/Profile';
+import Login from './auth/Login';
+import Register from './auth/Register'
 import NotFound from './NotFound'
 
 
 export {
-    Navbar,    
-    MobNav,
     Feed,
     ConfigPage,
     Post,
     Profile,
     Login,
     Register,
-    NotFound
+    NotFound,
+    Header,
+    Footer
 };

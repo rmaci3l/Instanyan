@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import Logo from '../assets/images/logo.jpg';
-import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../redux/actions";
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Logo from '../../assets/images/logo.jpg';
 
 function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/auth/login',{
                 email, password
-            });
-            
+            });           
             alert(response.data.message);
+            const user = { name: 'John Doe', username: 'johndoe123'};
+            dispatch(loginUser(user));
             if (response.data.redirect){
                 navigate(response.data.redirect);
             }
@@ -44,8 +47,6 @@ function Login(){
                     </span>
                 </div>
             </div>
-
-
             <div className="flex w-full justify-center mt-12">
                 <form className="" onSubmit={handleLogin}>
                     <label className="">E-mail</label>
@@ -54,7 +55,7 @@ function Login(){
                     <label className="">Password</label>
                     <input className="w-full p-1 rounded text-black" id="password" type="password" value={password} onChange={e => setPassword(e.target.value)}></input>
 
-                    <button className="mt-6 p-2 rounded-md w-full bg-gradient-to-r from-cyan-500 to-blue-500">Login</button>
+                    <button className="form-button">Login</button>
                 </form>
             </div>            
             <div className="mt-8 flex justify-center">

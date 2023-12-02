@@ -1,18 +1,19 @@
 import React from "react";
-import {Navbar, MobNav} from './';
-import picture from "../assets/templates/username1/profile.jpg";
+import { useSelector } from 'react-redux'
+import picture from "../../assets/templates/username1/profile.jpg";
 
 function Profile(){
+    const { userInfo } = useSelector((state) => state.user)
+
     return(
         <div className='flex h-screen sm:flex-row w-full sm:w-2/3 flex-col sm:gap-20'>
-            <Navbar />
             <div className="flex flex-col sm:w-full sm:py-8">
                 <div className="flex p-4 sm:p-0 space-x-2">
                     <div className="flex">
                         <img className="border border-neutral-50 rounded-full h-14 w-14 sm:h-40 sm:w-40" src={picture}></img>
                     </div>
                     <div className="pl-6 flex flex-col justify-center">
-                        <span className=" text-lg">Username</span>
+                        <span className=" text-lg">{userInfo.username}</span>
                         <span>I'm a kitten. 😾</span>
                     </div>
                 </div>
@@ -42,7 +43,6 @@ function Profile(){
                     </div>
                 </div>
             </div>
-            <MobNav />
         </div>
     );
 }
