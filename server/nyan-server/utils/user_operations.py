@@ -16,7 +16,6 @@ def check_username(user_data):
     else:
         return True
 
-
 def check_mail(user_data):       
     db_user = session.query(User).filter(User.email == user_data['email']).first()
     if (db_user == None):
@@ -24,24 +23,29 @@ def check_mail(user_data):
     else:
         return db_user
 
+# API requests functions.
+def user_data(user_id):
+    db_user = session.query(User).filter(User.id == user_id).first()
+    user_data = {"username" : db_user.username,
+                 "email" : db_user.email,
+                 }
+    return jsonify(user_data)
 
+# Log-in and register functions.
 def log_user(user_data):
     user = (check_mail(user_data))
     if (user):
         if (check_password_hash(user.password, user_data['password'])):
             print(f'User {user.username} found, creating JWT session.')
             expires = timedelta(days=7)
-            userToken = create_access_token(identity=user.id, username=user.username, expires_delta=expires)
+            userToken = create_access_token(identity=user.id, expires_delta=expires)
             return jsonify(userToken=userToken), 200
         else:
             return {"message" : "Invalid password."}, 401
     else:
         return {"message" : "User not found."}, 401
 
-
 def register_user(user_data):
-    # Delete this print function for production.
-    print(user_data)
     if (check_username(user_data) or check_mail(user_data)):
         return {"message" : "User already registered!", "redirect" : ""}, 401
     else:

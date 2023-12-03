@@ -8,7 +8,7 @@ const userToken = localStorage.getItem('userToken')
 const initialState = {
     loading: false,
     userInfo: {}, // user object
-    userToken: null, // JWT
+    userToken: userToken, // JWT
     error: null,
     success: false, // for registration monitor
 }
@@ -17,7 +17,18 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) =>{
+            localStorage.removeItem('userToken')
+            state.loading = false
+            state.userInfo = null
+            state.userToken = null
+            state.error = null
+        },
+        setCredentials: (state, {payload}) => {
+            state.userInfo = payload
+        },
+    },
     extraReducers: {
         // login reducer
         [userLogin.pending] : (state) => {
@@ -50,4 +61,5 @@ const authSlice = createSlice({
     },
 })
 
+export const {logout, setCredentials} = authSlice.actions
 export default authSlice.reducer

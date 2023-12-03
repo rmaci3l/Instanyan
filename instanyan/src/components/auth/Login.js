@@ -12,11 +12,11 @@ function Login(){
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm()
     
-    useEffect(()=> {
+/*     useEffect(()=> {
         if (userInfo) {
             navigate('/profile')
         }
-    }, [navigate, userInfo])
+    }, [navigate, userInfo]) */
 
     const submitForm = (data) => {
         dispatch(userLogin(data))
@@ -41,7 +41,7 @@ function Login(){
                     <label htmlFor="form-email">E-mail</label>
                     <input className="form-input" type="email" {...register('email')} required></input>
                     <div className="py-1"></div>
-                    <label htmlFor="form-password">E-mail</label>
+                    <label htmlFor="form-password">Password</label>
                     <input className="form-input" type="password" {...register('password')} required></input>
                     <div className="py-1"></div>                    
                     <button className="form-button">Login</button>

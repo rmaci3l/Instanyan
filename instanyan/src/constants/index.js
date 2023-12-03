@@ -1,4 +1,4 @@
-import { faBell, faCat, faComment, faGear, faHeart, faHouse, faPaw, faSearch, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCat, faComment, faGear, faHeart, faHouse, faPaw, faRightFromBracket, faSearch, faShare } from '@fortawesome/free-solid-svg-icons';
 
 
 export const navLinks = [
@@ -37,7 +37,7 @@ export const navLinks = [
         title: "Configuration",
         path: "/settings",
         icon: faGear,
-    }  
+    }    
 ];
 
 

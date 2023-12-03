@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import picture from "../../assets/templates/username1/profile.jpg";
 
 function Profile(){
-    const { userInfo } = useSelector((state) => state.user)
+    const { userInfo } = useSelector((state) => state.auth)
 
     return(
         <div className='flex h-screen sm:flex-row w-full sm:w-2/3 flex-col sm:gap-20'>
