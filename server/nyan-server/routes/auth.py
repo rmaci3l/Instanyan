@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from utils.user_operations import register_user, log_user
+from utils.auth import register_user, log_user
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 

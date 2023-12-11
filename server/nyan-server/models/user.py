@@ -1,8 +1,7 @@
 from sqlalchemy import Column, String, Integer
-from flask_login import UserMixin
 from .base import Base
 
-class User(UserMixin, Base):      
+class User(Base):      
     __tablename__ = 'user'
     
     id = Column(Integer, primary_key=True)

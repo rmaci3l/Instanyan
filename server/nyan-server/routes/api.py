@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils.user_operations import user_data
+from utils import api
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
@@ -14,7 +14,3 @@ def user_info():
     user_id = get_jwt_identity()    
     user = user_data(user_id)
     return user, 200
-    
-@api_blueprint.route('/logout', methods=['POST'])
-def logout():
-    ...
