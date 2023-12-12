@@ -19,8 +19,3 @@ def login():
     user_data = request.json
     result = log_user(user_data)
     return result
-
-    
-@auth_blueprint.route('/logout', methods=['POST'])
-def logout():
-    ...

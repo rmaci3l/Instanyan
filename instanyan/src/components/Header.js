@@ -1,30 +1,33 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useGetUserDetailsQuery } from '../redux/authService'
 import {navLinks} from '../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Logo from '../assets/images/logo.jpg';
 import { setCredentials } from '../redux/authSlice';
 
-function Header(){
-    const configItem = navLinks.find(nav => nav.id === "configuration");
+const Header = () => {
+    const location = useLocation();
+    const hideRoutes = ['/login', '/register'];
+    const { userInfo, userToken } = useSelector((state) => state.auth)
+    const { data: userDetails, isSuccess } = useGetUserDetailsQuery();
+    const dispatch = useDispatch()
 
     const navLinksObj = navLinks.reduce((obj, item) =>{
         obj[item.id] = item;
         return obj;
     }, {});
-
-    const { userInfo } = useSelector((state) => state.auth)
-    const dispatch = useDispatch()
-
-    const { data, isFetching } = useGetUserDetailsQuery('useDetails', {
-        pollingInterval: 90000,
-    })
-
+    
     useEffect(() => {
-        if (data) dispatch(setCredentials(data))
-    }, [data, dispatch])    
+        if (isSuccess && userDetails){
+              dispatch(setCredentials({userInfo: userDetails}));       
+          }
+      }, [userDetails, isSuccess, dispatch]);
+
+    if (hideRoutes.includes(location.pathname)) {
+        return null;
+    }  
 
     return(     
         <div className='bg-black font-light sticky top-0 flex sm:h-screen sm:flex-col sm:w-1/5 sm:min-w-fit p-2 sm:p-4 sm:pl-2 border-b sm:border-r sm:border-b-transparent border-gray-600'>

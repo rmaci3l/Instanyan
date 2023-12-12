@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from 'react-redux'
 import picture from "../../assets/templates/username1/profile.jpg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCat, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 function Profile(){
     const { userInfo } = useSelector((state) => state.auth)
@@ -14,7 +16,10 @@ function Profile(){
                     </div>
                     <div className="pl-6 flex flex-col justify-center">
                         <span className=" text-lg">{userInfo.username}</span>
-                        <span>I'm a kitten. 😾</span>
+                        <div>
+                            <span>I'm a kitten. 😾</span>
+                            <FontAwesomeIcon icon={faPenToSquare} className='text-[14px]' />
+                        </div>                        
                     </div>
                 </div>
                 <div className="flex w-full flex-wrap p-4">

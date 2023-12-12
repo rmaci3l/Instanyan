@@ -1,11 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit'
-import authReducer from './authSlice'
-import { authApi } from './authService'
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './authSlice';
+import popUpReducer from './layoutSlice';
+import { authApi } from './authService';
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
         [authApi.reducerPath]: authApi.reducer,
+        popup: popUpReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(authApi.middleware),

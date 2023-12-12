@@ -13,7 +13,8 @@ def log_user(user_data):
             print(f'User {user.username} found, creating JWT session.')
             expires = timedelta(days=7)
             userToken = create_access_token(identity=user.id, expires_delta=expires)
-            return jsonify(userToken=userToken), 200
+            user_data = {"username" : user.username,"email" : user.email}
+            return jsonify(userToken=userToken, userInfo=user_data), 200
         else:
             return {"message" : "Invalid password."}, 401
     else:

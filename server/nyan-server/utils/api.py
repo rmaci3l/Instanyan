@@ -9,7 +9,5 @@ session = Session()
 def user_data(user_id):
     with Session() as session:
         db_user = session.query(User).filter(User.id == user_id).first()
-        user_data = {"username" : db_user.username,
-                    "email" : db_user.email,
-                    }
+        user_data = {"username" : db_user.username,"email" : db_user.email}
         return jsonify(user_data)

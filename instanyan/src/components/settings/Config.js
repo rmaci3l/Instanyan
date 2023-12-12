@@ -29,6 +29,10 @@ function ConfigPage(){
     const [classSettings, setClassSettings] = useState('block')
     const dispatch = useDispatch()
 
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
     return(       
         <div className='flex sm:flex-row flex-col w-full'>
             <div className={`flex flex-col sm:w-1/5 sm:border-r sm:border-gray-600`}>
@@ -36,7 +40,7 @@ function ConfigPage(){
                     <ConfigSection type="account" />
                     <ConfigSection type="company" />
                     <div className="text-red-400 py-2 px-4 border-y border-gray-600">
-                        <button onClick={()=>{dispatch(logout())}}>Log-out</button>
+                        <button onClick={handleLogout}>Log-out</button>
                     </div>
                 </div>
              </div>

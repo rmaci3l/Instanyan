@@ -1,13 +1,13 @@
 import Header from './Header';
 import Footer from './Footer';
-import Feed from './feed/Feed'
-import ConfigPage from './settings/Config';
-import Post from './feed/Post';
-import Profile from './profile/Profile';
 import Login from './auth/Login';
 import Register from './auth/Register'
-import NotFound from './NotFound'
-
+import ProtectedRoute from './auth/ProtectedRoute';
+import Feed from './feed/Feed'
+import Post from './feed/Post';
+import ConfigPage from './settings/Config';
+import Profile from './profile/Profile';
+import NotFound from './NotFound';
 
 export {
     Feed,
@@ -16,6 +16,7 @@ export {
     Profile,
     Login,
     Register,
+    ProtectedRoute,
     NotFound,
     Header,
     Footer

@@ -7,17 +7,15 @@ import Error from "./Error";
 import Logo from '../../assets/images/logo.jpg';
 
 function Login(){
-    const { loading, userInfo, error } = useSelector((state) => state.auth)
+    const { loading, userInfo, userToken, error, success } = useSelector((state) => state.auth)
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm()
     
-/*     useEffect(()=> {
-        if (userInfo) {
-            navigate('/profile')
-        }
-    }, [navigate, userInfo]) */
-
+    useEffect(() => {
+        if (userInfo && userToken) navigate('/profile')
+        }, [navigate, userInfo, success])
+      
     const submitForm = (data) => {
         dispatch(userLogin(data))
     }    
