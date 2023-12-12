@@ -1,4 +1,4 @@
-from models.user import User
+from models.user import User, UserProfile
 from models.base import Session, engine, Base
 
 User.metadata.create_all(engine)
@@ -27,7 +27,16 @@ def check_mail(user_data):
 
 def add_user(user_data, hash_pwd):
     with Session() as session:
-        new_user = User(name=user_data['name'], email=user_data['email'], username=user_data['username'], password=hash_pwd)   
+        new_profile = UserProfile(profile_image='https://i.imgur.com/A5b1S4n.jpg',
+                                  status="Edit me!",
+                                  about="Edit me too!",
+                                  )
+        new_user = User(name=user_data['name'], 
+                        email=user_data['email'], 
+                        username=user_data['username'], 
+                        password=hash_pwd,
+                        profile=new_profile
+                        )
         session.add(new_user)
         session.commit()
         return True

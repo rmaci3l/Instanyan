@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils.api import user_data
+from utils.api import user_data, update_data
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
@@ -12,5 +12,14 @@ CORS(api_blueprint)
 @jwt_required()
 def user_info():    
     user_id = get_jwt_identity()       
-    user = user_data(user_id)
-    return user, 200
+    result = user_data(user_id)
+    return result
+
+@api_blueprint.route('/user/profile', methods=['POST'])
+@jwt_required()
+def update_user():
+    user_id = get_jwt_identity()
+    user_data = request.json
+    result = update_data(user_id, user_data)
+    return result
+    
