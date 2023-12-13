@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { configLinks } from "../constants";
-import {Navbar, MobNav} from './'
+import { configLinks } from "../../constants";
 import { Link } from "react-router-dom";
 import { Routes, Route, useLocation, Switch } from 'react-router-dom';
-import {About, Activity, EditProfile, Help, Issue, Language, Notifications} from '../components/settings'
+import {About, Activity, Help, Issue, Language, Notifications} from '.'
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
 
 function ConfigSection({type}) {
     return(
@@ -26,19 +27,25 @@ function ConfigSection({type}) {
 
 function ConfigPage(){
     const [classSettings, setClassSettings] = useState('block')
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
 
     return(       
-        <div className='flex h-screen sm:flex-row flex-col w-full'>
-            <Navbar />
-            <div className={`flex flex-col sm:w-1/4 sm:border-r sm:border-gray-600`}>
+        <div className='flex sm:flex-row flex-col w-full'>
+            <div className={`flex flex-col sm:w-1/5 sm:border-r sm:border-gray-600`}>
                 <div className={classSettings}>
                     <ConfigSection type="account" />
                     <ConfigSection type="company" />
+                    <div className="text-red-400 py-2 px-4 border-y border-gray-600">
+                        <button onClick={handleLogout}>Log-out</button>
+                    </div>
                 </div>
-            </div>
+             </div>
             <div className="sm:flex sm:flex-grow">
                 <Routes>
-                    <Route path="/edit" element={<EditProfile setClassSettings={setClassSettings}/>}></Route>
                     <Route path="/language" element={<Language setClassSettings={setClassSettings} />}></Route>
                     <Route path="/activity" element={<Activity setClassSettings={setClassSettings} />}></Route>
                     <Route path="/notifications" element={<Notifications setClassSettings={setClassSettings} />}></Route>
@@ -47,7 +54,6 @@ function ConfigPage(){
                     <Route path="/report" element={<Issue setClassSettings={setClassSettings} />}></Route>
                 </Routes>           
             </div>
-            <MobNav />
         </div>
     );
 }
