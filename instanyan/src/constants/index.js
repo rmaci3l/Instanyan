@@ -43,11 +43,6 @@ export const navLinks = [
 
 export const configLinks = [    
     {
-        id: "Edit Profile",
-        type: "account",
-        path: "edit"
-    },
-    {
         id: "Language",
         type: "account",
         path: "language"

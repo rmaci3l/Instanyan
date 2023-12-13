@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { registerUser, userLogin } from './authAction'
+import { registerUser, userLogin } from './reduxActions'
 
 const userToken = localStorage.getItem('userToken')
     ? localStorage.getItem('userToken')

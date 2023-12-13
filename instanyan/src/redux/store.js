@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
-import popUpReducer from './layoutSlice';
 import { authApi } from './authService';
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
-        [authApi.reducerPath]: authApi.reducer,
-        popup: popUpReducer,
+        [authApi.reducerPath]: authApi.reducer,        
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(authApi.middleware),

@@ -13,7 +13,14 @@ def log_user(user_data):
             print(f'User {user.username} found, creating JWT session.')
             expires = timedelta(days=7)
             userToken = create_access_token(identity=user.id, expires_delta=expires)
-            user_data = {"username" : user.username,"email" : user.email}
+            user_data = {"username" : db_user.user.username,
+                     "email" : db_user.user.email,
+                     "profile_image" : db_user.profile_image, 
+                     "status" : db_user.status,
+                     "about" : db_user.about,
+                     "posts" : db_user.posts,
+                     "followers" : db_user.followers,
+                     "following" : db_user.following}
             return jsonify(userToken=userToken, userInfo=user_data), 200
         else:
             return {"message" : "Invalid password."}, 401

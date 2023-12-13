@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../redux/authAction";
+import { userLogin } from "../../redux/reduxActions";
 import Error from "./Error";
 import Logo from '../../assets/images/logo.jpg';
 
