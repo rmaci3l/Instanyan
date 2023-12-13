@@ -11,6 +11,7 @@ psycopg2 = "*"
 bcrypt = "*"
 flask-bcrypt = "*"
 flask-login = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 
