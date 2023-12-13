@@ -1,44 +1,63 @@
-import React, {useState, useRef} from "react";
+import React from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import {convertToBase64 } from '../utils/Utils'
+import { updateProfile } from "../../redux/reduxActions";
 
-function Post(params) {
-    const fileInput = React.createRef();
-    const [imageSrc, setImageSrc] = useState(null)
 
-    const handleButtonClick = () => {
-        fileInput.current.click();
+function Post() {
+    const { userInfo } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const { register, handleSubmit, setValue } = useForm();
+
+
+
+    const submitForm = (data) => {       
+        console.log(data);
+        //dispatch(updateProfile(data))
     };
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file && file.type.startsWith('image/')){
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageSrc(reader.result);
+    const onFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const base64 = await convertToBase64(file);
+            setValue('image', base64);
+        }
+    };
+
+    
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
             };
-            reader.readAsDataURL(file);
-        };
-        
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
     };
+
     
     return(
-        <div className="flex h-screen sm:ml-20 sm:w-2/5">
-            <div className="flex flex-grow flex-col w-full p-4">
-                <div className="flex bg-stone-900 border-gray-600 w-full h-2/4 rounded">
-                    {imageSrc && <div className=""><img src={imageSrc} className="max-w-full h-auto"/></div>}
-                </div>
-                <div className="flex w-full flex-grow py-4">
-                    <input type="text" className="p-2 w-full bg-stone-950"></input>
-                </div>
-                <div className="flex mb-20 space-x-2 sm:mb-5">
-                    <input type='file' accept="image/*" ref={fileInput} className="hidden" onChange={handleFileChange} />
-                    <button className="w-3/4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounder" onClick={handleButtonClick}>
-                        Upload Image
-                    </button>
-                    <button className="w-1/4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounder">
-                        Go
-                    </button>
-                </div>
-            </div>
+        <div className="flex h-screen p-4 sm:ml-20 sm:w-2/5">
+            <form className="w-full" onSubmit={handleSubmit(submitForm)}>
+                <label htmlFor="form-status">Picture</label>
+                <input className="form-input" 
+                    type="file" accept="image/" 
+                    onChange={onFileChange} />
+                <input type="hidden" {...register('image')} />
+                <div className="py-1"></div>
+                <label htmlFor="form-status">Content</label>
+                <textarea className="form-input" rows={5} type="text" maxLength={1000} placeholder="Write your post info." {...register('content', {maxLength: 1000})} required></textarea>
+                <div className="py-1"></div>
+                <label htmlFor="form-about">Hashtags</label>
+                <textarea className="form-input" rows={2} type="text" maxLength={100} placeholder="#lovecats #nyan #meow" {...register('hashtags', {maxLength: 100})} required></textarea>
+                <div className="py-1"></div>                    
+                <button className="form-button">Post!</button>
+            </form>
         </div>
     );
 }

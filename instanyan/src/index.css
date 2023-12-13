@@ -2,13 +2,13 @@
 .form-input {
   @apply w-full p-1 rounded text-black;
 }
-.form-button{
+.form-button {
   @apply mt-6 p-2 rounded-md w-full bg-gradient-to-r from-cyan-500 to-blue-500;
 }
 
 /* Profile */
 
-.user-stats p{
+.user-stats p {
   @apply font-light text-sm text-stone-300;
 }
 

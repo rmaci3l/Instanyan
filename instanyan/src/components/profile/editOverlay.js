@@ -1,22 +1,26 @@
+import React from "react";
 import { updateProfile } from "../../redux/reduxActions";    
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import {convertToBase64 } from '../utils/Utils'
 
 const OverlayMenu = ({ onClose }) => {
-    const profile = useSelector((state) => state.profile);
     const { userInfo } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
 
-    const submitForm = (data) => {
+    const submitForm = (data) => {       
         console.log(data);
         dispatch(updateProfile(data))
-    }
+    };
 
-    // useEffect(() => {
-    //     dispatch(updateProfile({about: profile.about, status: profile.status}))
-    // }, [profile.status, profile.about, dispatch])
+    const onFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const base64 = await convertToBase64(file);
+            setValue('profile_image', base64);
+        }
+    };
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-10 flex justify-center items-center">
@@ -30,13 +34,19 @@ const OverlayMenu = ({ onClose }) => {
                 
                 <div className="flex w-full justify-center mt-12">
                     <form className="w-full" onSubmit={handleSubmit(submitForm)}>
+                        <label htmlFor="form-status">Picture</label>
+                        <input className="form-input" 
+                            type="file" accept="image/" 
+                            onChange={onFileChange} />
+                        <input type="hidden" {...register('profile_image')} />
+                        <div className="py-1"></div>
                         <label htmlFor="form-status">Status</label>
                         <textarea className="form-input" type="text" maxLength={60} defaultValue={userInfo.status} {...register('status', {maxLength: 60})} required></textarea>
                         <div className="py-1"></div>
                         <label htmlFor="form-about">About</label>
                         <textarea className="form-input" rows={3} type="text" maxLength={150} defaultValue={userInfo.about} {...register('about', {maxLength: 150})} required></textarea>
                         <div className="py-1"></div>                    
-                        <button className="form-button">Update</button>
+                        <button className="form-button" type="submit">Update</button>
                     </form>
                 </div>  
                 

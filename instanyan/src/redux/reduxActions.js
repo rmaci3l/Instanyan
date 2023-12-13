@@ -67,6 +67,7 @@ export const updateProfile = createAsyncThunk(
             const response = await axios.post(
                 `${backendURL}/api/user/profile`, profileData, config
             );
+            console.log(response.data.message)
             return response            
             } catch (error) {
                 if (error.response) {

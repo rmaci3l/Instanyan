@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from utils.auth import register_user, log_user
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -10,12 +10,12 @@ CORS(auth_blueprint)
 @auth_blueprint.route('/register', methods=['POST'])
 def register():
     user_data = request.json
-    result = register_user(user_data)    
-    return result
+    result = register_user(user_data)       
+    return jsonify(result), result['status']
 
  
 @auth_blueprint.route('/login', methods=['POST'])
 def login():
     user_data = request.json
     result = log_user(user_data)
-    return result
+    return jsonify(result), result['status']
