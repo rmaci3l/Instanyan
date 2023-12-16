@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {createAsyncThunk} from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const backendURL = 'http://localhost:5000'
 

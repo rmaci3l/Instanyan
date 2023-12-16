@@ -24,9 +24,9 @@ class UserProfile(Base):
     __tablename__ = 'user_profiles'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
-    profile_image = Column(String)
-    status = Column(String(60))
-    about = Column(String(150))
+    profile_image = Column(String, default="https://i.imgur.com/A5b1S4n.jpg")
+    status = Column(String(60), default="Nyandit me!")
+    about = Column(String(150), default="Nyandit me too!")
     posts = Column(Integer, default=0)
     followers = Column(Integer, default=0)
     following = Column(Integer, default=0)
@@ -45,3 +45,12 @@ class Post(Base):
     likes = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    def serialize(self):
+        return {
+            "username": self.user.username,
+            "image" : self.image,
+            "content" : self.content,
+            "hashtags" : self.hashtags,
+            "likes" : self.likes,
+            "created_at" : self.created_at.isoformat()
+        }

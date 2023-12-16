@@ -13,7 +13,8 @@ function App() {
           <Route path="/" element={<Feed />} />
           <Route element={<ProtectedRoute />}>
             <Route path="settings/*" element={<ConfigPage />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile/:userprofile" element={<Profile /> } />
+            <Route path="profile/" element={<Profile />} />
             <Route path="post" element={<Post />} />
           </Route>
           <Route path="login" element={<Login />} />
