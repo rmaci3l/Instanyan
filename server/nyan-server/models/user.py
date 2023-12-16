@@ -46,11 +46,28 @@ class Post(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     def serialize(self):
-        return {
+        # Calculate the post time difference and format it.
+        time_diff = datetime.utcnow() - self.created_at
+        seconds = time_diff.total_seconds()
+        
+        minutes = seconds / 60
+        hours = minutes / 60
+        days = hours / 24
+        
+        if minutes < 60:
+            time_ago = f"{int(minutes)} m"
+        elif hours < 24:
+            time_ago = f"{int(hours)} h"
+        else:
+            time_ago = f"{int(days)} d"
+                
+        return {                       
             "username": self.user.username,
+            "avatar" : self.user.profile.profile_image,
+            "followers" : self.user.profile.followers,
             "image" : self.image,
             "content" : self.content,
             "hashtags" : self.hashtags,
             "likes" : self.likes,
-            "created_at" : self.created_at.isoformat()
+            "created_at" : time_ago
         }

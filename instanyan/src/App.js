@@ -9,9 +9,9 @@ function App() {
     <Router>
       <div className='flex flex-col sm:flex-row w-full'>
       <Header />
-        <Routes>
-          <Route path="/" element={<Feed />} />
+        <Routes>          
           <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Feed />} />
             <Route path="settings/*" element={<ConfigPage />} />
             <Route path="profile/:userprofile" element={<Profile /> } />
             <Route path="profile/" element={<Profile />} />

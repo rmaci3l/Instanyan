@@ -75,7 +75,7 @@ function Register(){
                     <div className="py-1"></div>
                     <label htmlFor="form-confirmPassword">Confirm Password</label>
                     <input className="form-input" type="password" {...register('confirmPassword')} required></input>                                                                           
-                    <button className="form-button" type='submit'>Sign-up</button>
+                    <button className="form-button">Sign-up</button>
                 </form>
             </div>
             {error && <Error>{error}</Error>}    

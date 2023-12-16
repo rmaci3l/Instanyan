@@ -27,7 +27,7 @@ const Header = () => {
 
     if (hideRoutes.includes(location.pathname)) {
         return null;
-    };  
+    };    
 
     return(     
         <div className='bg-black font-light sticky top-0 flex sm:h-screen sm:flex-col sm:w-1/5 sm:min-w-fit p-2 sm:p-4 sm:pl-2 border-b sm:border-r sm:border-b-transparent border-gray-600'>
