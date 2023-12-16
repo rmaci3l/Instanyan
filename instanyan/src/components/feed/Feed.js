@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetFeedPostsQuery } from "../../redux/feedService";
 import { getFeed } from "../../redux/feedSlice";
 import { Link } from "react-router-dom";
+import { likePost } from "../../redux/reduxActions";
 
 function Feed(){     
     const { data: posts, error, isLoading, isSuccess, refetch } = useGetFeedPostsQuery();
@@ -28,6 +29,10 @@ function Feed(){
     if (error) {
         return <div>User not found</div>;
     }
+
+    const handleLike = (post_id) => {
+        dispatch(likePost(post_id));
+    }
     
     return(
         <div className="sm:ml-20 flex flex-col bg-stone-950 sm:w-2/3 flex-grow">
@@ -47,7 +52,8 @@ function Feed(){
                         </Link>
                         <div className="flex flex-grow"></div>
                         <div className="flex w-full justify-start space-x-4">
-                                <FontAwesomeIcon icon={postIcons[0]} />
+                                <button onClick={() => handleLike(post.id)}><FontAwesomeIcon icon={postIcons[0]} /></button>
+                                <span>{post.likes}</span>
                                 <FontAwesomeIcon icon={postIcons[2]} />
                         </div>
                     </div>

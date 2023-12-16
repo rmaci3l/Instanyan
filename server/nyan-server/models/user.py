@@ -1,7 +1,13 @@
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, String, Integer, Table, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from .base import Base
 from datetime import datetime
+
+
+likes_table = Table('likes', Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id')),
+    Column('post_id', Integer, ForeignKey('posts.id'))
+)
 
 class User(Base):      
     __tablename__ = 'users'
@@ -13,6 +19,7 @@ class User(Base):
     password = Column(String)
     profile = relationship("UserProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     posts = relationship("Post", back_populates="user", lazy="dynamic")
+    liked_posts = relationship('Post', secondary=likes_table, back_populates='liked_by')
 
     def __init__(self, name, email, username, password, profile):
         self.name = name
@@ -32,7 +39,7 @@ class UserProfile(Base):
     following = Column(Integer, default=0)
     user = relationship("User", back_populates="profile")
     
-    
+
 class Post(Base):
     __tablename__ = 'posts'
     
@@ -44,7 +51,9 @@ class Post(Base):
     hashtags = Column(String(100))
     likes = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
+    liked_by = relationship('User', secondary=likes_table, back_populates='liked_posts')
 
+    
     def serialize(self):
         # Calculate the post time difference and format it.
         time_diff = datetime.utcnow() - self.created_at
@@ -62,6 +71,7 @@ class Post(Base):
             time_ago = f"{int(days)} d"
                 
         return {                       
+            "id" : self.id,
             "username": self.user.username,
             "avatar" : self.user.profile.profile_image,
             "followers" : self.user.profile.followers,

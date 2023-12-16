@@ -3,6 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const backendURL = 'http://localhost:5000'
 
+
+// Auth actions.
+
 export const registerUser = createAsyncThunk(
     'auth/register',
     async({name, username, email, password}, {rejectWithValue}) =>{
@@ -53,6 +56,8 @@ export const userLogin = createAsyncThunk(
 )
 
 
+// Profile actions.
+
 export const updateProfile = createAsyncThunk(
     'api/user/profile',
     async(profileData, {getState, rejectWithValue}) => {
@@ -80,6 +85,8 @@ export const updateProfile = createAsyncThunk(
 )
 
 
+// Post actions.
+
 export const createPost = createAsyncThunk(
     'api/feed/post',
     async(userPost, {getState, rejectWithValue}) => {
@@ -104,4 +111,31 @@ export const createPost = createAsyncThunk(
                 }
             }
         }
+)
+
+
+export const likePost = createAsyncThunk(
+    'api/post/like',
+    async(postId, { getState, rejectWithValue}) => {
+        const token = getState().auth.userToken;
+        try {
+            const config ={
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'authorization' : `Bearer ${token}`
+                },
+            }
+            const response = await axios.post(
+                `${backendURL}/api/post/like/${postId}`, {}, config
+            );
+            console.log(response.data.message)
+            return response
+            } catch (error) {
+                if (error.response) {
+                    return rejectWithValue(error.response.data.message)
+                } else {
+                    return rejectWithValue(error.message)
+                }
+            }
+        }   
 )
