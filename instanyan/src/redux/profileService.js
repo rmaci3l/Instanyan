@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const authApi = createApi({
-    reducerPath: 'authApi',
+export const profileApi = createApi({
+    reducerPath: 'profileApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000',
         prepareHeaders: (headers, { getState }) => {
@@ -13,13 +13,14 @@ export const authApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getUserDetails: builder.query({
-            query: () => ({
-                url: 'auth/user',
+        getProfileDetails: builder.query({
+            query: (username) => ({
+                url: `api/user/profile/${username}`,
                 method: 'GET',
+                refetchOnMountOrArgChange: true,
             }),
         }),
     }),
-})
+});
 
-export const { useGetUserDetailsQuery } = authApi
+export const { useGetProfileDetailsQuery } = profileApi

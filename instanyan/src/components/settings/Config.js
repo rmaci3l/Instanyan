@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { configLinks } from "../../constants";
 import { Link } from "react-router-dom";
 import { Routes, Route, useLocation, Switch } from 'react-router-dom';
-import {About, Activity, Help, Issue, Language, Notifications} from '.'
+import {About, Activity, EditProfile, Help, Issue, Language, Notifications} from '.'
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
 
@@ -46,6 +46,7 @@ function ConfigPage(){
              </div>
             <div className="sm:flex sm:flex-grow">
                 <Routes>
+                    <Route path="/edit" element={<EditProfile setClassSettings={setClassSettings} />}></Route>
                     <Route path="/language" element={<Language setClassSettings={setClassSettings} />}></Route>
                     <Route path="/activity" element={<Activity setClassSettings={setClassSettings} />}></Route>
                     <Route path="/notifications" element={<Notifications setClassSettings={setClassSettings} />}></Route>

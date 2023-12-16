@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import {convertToBase64 } from '../utils/Utils'
-import { updateProfile } from "../../redux/reduxActions";
+import { createPost } from "../../redux/reduxActions";
 
 
 function Post() {
@@ -14,7 +14,7 @@ function Post() {
 
     const submitForm = (data) => {       
         console.log(data);
-        //dispatch(updateProfile(data))
+        dispatch(createPost(data))
     };
 
     const onFileChange = async (e) => {
@@ -23,21 +23,6 @@ function Post() {
             const base64 = await convertToBase64(file);
             setValue('image', base64);
         }
-    };
-
-    
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            };
-            fileReader.onerror = (error) => {
-                reject(error);
-            };
-        });
     };
 
     
