@@ -66,21 +66,42 @@ def create_post(user_id, post_data):
         session.commit()
         return {'message' : "Post created successfuly.", 'redirect' : "/profile", 'status' : 200}
 
-def delete_post(user_id, post_number):
+def delete_post(user_id, post_id):
     ...
-    
+
+def send_like(user_id, post_id):
+    with Session() as session:
+        post = session.query(Post).get(post_id)
+        user = session.query(User).get(user_id)
+
+        if not post or not user:
+            return { 'message' : "Post or User not found.", 'current' : "", 'status' : 404 }
+
+        if user in post.liked_by:
+            post.liked_by.remove(user)
+            post.likes-= 1
+            action = "No"
+                        
+        else:
+            post.liked_by.append(user)
+            post.likes += 1
+            action = "Yes"    
+        session.commit()
+        return { 'message' : "Success.", 'liked' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
+        
+
 # Feed handling.
 
-def get_feed():
+def get_feed(user_id):
     with Session() as session:
         # TO-DO
         # Check if feed is from logged user, if positive retrieve the data from
         # the followed users of its account first.
- 
+
         # Retrieve the first 20 posts.
         recent_posts = session.query(Post)\
             .order_by(Post.created_at.desc())\
             .limit(20)\
             .all()
-        return[post.serialize() for post in recent_posts]
+        return[post.serialize(user_id=user_id) for post in recent_posts]
         

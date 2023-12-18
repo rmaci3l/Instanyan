@@ -1,7 +1,13 @@
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, String, Integer, Table, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from .base import Base
 from datetime import datetime
+
+
+likes_table = Table('likes', Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id')),
+    Column('post_id', Integer, ForeignKey('posts.id'))
+)
 
 class User(Base):      
     __tablename__ = 'users'
@@ -13,6 +19,7 @@ class User(Base):
     password = Column(String)
     profile = relationship("UserProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     posts = relationship("Post", back_populates="user", lazy="dynamic")
+    liked_posts = relationship('Post', secondary=likes_table, back_populates='liked_by')
 
     def __init__(self, name, email, username, password, profile):
         self.name = name
@@ -32,7 +39,7 @@ class UserProfile(Base):
     following = Column(Integer, default=0)
     user = relationship("User", back_populates="profile")
     
-    
+
 class Post(Base):
     __tablename__ = 'posts'
     
@@ -44,8 +51,10 @@ class Post(Base):
     hashtags = Column(String(100))
     likes = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
+    liked_by = relationship('User', secondary=likes_table, back_populates='liked_posts')
 
-    def serialize(self):
+    
+    def serialize(self, user_id=None):
         # Calculate the post time difference and format it.
         time_diff = datetime.utcnow() - self.created_at
         seconds = time_diff.total_seconds()
@@ -60,8 +69,13 @@ class Post(Base):
             time_ago = f"{int(hours)} h"
         else:
             time_ago = f"{int(days)} d"
-                
+        
+        #Checks if user liked the post or not.        
+        
+        liked = "yes" if user_id in [user.id for user in self.liked_by] else "no"
+        
         return {                       
+            "id" : self.id,
             "username": self.user.username,
             "avatar" : self.user.profile.profile_image,
             "followers" : self.user.profile.followers,
@@ -69,5 +83,6 @@ class Post(Base):
             "content" : self.content,
             "hashtags" : self.hashtags,
             "likes" : self.likes,
+            "liked" : liked,
             "created_at" : time_ago
         }
