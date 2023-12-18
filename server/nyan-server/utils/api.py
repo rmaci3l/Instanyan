@@ -80,28 +80,28 @@ def send_like(user_id, post_id):
         if user in post.liked_by:
             post.liked_by.remove(user)
             post.likes-= 1
-            action = "Disliked"
-            
+            action = "No"
+                        
         else:
             post.liked_by.append(user)
             post.likes += 1
-            action = "Liked"    
+            action = "Yes"    
         session.commit()
-        return { 'message' : "Success.", 'current' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
+        return { 'message' : "Success.", 'liked' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
         
 
 # Feed handling.
 
-def get_feed():
+def get_feed(user_id):
     with Session() as session:
         # TO-DO
         # Check if feed is from logged user, if positive retrieve the data from
         # the followed users of its account first.
- 
+
         # Retrieve the first 20 posts.
         recent_posts = session.query(Post)\
             .order_by(Post.created_at.desc())\
             .limit(20)\
             .all()
-        return[post.serialize() for post in recent_posts]
+        return[post.serialize(user_id=user_id) for post in recent_posts]
         

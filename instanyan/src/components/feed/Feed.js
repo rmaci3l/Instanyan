@@ -54,6 +54,7 @@ function Feed(){
                         <div className="flex w-full justify-start space-x-4">
                                 <button onClick={() => handleLike(post.id)}><FontAwesomeIcon icon={postIcons[0]} /></button>
                                 <span>{post.likes}</span>
+                                <span>Liked: {post.liked}</span>
                                 <FontAwesomeIcon icon={postIcons[2]} />
                         </div>
                     </div>

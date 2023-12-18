@@ -43,8 +43,11 @@ function Profile({ match }) {
                         <span className=" text-lg">{profileInfo.username}</span>
                         <div>
                             <span>{profileInfo.status} </span>                            
-                        </div>                        
+                        </div>             
                     </div>
+                    {username !== userInfo.username &&
+                        <button className="border rounded-sm border-neutral-50">Follow</button>
+                    }
                 </div>
                 <div className="flex w-full flex-wrap p-4">
                     <h2 className="flex">About me</h2>

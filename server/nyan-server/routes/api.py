@@ -25,8 +25,10 @@ def update_profile():
 
 # Feed and post routes.
 @api_blueprint.route('/feed', methods=['GET'])
+@jwt_required()
 def view_feed():
-    result = get_feed()
+    user_id = get_jwt_identity()
+    result = get_feed(user_id)
     return jsonify(result)
     
 @api_blueprint.route('/feed/post', methods=['POST'])

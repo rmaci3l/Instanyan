@@ -5,6 +5,8 @@ import { likePost } from './reduxActions';
 const initialState = {
     loading: false,
     feedPosts: [],
+    currentPost: null,
+    currentStatus: null,
     error: null,
 }
 
@@ -18,9 +20,12 @@ const feedSlice = createSlice({
     },
     extraReducers: {
         [likePost.fulfilled] : (state, action) => {
-            const { id, likes } = action.payload.data;
-            // to-do: on fulfill, update the post "likes" quantity
-            // with the data received from the server.
+            const { id, likes, liked } = action.payload.data;
+            state.currentPost = id;
+            state.currentStatus = liked;
+            const post = state.feedPosts.find(p => p.id === id);
+            post.likes = likes;
+            post.liked = liked;
         }
     },
 });

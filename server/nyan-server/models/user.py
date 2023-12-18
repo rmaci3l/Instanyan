@@ -54,7 +54,7 @@ class Post(Base):
     liked_by = relationship('User', secondary=likes_table, back_populates='liked_posts')
 
     
-    def serialize(self):
+    def serialize(self, user_id=None):
         # Calculate the post time difference and format it.
         time_diff = datetime.utcnow() - self.created_at
         seconds = time_diff.total_seconds()
@@ -69,7 +69,11 @@ class Post(Base):
             time_ago = f"{int(hours)} h"
         else:
             time_ago = f"{int(days)} d"
-                
+        
+        #Checks if user liked the post or not.        
+        
+        liked = "yes" if user_id in [user.id for user in self.liked_by] else "no"
+        
         return {                       
             "id" : self.id,
             "username": self.user.username,
@@ -79,5 +83,6 @@ class Post(Base):
             "content" : self.content,
             "hashtags" : self.hashtags,
             "likes" : self.likes,
+            "liked" : liked,
             "created_at" : time_ago
         }
