@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, Table, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref, dynamic
 from .base import Base
 from datetime import datetime
 
@@ -9,6 +9,12 @@ likes_table = Table('likes', Base.metadata,
     Column('post_id', Integer, ForeignKey('posts.id'))
 )
 
+followers_table = Table('followers', Base.metadata,
+    Column('follower_id', Integer, ForeignKey('users.id')),
+    Column('followed_id', Integer, ForeignKey('users.id'))
+)
+
+
 class User(Base):      
     __tablename__ = 'users'
     
@@ -17,9 +23,16 @@ class User(Base):
     name = Column(String(100))
     username = Column(String(100))
     password = Column(String)
+    
     profile = relationship("UserProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     posts = relationship("Post", back_populates="user", lazy="dynamic")
     liked_posts = relationship('Post', secondary=likes_table, back_populates='liked_by')
+    followed = relationship('User', secondary=followers_table,
+                primaryjoin=id == followers_table.c.follower_id,
+                secondaryjoin=id == followers_table.c.followed_id,
+                backref=backref('followers', lazy='dynamic'), 
+                lazy='dynamic'
+            )    
 
     def __init__(self, name, email, username, password, profile):
         self.name = name
@@ -27,18 +40,33 @@ class User(Base):
         self.username = username
         self.password = password
         
+        
+    def serialize(self):
+        return {
+            "username": self.username,
+            "profile_image": self.profile.profile_image,
+            "status": self.profile.status,
+            "about": self.profile.about,
+            "posts_qty": self.profile.posts,
+            "followers": self.profile.followers,
+            "following": self.profile.following            
+        }
+        
+        
 class UserProfile(Base):
     __tablename__ = 'user_profiles'
+    
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship("User", back_populates="profile")
+    
     profile_image = Column(String, default="https://i.imgur.com/A5b1S4n.jpg")
     status = Column(String(60), default="Nyandit me!")
     about = Column(String(150), default="Nyandit me too!")
     posts = Column(Integer, default=0)
     followers = Column(Integer, default=0)
     following = Column(Integer, default=0)
-    user = relationship("User", back_populates="profile")
-    
+
 
 class Post(Base):
     __tablename__ = 'posts'

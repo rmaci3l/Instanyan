@@ -84,6 +84,32 @@ export const updateProfile = createAsyncThunk(
         }
 )
 
+export const followProfile = createAsyncThunk(
+    'api/follow',
+    async(username, { getState, rejectWithValue}) => {
+        const token = getState().auth.userToken;
+        try {
+            const config ={
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'authorization' : `Bearer ${token}`
+                },
+            }
+            const response = await axios.post(
+                `${backendURL}/api/follow/${username}`, {}, config
+            );
+            console.log(response.data.message)
+            return response
+            } catch (error) {
+                if (error.response) {
+                    return rejectWithValue(error.response.data.message)
+                } else {
+                    return rejectWithValue(error.message)
+                }
+            }
+        }   
+)
+
 
 // Post actions.
 

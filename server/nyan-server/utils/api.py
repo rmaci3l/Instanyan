@@ -8,30 +8,18 @@ session = Session()
 # To-do: better error handling (see scrum log #17 & #19)
 # API requests functions.
 # Profile data handling.
-def profile_data(user_name):
+def profile_data(username, user_id):
     with Session() as session:
-        db_user = session.query(User).filter(User.username == user_name).first()
-        if db_user:
-            posts = session.query(Post).filter(Post.user_id == db_user.id).all()
-            post_data = [
-                {
-                    "image" : post.image,
-                    "content" : post.content,
-                    "hashtags" : post.hashtags,
-                    "likes" : post.likes,
-                    "created_at" : post.created_at
-                } for post in posts
-            ]
-            profile = {
-                "username" : db_user.username,
-                "profile_image" : db_user.profile.profile_image, 
-                 "status" : db_user.profile.status,
-                "about" : db_user.profile.about,
-                "posts_qty" : db_user.profile.posts,
-                "followers" : db_user.profile.followers,
-                "following" : db_user.profile.following
-            }            
-            return { 'profile' : profile, 'posts' : post_data, 'message' : "User found!",  'status' : 200 }
+        current_user = session.query(User).get(user_id)
+        user_profile = session.query(User).filter(User.username == username).first()
+        if user_profile:
+            posts = session.query(Post).filter(Post.user_id == user_profile.id).all()
+            post_data = [post.serialize() for post in posts]                    
+            follows = 'No'
+            profile = user_profile.serialize()
+            if user_profile and current_user in user_profile.followers:
+                follows = 'Yes'
+            return { 'profile' : profile, 'posts' : post_data, 'follows' : follows, 'message' : "User found!",  'status' : 200 }
         else:
             return { 'profile': "", 'message' : "User not found!", 'status': 404}
 
@@ -48,6 +36,22 @@ def update_data(user_id, user_data):
         session.commit()
         return { 'message' : "Profile updated successfully", 'redirect' : "/profile", 'status' : 200}
 
+
+def profile_follow(username, user_id):
+    with Session() as session:
+        current_user = session.query(User).get(user_id)
+        user_to_follow = session.query(User).filter(User.username == username).first()
+        message = ''
+        if user_to_follow and current_user not in user_to_follow.followers:
+            user_to_follow.followers.append(current_user)
+            message = { 'message' : "User followed! ", 'current' : "Followed", 'status' : 200}
+        else:
+            user_to_follow.followers.remove(current_user)
+            message = { 'message' : "User unfollowed! ", 'current' : "Unfollowed", 'status' : 200}
+        user_to_follow.profile.followers = user_to_follow.followers.count()
+        current_user.profile.following = current_user.followed.count()
+        session.commit()
+        return message
 
 # User posts create/update/delete.   
 def create_post(user_id, post_data):

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils.api import profile_data, update_data, create_post, get_feed, send_like
+from utils.api import profile_data, update_data, create_post, profile_follow, get_feed, send_like
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
@@ -12,7 +12,8 @@ CORS(api_blueprint)
 @api_blueprint.route('/user/profile/<username>', methods=['GET'])
 @jwt_required()
 def user_profile(username):       
-    result = profile_data(username)
+    user_id = get_jwt_identity()
+    result = profile_data(username, user_id)
     return jsonify(result), result['status']
 
 @api_blueprint.route('/user/profile', methods=['POST'])
@@ -22,6 +23,14 @@ def update_profile():
     user_data = request.json
     result = update_data(user_id, user_data)
     return jsonify(result), result['status']
+
+@api_blueprint.route('/follow/<username>', methods=['POST'])
+@jwt_required()
+def follow_user(username):
+    user_id = get_jwt_identity()
+    result = profile_follow(username, user_id)
+    return jsonify (result), result['status']
+
 
 # Feed and post routes.
 @api_blueprint.route('/feed', methods=['GET'])
