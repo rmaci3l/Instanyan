@@ -73,6 +73,9 @@ def create_post(user_id, post_data):
 def delete_post(user_id, post_id):
     ...
 
+def edit_post(user_id, post_id):
+    ...
+    
 def send_like(user_id, post_id):
     with Session() as session:
         post = session.query(Post).get(post_id)
