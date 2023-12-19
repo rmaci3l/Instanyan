@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useGetProfileDetailsQuery } from "../../redux/profileService";
 import { setProfile } from "../../redux/profileSlice";
 import PostGrid from "./PostGrid";
+import { followProfile } from "../../redux/reduxActions";
 
 function Profile({ match }) {   
     const { userprofile } = useParams();
@@ -23,6 +24,10 @@ function Profile({ match }) {
     useEffect(() => {
         refetch();
     }, [refetch]);
+
+    const handleFollow = (username) => {
+        dispatch(followProfile(username));
+    }
 
     if (isLoading) {
         return <div>Loading...</div>; 
@@ -46,7 +51,7 @@ function Profile({ match }) {
                         </div>             
                     </div>
                     {username !== userInfo.username &&
-                        <button className="border rounded-sm border-neutral-50">Follow</button>
+                        <button onClick={() => handleFollow(username)} className="border rounded-sm border-neutral-50">Follow</button>
                     }
                 </div>
                 <div className="flex w-full flex-wrap p-4">
