@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import {postIcons, userTemplate, postTemplate} from '../../constants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetFeedPostsQuery } from "../../redux/feedService";
-import { getFeed } from "../../redux/feedSlice";
+import { useGetFeedPostsQuery } from "../../redux/feed/feedService";
+import { getFeed } from "../../redux/feed/feedSlice";
 import { Link } from "react-router-dom";
 import { likePost } from "../../redux/reduxActions";
 

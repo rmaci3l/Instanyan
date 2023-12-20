@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Routes, Route, useLocation, Switch } from 'react-router-dom';
 import {About, Activity, EditProfile, Help, Issue, Language, Notifications} from '.'
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/authSlice";
+import { logout } from "../../redux/auth/authSlice";
 
 function ConfigSection({type}) {
     return(

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { likePost } from './reduxActions';
+import { likePost } from '../reduxActions';
 
 
 const initialState = {

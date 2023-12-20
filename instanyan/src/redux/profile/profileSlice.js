@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateProfile, createPost, followProfile } from './reduxActions';
+import { updateProfile, createPost, followProfile } from '../reduxActions';
 
 const initialState = {
     loading: false,
