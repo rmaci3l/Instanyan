@@ -8,9 +8,13 @@ import Post from './feed/Post';
 import ConfigPage from './settings/Config';
 import Profile from './profile/Profile';
 import NotFound from './NotFound';
+import SearchPopUp from './popup/Search';
+import NotificationPopUp from './popup/Notifications'
+import Explore from './explore/Explore';
 
 export {
     Feed,
+    Explore,
     ConfigPage,
     Post,
     Profile,
@@ -19,5 +23,7 @@ export {
     ProtectedRoute,
     NotFound,
     Header,
-    Footer
+    Footer,
+    SearchPopUp,
+    NotificationPopUp
 };

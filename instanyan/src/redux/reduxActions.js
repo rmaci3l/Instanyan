@@ -85,7 +85,7 @@ export const updateProfile = createAsyncThunk(
 )
 
 export const followProfile = createAsyncThunk(
-    'api/follow',
+    'api/user/follow',
     async(username, { getState, rejectWithValue}) => {
         const token = getState().auth.userToken;
         try {
@@ -114,7 +114,7 @@ export const followProfile = createAsyncThunk(
 // Post actions.
 
 export const createPost = createAsyncThunk(
-    'api/feed/post',
+    'api/post/create',
     async(userPost, {getState, rejectWithValue}) => {
         const token = getState().auth.userToken;
         try {
@@ -125,7 +125,7 @@ export const createPost = createAsyncThunk(
                 },
             }
             const response = await axios.post(
-                `${backendURL}/api/feed/post`, userPost, config
+                `${backendURL}/api/post/create`, userPost, config
             );
             console.log(response.data.message)
             return response            

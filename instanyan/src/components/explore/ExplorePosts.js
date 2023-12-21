@@ -1,42 +1,35 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useEffect} from "react";
+import { useDispatch } from 'react-redux'
+import { useGetExplorePostsQuery } from "../../redux/explore/exploreService";
 import {postIcons, userTemplate, postTemplate} from '../../constants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetFeedPostsQuery } from "../../redux/feed/feedService";
-import { getFeed } from "../../redux/feed/feedSlice";
 import { Link } from "react-router-dom";
 import { likePost } from "../../redux/reduxActions";
 
-function Feed(){     
-    const { data: posts, error, isLoading, isSuccess, refetch } = useGetFeedPostsQuery();
-    const { feedPosts } = useSelector((state) => state.feed)
+const ExplorePosts = ({ queryArg }) => {
+    const { data: explorePosts, isLoading: isLoadingPosts, isError, error, refetch } = useGetExplorePostsQuery(queryArg);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (posts){
-            dispatch(getFeed( {feed: posts} ));
-        }
-    }, [posts, dispatch]);
-    
-    useEffect(() => {
-        refetch();
-    }, [refetch]);
-
-    if (isLoading) {
-        return <div>Loading...</div>; 
-    }
-
-    if (error) {
-        return <div>User not found</div>;
-    }
 
     const handleLike = (post_id) => {
         dispatch(likePost(post_id));
     }
+
+    useEffect(() => {
+        refetch();
+    }, [refetch]);  
+
+    // Loading.
+    if (isLoadingPosts) {
+        return <div>Loading...</div>
+    }
+
+    if (isError) {
+        return <div>{error.data.message}</div>
+    }
     
-    return(
+    return (
         <div className="sm:ml-20 flex flex-col bg-stone-950 sm:w-2/3 flex-grow">
-            {feedPosts.map((post, index) => (
+            {explorePosts.posts.map((post, index) => (
                 <div key={index} className="my-4">
                     <div style={{backgroundImage: `url(${post.image})`}} className='shadow-inner bg-cover 
                     bg-center flex p-4 flex-col h-80-screen w-full'>                        
@@ -69,8 +62,9 @@ function Feed(){
                     </div>
                 </div>
             ))}
-        </div>    
-    );
+        </div> 
+    )   
 }
 
-export default Feed;
+
+export default ExplorePosts;

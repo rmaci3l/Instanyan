@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useGetUserDetailsQuery } from '../redux/authService'
+import { useGetUserDetailsQuery } from '../redux/auth/authService'
 import {navLinks} from '../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Logo from '../assets/images/logo.jpg';
-import { setCredentials } from '../redux/authSlice';
-
-
+import { setCredentials } from '../redux/auth/authSlice';
+import { toggleSearchPopup, toggleNotificationPopUp } from '../redux/popup/popupSlice';
+import  SearchPopUp  from './popup/Search';
+import NotificationPopUp from './popup/Notifications';
+ 
 const Header = () => {
     const location = useLocation();
     const hideRoutes = ['/login', '/register'];
     const { data: userDetails, isSuccess } = useGetUserDetailsQuery();
     const dispatch = useDispatch();
+    const showNotification = useSelector(state => state.popup.isNotificationVisible);
+    const showSearch = useSelector(state => state.popup.isSearchVisibile);
 
     const navLinksObj = navLinks.reduce((obj, item) =>{
         obj[item.id] = item;
@@ -25,6 +29,14 @@ const Header = () => {
           }
       }, [userDetails, isSuccess, dispatch]);
 
+    const handleSearchPopUp = () => {
+        dispatch(toggleSearchPopup());
+    }
+
+    const handleNotifications = () => {
+        dispatch(toggleNotificationPopUp());
+    }
+      
     if (hideRoutes.includes(location.pathname)) {
         return null;
     };    
@@ -36,12 +48,24 @@ const Header = () => {
                     <img className='h-14 w-14' src={Logo} alt='instanyan'/>                    
                     <h1 className="font-semibold text-2xl tracking-wider">Instanyan</h1>                            
                 </Link>
-                <button key={navLinksObj.notifications.id}>
-                    <FontAwesomeIcon icon={navLinksObj.notifications.icon} className='text-[22px]' />
-                </button>
+                <div className='flex space-x-4'>
+                    <button onClick={() => {handleSearchPopUp()}}>
+                        <FontAwesomeIcon icon={navLinksObj.search.icon} className='text-[20px]' />
+                    </button>
+                    <button onClick={() => {handleNotifications()}}>
+                        <FontAwesomeIcon icon={navLinksObj.notifications.icon} className='text-[20px]' />
+                    </button>                    
+                </div>
+            </div>
+            <div>
+                {showNotification && <NotificationPopUp />}            
+                
+            </div>
+            <div>
+            {showSearch && <SearchPopUp />}
             </div>
             <div className="text-[20px] space-y-6 mt-12 p-8 hidden sm:block">
-                {navLinks.filter(nav => nav.id !== "notifications").map((nav, index)=>(
+                {navLinks.filter(nav => nav.id !== "notifications" && nav.id !== "search").map((nav, index)=>(
                     <div key={nav.id}>                            
                         <Link to={`${nav.path}`} className='space-x-4'>
                             <FontAwesomeIcon icon={nav.icon} className='text-[16px]' />

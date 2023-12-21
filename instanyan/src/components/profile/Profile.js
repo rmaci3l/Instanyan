@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom";
-import { useGetProfileDetailsQuery } from "../../redux/profileService";
-import { setProfile } from "../../redux/profileSlice";
+import { useGetProfileDetailsQuery } from "../../redux/profile/profileService";
+import { setProfile } from "../../redux/profile/profileSlice";
 import PostGrid from "./PostGrid";
 import { followProfile } from "../../redux/reduxActions";
 
