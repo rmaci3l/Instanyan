@@ -10,9 +10,11 @@ import Profile from './profile/Profile';
 import NotFound from './NotFound';
 import SearchPopUp from './popup/Search';
 import NotificationPopUp from './popup/Notifications'
+import Explore from './explore/Explore';
 
 export {
     Feed,
+    Explore,
     ConfigPage,
     Post,
     Profile,

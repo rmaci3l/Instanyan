@@ -17,6 +17,7 @@ export const exploreApi = createApi({
             query: (hashtag) => ({
                 url: `api/explore/posts/${hashtag}`,
                 method: 'GET',
+                refetchOnMountOrArgChange: true
             }),
         }),
         getExploreUsers: builder.query({

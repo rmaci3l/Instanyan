@@ -29,10 +29,6 @@ const Header = () => {
           }
       }, [userDetails, isSuccess, dispatch]);
 
-    useEffect(() => {
-
-    })
-
     const handleSearchPopUp = () => {
         dispatch(toggleSearchPopup());
     }

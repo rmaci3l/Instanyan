@@ -27,7 +27,7 @@ def update_profile():
     result = update_data(user_id, user_data)
     return jsonify(result), result['status']
 
-@api_blueprint.route('/follow/<username>', methods=['POST'])
+@api_blueprint.route('/user/follow/<username>', methods=['POST'])
 @jwt_required()
 def follow_user(username):
     user_id = get_jwt_identity()

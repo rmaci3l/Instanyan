@@ -85,7 +85,7 @@ export const updateProfile = createAsyncThunk(
 )
 
 export const followProfile = createAsyncThunk(
-    'api/follow',
+    'api/user/follow',
     async(username, { getState, rejectWithValue}) => {
         const token = getState().auth.userToken;
         try {

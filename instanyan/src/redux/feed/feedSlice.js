@@ -15,7 +15,7 @@ const feedSlice = createSlice({
     initialState,
     reducers: {
         getFeed: (state, {payload}) => {
-            state.feedPosts = payload.feed;
+            state.feedPosts = payload.feed.feed;
         }
     },
     extraReducers: {
