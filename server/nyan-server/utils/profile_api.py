@@ -8,20 +8,71 @@ session = Session()
 # To-do: better error handling (see scrum log #17 & #19)
 # API requests functions.
 # Profile data handling.
-def profile_data(username, user_id):
+def request_profile(profile_args, user_id):
+    username = profile_args.get('username')
+    origin = profile_args.get('origin')
+    
     with Session() as session:
-        current_user = session.query(User).get(user_id)
-        user_profile = session.query(User).filter(User.username == username).first()
-        if user_profile:
-            posts = session.query(Post).filter(Post.user_id == user_profile.id).all()
-            post_data = [post.serialize() for post in posts]                    
-            follows = 'No'
-            profile = user_profile.serialize()
-            if user_profile and current_user in user_profile.followers:
-                follows = 'Yes'
-            return { 'profile' : profile, 'posts' : post_data, 'follows' : follows, 'message' : "User found!",  'status' : 200 }
-        else:
-            return { 'profile': "", 'message' : "User not found!", 'status': 404}
+        try:
+            user_profile = session.query(User).filter(User.username == username).first()
+            # If origin is profile, retrieve the single profile data.
+            if (origin == 'profile'):
+                current_user = session.query(User).get(user_id)
+                if user_profile:
+                    follows = 'No'
+                    profile = user_profile.serialize()
+                    if user_profile and current_user in user_profile.followers:
+                        follows = 'Yes'
+                    return { 'profile' : profile, 
+                             'follows' : follows, 
+                             'message' : f"Retrieved user {username} from server.",  
+                             'error' : "",                        
+                             'status' : 200 }
+                else:
+                    return { 'profile': "", 
+                             'message' : f"User {username} not found.",
+                             'error' : "usernotfound",
+                             'status': 404 }
+
+            # If origin is explore, retrieve the similar users accordingly to the username.
+            if (origin == 'explore'):
+                mid = len(username) // 2
+                first = username[:mid]
+                last = username[mid:]                
+                users_list = []                
+                if user_profile:
+                    users_list.append({
+                        'username' : user_profile.username,
+                        'profile_image' : user_profile.profile.profile_image,
+                        'status' : user_profile.profile.status,
+                        'followers' : user_profile.profile.followers
+                        })                          
+                similar_users = session.query(User).filter(User.username.like(f"%{first}%{last}%")).limit(10).all()
+                users_list.extend([{
+                    'username' : user.username,
+                    'profile_image' : user.profile.profile_image,
+                    'status' : user.profile.status,
+                    'followers' : user.profile.followers
+                    } for user in similar_users])
+                if users_list:
+                    return { 'users' : users_list,
+                             'message' : "User(s) successfully retrieved.",
+                             'error' : "",
+                             'status' : 200 }
+                else:
+                    return { 'users' : [],
+                             'message' : "No similar users found.",
+                             'error' : "nouserfound",
+                             'status' : 200 }
+            return { 'message' : "Invalid request, no or invalid origin arg specified. ",
+                     'error' : "invalid",
+                     'status' : 400 }
+        
+        except Exception as e:
+            return { 'message' : "Error retrieved from server. Error: " + str(e),
+                     'error' : "servererror",
+                     'status' : 500 }
+           
 
 def update_data(user_id, user_data):
     with Session() as session:

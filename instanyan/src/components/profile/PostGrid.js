@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { useGetPostsQuery } from "../../redux/post/postService";
+import { setPosts } from "../../redux/post/postSlice";
+import { useDispatch, useSelector } from 'react-redux'
 
-const PostGrid = ({ posts }) => {
+const PostGrid = ({username}) => {
+    const { data, error, isLoading, isSuccess } = useGetPostsQuery({ origin: 'profile', username: `${username}` })
+    const { posts } = useSelector((state) => state.posts);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if (data){
+            dispatch(setPosts(data))
+        }
+    }, [data, dispatch]);
+
+    if (isLoading) {
+        return <div>Loading...</div>; 
+    }
+
+    if (error) {
+        return <div>User not found</div>;
+    }
+    
     return(
         <div className="">
             {posts.map((post, index) => (

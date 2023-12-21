@@ -13,14 +13,16 @@ export const profileApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getProfileDetails: builder.query({
-            query: (username) => ({
-                url: `api/user/profile/${username}`,
-                method: 'GET',
-                refetchOnMountOrArgChange: true,
-            }),
+        getProfile: builder.query({
+            query: (args) => {
+                const queryArgs = new URLSearchParams(args).toString();
+                return {
+                    url: `api/user/profile?${queryArgs}`,
+                    method: 'GET',               
+                };
+            },
         }),
     }),
 });
 
-export const { useGetProfileDetailsQuery } = profileApi
+export const { useGetProfileQuery } = profileApi

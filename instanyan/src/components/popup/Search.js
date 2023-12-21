@@ -1,14 +1,10 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from "react-redux";
-import { setSearch } from "../../redux/explore/exploreSlice";
-
 
 
 const SearchPopUp = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     
     const validateInput = (value) => {
@@ -23,8 +19,8 @@ const SearchPopUp = () => {
 
     const onSubmit = (data) => {
         const input = data.userInput;
-        dispatch(setSearch(input));
-        navigate('/explore')
+        const queryParams = new URLSearchParams({ search: input }).toString();
+        navigate(`/explore?${queryParams}`)
     }
 
     return (

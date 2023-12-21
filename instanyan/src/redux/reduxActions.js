@@ -96,7 +96,7 @@ export const followProfile = createAsyncThunk(
                 },
             }
             const response = await axios.post(
-                `${backendURL}/api/follow/${username}`, {}, config
+                `${backendURL}/api/user/follow/${username}`, {}, config
             );
             console.log(response.data.message)
             return response
@@ -154,7 +154,6 @@ export const likePost = createAsyncThunk(
             const response = await axios.post(
                 `${backendURL}/api/post/like/${postId}`, {}, config
             );
-            console.log(response.data.message)
             return response
             } catch (error) {
                 if (error.response) {

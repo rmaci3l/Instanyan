@@ -3,9 +3,10 @@ import { updateProfile, createPost, followProfile } from '../reduxActions';
 
 const initialState = {
     loading: false,
-    profileInfo: {},
-    profilePosts: [],
     error: null,
+    message: null,
+    profileDetails: {},
+    exploreProfiles: []
 }
 
 const profileSlice = createSlice({
@@ -13,8 +14,15 @@ const profileSlice = createSlice({
     initialState,
     reducers: { 
         setProfile: (state, {payload}) => {
-            state.profileInfo = {...payload.profile.profile, message: undefined};
-            state.profilePosts = payload.profile.posts;
+            state.profileDetails = payload.profile;
+            state.message = payload.message;
+            state.error = payload.error;
+            state.exploreProfiles = null;
+        },
+        setExplore: (state, {payload}) => {
+            state.exploreProfiles = payload.users;
+            state.message = payload.message;
+            state.error = payload.error;
         }
     },
     extraReducers: {
@@ -22,5 +30,5 @@ const profileSlice = createSlice({
     },
 });
 
-export const { setProfile } = profileSlice.actions
+export const { setProfile, setExplore } = profileSlice.actions
 export default profileSlice.reducer

@@ -48,3 +48,69 @@ def send_like(user_id, post_id):
             action = "Yes"    
         session.commit()
         return { 'message' : "Success.", 'liked' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
+    
+def request_post(user_id, post_args):
+    post_quantity = post_args.get('quantity', '20')
+    username = post_args.get('username')
+    hashtags = post_args.get('hashtags')
+    origin = post_args.get('origin')
+    
+    with Session() as session:
+        try:
+            # If origin is feed, retrieve the last 20 posts from database.
+            if (origin == 'feed'):
+                    recent_posts = session.query(Post).order_by(Post.created_at.desc()).limit(20).all()
+                    if recent_posts:
+                        posts = [post.serialize() for post in recent_posts]
+                        return { 'posts' : posts,
+                                 'message' : "Feed retrieved successfully.",
+                                 'error' : "",
+                                 'status' : 200 }
+                    if not recent_posts:
+                        return { 'posts' : [],
+                                 'message' : "No posts found.",
+                                 'error' : "noposts",
+                                 'status' : 200 }
+            
+            # If origin is user profile, retrieve all the posts from specified user profile.
+            if (origin == 'profile'):
+                current_profile = session.query(User).filter(User.username == username).first()
+                if not current_profile:
+                    return  { 'posts' : [],
+                              'message' : "User not found.",
+                              'error' : "usernotfound",
+                              'status' : 200 }
+                posts_data = session.query(Post).filter(Post.user_id == current_profile.id).all()
+                if not posts_data:
+                    return  { 'posts' : [],
+                              'message' : "User has no posts.",
+                              'error' : "noposts",
+                              'status' : 200 }
+                posts = [post.serialize() for post in posts_data]
+                return { 'posts' : posts,
+                         'message' : "Profile posts retrieved successfully.",
+                         'error' : "",
+                         'status' : 200 }
+                        
+            # If origin is explore posts by hashtags, retrieve 20 posts that are like the hashtag.
+            if (origin == 'explore'):
+                found_posts = session.query(Post).filter(Post.hashtags.like(f"{hashtags}"))\
+                    .order_by(Post.created_at.desc()).limit(20).all()
+                if not found_posts:
+                    return { 'posts' : [], 
+                             'message' : "No posts found for this hashtag.",
+                             'error' : "noposts",
+                             'status' : 200 }
+                posts = [post.serialize() for post in found_posts]
+                return { 'posts' : posts,
+                         'message' : "Post(s) retrieved successfully.",
+                         'error' : "",
+                         'status' : 200 }
+            return { 'message' : " Invalid request, no or invalid origin specified.",
+                     'error' : "invalid",
+                     'status' : 400}
+                
+        except Exception as e:
+            return { 'message' : "Error retrieved from server. Error: " + str(e),
+                     'error' : "servererror",
+                     'status' : 500 }

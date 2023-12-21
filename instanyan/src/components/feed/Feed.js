@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import {postIcons, userTemplate, postTemplate} from '../../constants';
+import {postIcons} from '../../constants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetFeedPostsQuery } from "../../redux/feed/feedService";
-import { getFeed } from "../../redux/feed/feedSlice";
 import { Link } from "react-router-dom";
 import { likePost } from "../../redux/reduxActions";
+import { useGetPostsQuery } from "../../redux/post/postService";
+import { setPosts } from "../../redux/post/postSlice";
 
 function Feed(){     
-    const { data: posts, error, isLoading, isSuccess, refetch } = useGetFeedPostsQuery();
-    const { feedPosts } = useSelector((state) => state.feed)
+    const { data: feedPosts, error, isLoading, isSuccess, refetch } = useGetPostsQuery({ origin: 'feed' })
+    const { posts } = useSelector((state) => state.posts)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (posts){
-            dispatch(getFeed( {feed: posts} ));
+        if (feedPosts){
+            dispatch(setPosts(feedPosts))
         }
-    }, [posts, dispatch]);
-    
+    }, [feedPosts, dispatch])
+
     useEffect(() => {
         refetch();
     }, [refetch]);
@@ -27,7 +27,7 @@ function Feed(){
     }
 
     if (error) {
-        return <div>User not found</div>;
+        return <div>Error!</div>;
     }
 
     const handleLike = (post_id) => {
@@ -36,7 +36,7 @@ function Feed(){
     
     return(
         <div className="sm:ml-20 flex flex-col bg-stone-950 sm:w-2/3 flex-grow">
-            {feedPosts.map((post, index) => (
+            {posts.map((post, index) => (
                 <div key={index} className="my-4">
                     <div style={{backgroundImage: `url(${post.image})`}} className='shadow-inner bg-cover 
                     bg-center flex p-4 flex-col h-80-screen w-full'>                        

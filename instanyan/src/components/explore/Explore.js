@@ -1,22 +1,21 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { useGetExplorePostsQuery, useGetExploreUsersQuery } from "../../redux/explore/exploreService";
 import ExplorePosts from "./ExplorePosts"
 import ExploreUsers from "./ExploreUsers"
+import { useSearchParams } from "react-router-dom";
 
 const Explore = () => {
-    let searchTerm = useSelector((state) => state.explore.searchTerm);
+    const [searchParams] = useSearchParams();
+    const searchTerm = searchParams.get('search');
+    const isUserSearch = searchTerm.startsWith('@');
 
-    // Determine the type of search.
-    const isUserSearch = searchTerm.startsWith('@')
-    const queryArg = searchTerm.slice(1); // Remove the @ or the #.
     
 
     return (
         <div>
             {isUserSearch ?
-            <ExploreUsers queryArg={queryArg} /> :
-            <ExplorePosts queryArg={queryArg} /> }
+            <ExploreUsers username={searchTerm} /> :
+            <ExplorePosts hashtags={searchTerm} /> }
         </div>
     )   
 }
