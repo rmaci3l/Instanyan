@@ -1,24 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authReducer, profileReducer, popUpReducer, feedReducer, exploreReducer, 
-         feedApi, exploreApi, profileApi, authApi } from './'
+import { authReducer, profileReducer, popUpReducer, postReducer,
+         profileApi, authApi, postApi } from './'
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
         profile: profileReducer,
-        feed: feedReducer,
         popup: popUpReducer,
-        explore: exploreReducer,
+        posts: postReducer,
         [authApi.reducerPath] : authApi.reducer,     
         [profileApi.reducerPath] : profileApi.reducer,
-        [feedApi.reducerPath] : feedApi.reducer,
-        [exploreApi.reducerPath] : exploreApi.reducer
+        [postApi.reducerPath] : postApi.reducer
     },
     middleware: (gDM) =>
     gDM().concat(authApi.middleware)
     .concat(profileApi.middleware)
-    .concat(feedApi.middleware)
-    .concat(exploreApi.middleware),
+    .concat(postApi.middleware),
     devTools: process.env.NODE_ENV !== 'production',
 })
 

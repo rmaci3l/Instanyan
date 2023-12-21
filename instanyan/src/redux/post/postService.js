@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const feedApi = createApi({
-    reducerPath: 'feedApi',
+export const postApi = createApi({
+    reducerPath: 'postApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000',
         prepareHeaders: (headers, { getState }) => {
@@ -13,14 +13,16 @@ export const feedApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getFeedPosts: builder.query({
-            query: () => ({
-                url: 'api/feed',
-                method: 'GET',
-                refetchOnMountOrArgChange: true,
-            }),
+        getPosts: builder.query({
+            query: (args) => {
+                const queryArgs = new URLSearchParams(args).toString();   
+                return {
+                    url: `api/posts/retrieve?${queryArgs}`,
+                    method: 'GET',
+                };
+            },
         }),
     }),
 });
 
-export const { useGetFeedPostsQuery } = feedApi
+export const { useGetPostsQuery } = postApi;

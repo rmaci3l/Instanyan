@@ -1,10 +1,22 @@
-import React from "react";
-import { useGetExploreUsersQuery } from "../../redux/explore/exploreService";
+import React, { useEffect } from "react";
+import { useGetProfileQuery } from "../../redux/profile/profileService";
+import { useDispatch, useSelector } from "react-redux";
+import { setExplore } from "../../redux/profile/profileSlice";
 
-const ExploreUsers = ({ queryArg }) => {
-    const { data: exploreUsers, isLoading: isLoadingUsers } = useGetExploreUsersQuery(queryArg);
+const ExploreUsers = ({ username }) => {
+    const { data: users, isLoading, error, isSuccess } = useGetProfileQuery({origin: 'explore', username: username.slice(1)})
+    const { exploreProfiles } = useSelector((state) => state.posts);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (users){
+            dispatch(setExplore(users));
+        }
+    }, [users, dispatch])
+
+    
     // Loading.
-    if (isLoadingUsers) {
+    if (isLoading) {
         return <div>Loading...</div>
     }
     return (
