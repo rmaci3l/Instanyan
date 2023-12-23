@@ -86,23 +86,6 @@ export const configLinks = [
 
 export const postIcons = [faHeart, faComment, faShare];
 
-export const userTemplate = [
-    {
-        id: "username1",
-        name: "John",
-        second_name: "Doe",
-        avatar: "../assets/templates/username1/profile.jpg",
-        followers: 3214,                
-    },
-    {
-        id: "username2",
-        name: "Marie",
-        second_name: "Sue",
-        avatar: "../assets/templates/username2/profile.jpg",
-        followers: 1234,                
-    }    
-];
-
 export const postTemplate = [
     {
         postid: "1",

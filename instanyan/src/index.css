@@ -1,18 +1,38 @@
-/* Form */
-.form-input {
-  @apply w-full p-1 rounded text-black;
-}
-.form-button {
-  @apply mt-6 p-2 rounded-md w-full bg-gradient-to-r from-cyan-500 to-blue-500;
-}
+@tailwind base;
 
-/* Profile */
+@layer base {
+  html {
+    @apply text-white-light;
+    @apply bg-grey-light;
+  }
+  
+  html button{
+    @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+  }
 
-.user-stats p {
-  @apply font-light text-sm text-stone-300;
+  html a {
+    @apply text-purple-500;
+  }
+
+
+  /* Base form styles. */
+  html .form-style {
+    @apply gap-4;
+  }
+  
+  html .form-style label{
+    @apply font-medium text-white-medium;
+  }
+  
+  html .form-style input {
+    @apply bg-grey-heavy text-white-light rounded-sm border-grey-medium focus:border-purple-500 focus:ring-purple-500;
+  }
+  
+  html .form-style button{
+    @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
+         text-white-light  focus:border-purple-500 focus:ring-purple-500;
+  }
 }
-
-/* Feed */
 
 .h-80-screen {
   height: 80vh;
@@ -31,3 +51,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@tailwind components;
+@tailwind utilities;

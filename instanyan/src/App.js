@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import './tailwind.css';
 import {Header, Footer, ConfigPage, Feed, Explore, Profile, Post, Login, Register, NotFound, ProtectedRoute} from './components';
-
+import { CustomFlowbiteTheme } from 'flowbite-react';
 
 function App() {
   return (
