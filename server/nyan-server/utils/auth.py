@@ -29,7 +29,7 @@ def user_data(user_id):
     with Session() as session:
         try:
             user = session.query(User).get(user_id)
-            user_info = { 'username' : user.username, 'email' : user.email }
+            user_info = { 'username' : user.username, 'email' : user.email, 'avatar' : user.profile.profile_image }
             return { 'userDetails' : user_info , 'status' : 200}
         except SQLAlchemyError as e:
             session.rollback()

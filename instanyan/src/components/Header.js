@@ -1,78 +1,97 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useGetUserDetailsQuery } from '../redux/auth/authService'
+import { useGetUserDetailsQuery, setCredentials } from '../redux/auth';
 import {navLinks} from '../constants';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Logo from '../assets/images/logo.jpg';
-import { setCredentials } from '../redux/auth/authSlice';
-import { toggleSearchPopup, toggleNotificationPopUp } from '../redux/popup/popupSlice';
+import { Logo, LogoIcon } from '../assets/';
+import { toggleSearchPopup } from '../redux/popup/popupSlice';
 import  SearchPopUp  from './popup/Search';
-import NotificationPopUp from './popup/Notifications';
- 
+import UserIcon from './utils/userIcon';
+import { Avatar } from 'flowbite-react';
+
 const Header = () => {
     const location = useLocation();
     const hideRoutes = ['/login', '/register'];
     const { data: userDetails, isSuccess } = useGetUserDetailsQuery();
     const dispatch = useDispatch();
-    const showNotification = useSelector(state => state.popup.isNotificationVisible);
     const showSearch = useSelector(state => state.popup.isSearchVisibile);
+    const avatar = useSelector(state => state.auth.userInfo.avatar);
 
-    const navLinksObj = navLinks.reduce((obj, item) =>{
-        obj[item.id] = item;
-        return obj;
-    }, {});
-    
     useEffect(() => {
         if (isSuccess && userDetails){
               dispatch(setCredentials({userInfo: userDetails}));       
           }
       }, [userDetails, isSuccess, dispatch]);
 
-    const handleSearchPopUp = () => {
-        dispatch(toggleSearchPopup());
+    const handleSearchPopUp = (confirm) => {
+        if (confirm === 'search') {
+            dispatch(toggleSearchPopup());
+        }        
     }
 
-    const handleNotifications = () => {
-        dispatch(toggleNotificationPopUp());
-    }
-      
     if (hideRoutes.includes(location.pathname)) {
         return null;
-    };    
+    };  
 
     return(     
-        <div className='bg-black font-light sticky top-0 flex sm:h-screen sm:flex-col sm:w-1/5 sm:min-w-fit p-2 sm:p-4 sm:pl-2 border-b sm:border-r sm:border-b-transparent border-gray-600'>
-            <div className='p-2 pr-4 flex w-full'>
-                <Link to="/" className='flex w-full items-center'>                    
-                    <img className='h-14 w-14' src={Logo} alt='instanyan'/>                    
-                    <h1 className="font-semibold text-2xl tracking-wider">Instanyan</h1>                            
-                </Link>
-                <div className='flex space-x-4'>
-                    <button onClick={() => {handleSearchPopUp()}}>
-                        <FontAwesomeIcon icon={navLinksObj.search.icon} className='text-[20px]' />
+        <div className='flex w-full sm:w-auto sticky top-0 left-0 bg-grey-medium sm:h-screen'>
+            
+            <div className="mobile-nav">
+                <div>
+                    <Link to="/" >                    
+                        <img className="w-[108px]" src={Logo} alt="Instanyan logo"/>                    
+                    </Link>
+                </div>
+                <div className="flex-grow"></div>
+                <div className="flex mob-icons text-white-medium space-x-4">
+                    <button className={showSearch === true ? 'text-white-light' : ''} onClick={() => {handleSearchPopUp('search')}}>
+                        <UserIcon iconName="search" />
                     </button>
-                    <button onClick={() => {handleNotifications()}}>
-                        <FontAwesomeIcon icon={navLinksObj.notifications.icon} className='text-[20px]' />
-                    </button>                    
+                    <Link to="/profile">
+                        <Avatar img={avatar} size="sm" bordered rounded statusPosition="top-right" />           
+                    </Link>
                 </div>
             </div>
-            <div>
-                {showNotification && <NotificationPopUp />}            
-                
-            </div>
-            <div>
-            {showSearch && <SearchPopUp />}
-            </div>
-            <div className="text-[20px] space-y-6 mt-12 p-8 hidden sm:block">
-                {navLinks.filter(nav => nav.id !== "notifications" && nav.id !== "search").map((nav, index)=>(
-                    <div key={nav.id}>                            
-                        <Link to={`${nav.path}`} className='space-x-4'>
-                            <FontAwesomeIcon icon={nav.icon} className='text-[16px]' />
-                            <span>{nav.title}</span>
+            
+            <div className="desk-nav">
+                <div className="desk-logo">
+                    <div className="my-4">
+                        <Link to="/">
+                            <img className="w-7" src={LogoIcon} alt="Instanyan Logo" />
+                        </Link>
+                    </div>       
+                    <div />             
+                </div>
+                <div className="flex flex-col space-y-6 mt-6">
+                    {navLinks.map((nav) => (
+                        <Link to={`${nav.path}`} key={nav.id}>
+                            <div className={location.pathname === nav.path ? 'desk-links-active' : 'desk-links'}
+                            onClick={() => handleSearchPopUp(nav.function)}>
+                                <UserIcon iconName={nav.icon} />
+                                <span>{nav.title}</span>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+                <div className="flex flex-grow"></div>                
+                <div className="desk-footer">
+                    <div className="flex">
+                        <Link to="/profile">
+                            <Avatar img={avatar} size="md" bordered rounded status="online" statusPosition="top-right" />
                         </Link>
                     </div>
-                ))}
+                    <div className="flex text-xl">
+                        <div className={location.pathname === '/settings' ? 'text-white-light' : 'text-white-medium'}>
+                            <Link to="/settings">
+                                <UserIcon iconName="settings"/>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                {showSearch && <SearchPopUp />}
             </div>
         </div>
     );

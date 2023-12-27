@@ -6,7 +6,7 @@ import { userLogin } from "../../redux/reduxActions";
 import { Button, Label, TextInput } from 'flowbite-react'
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import AuthHeader from "./AuthHeader";
-import Error from "../popup/Error";
+import AlertPopup from "../popup/Alert";
 
 function Login() {
     const { loading, userInfo, userToken, isLoading, error, success } = useSelector((state) => state.auth)
@@ -45,7 +45,7 @@ function Login() {
                     </form>
                     <div className="mt-8 flex justify-center">
                         <span>Don't have an account?</span>
-                        <Link className="ml-1" to="/register">
+                        <Link className="ml-1 indigo-link" to="/register">
                             Sign-up!
                         </Link>
                     </div>   
@@ -54,7 +54,7 @@ function Login() {
             <div className="flex">
 
             </div>                  
-            {error && <Error>{error}</Error>}         
+            {error && <AlertPopup error={error} />}
         </div>
     );
 }

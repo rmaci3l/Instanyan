@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/reduxActions";
-import Error from "../popup/Error";
+import AlertPopup from "../popup/Alert";
 import { TextInput, Label, Button } from "flowbite-react";
 import { HiMail, HiLockClosed, HiOutlineUser, HiOutlineGlobe } from 'react-icons/hi';
 import AuthHeader from "./AuthHeader";
@@ -88,13 +88,13 @@ function Register(){
                     </form>
                     <div className="mt-8 flex justify-center">
                         <span>Have an account?</span>
-                        <Link className="ml-1" to="/login">
+                        <Link className="ml-1 indigo-link" to="/login">
                             Sign-in!
                         </Link>
                     </div>
                 </div>
-                {error && <Error>{error}</Error>}    
-                {errors.message && <Error>{errors.message}</Error>}        
+                {error && <AlertPopup error={error} />}
+                {errors.message && <AlertPopup error={errors.message} />}        
             </div>
         </div>
     );

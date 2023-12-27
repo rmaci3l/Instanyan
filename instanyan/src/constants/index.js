@@ -1,4 +1,4 @@
-import { faBell, faCat, faComment, faGear, faHeart, faHouse, faPaw, faRightFromBracket, faSearch, faShare } from '@fortawesome/free-solid-svg-icons';
+import {  faComment, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
 
 
 export const navLinks = [
@@ -6,38 +6,48 @@ export const navLinks = [
         id: "home",
         title: "Home",
         path: "/",
-        icon: faHouse,
+        icon: "home",
     },
     {
         id: "search",
         title: "Search",
-        path: "/",
-        icon: faSearch,
+        path: "",
+        icon: "search",
+        function: "search"
     },
     {
         id: "post",
         title: "Post",
         path: "/post",
-        icon: faPaw,
+        icon: "post",
     },
     {
         id: "profile",
         title: "Profile",
         path: "/profile",
-        icon: faCat,
+        icon: "profile"
+    }, 
+];
+
+export const mobLinks = [    
+    {
+        id: "home",
+        title: "Home",
+        path: "/",
+        icon: "home",
     },
     {
-        id: "notifications",
-        title: "Notifications",
-        path: "/",
-        icon: faBell,
-    },  
+        id: "post",
+        title: "Post",
+        path: "/post",
+        icon: "post",
+    },
     {
-        id: "configuration",
-        title: "Configuration",
+        id: "settings",
+        title: "Settings",
         path: "/settings",
-        icon: faGear,
-    }    
+        icon: "settings",
+    }       
 ];
 
 

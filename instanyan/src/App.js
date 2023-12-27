@@ -8,7 +8,7 @@ import { CustomFlowbiteTheme } from 'flowbite-react';
 function App() {
   return (
     <Router>
-      <div className='flex flex-col sm:flex-row w-full'>
+      <div className='flex flex-col w-full sm:flex-row'>
       <Header />
         <Routes>          
           <Route element={<ProtectedRoute />}>

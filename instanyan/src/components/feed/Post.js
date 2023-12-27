@@ -1,20 +1,49 @@
-import React from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import {convertToBase64 } from '../utils/Utils'
+import { Label, Input, FileInput, Textarea, TextInput, Button, Alert } from "flowbite-react";
+import { convertToBase64 } from '../utils/Utils'
 import { createPost } from "../../redux/reduxActions";
+import AlertPopup from "../popup/Alert";
+import { useNavigate } from "react-router-dom";
 
-
-function Post() {
-    const { userInfo } = useSelector((state) => state.auth);
+function Post() {    
     const dispatch = useDispatch();
-    const { register, handleSubmit, setValue } = useForm();
+    const { handleSubmit, register, setValue  } = useForm();
+    const [ formError, setFormError ] = useState('');
+    const [ postImage, setPostImage ] = useState();
+    const navigate = useNavigate();
 
-
-
+    const validateInput = (value) => {
+        if (value.content.length > 1000) {
+            return "Your post is too big.";
+        }
+        if (!value.hashtags.startsWith('#')) {
+            return "Invalid hashtags.";
+        }
+        if (value.hashtags.length > 100) {
+            return "Too many hashtags.";
+        }
+        if (value.image === '') {
+            return "No image attached.";
+        }
+        return null;
+    }
+    
     const submitForm = (data) => {       
-        console.log(data);
-        dispatch(createPost(data))
+        const validationErrors = validateInput(data);
+        if (validationErrors) {
+            setFormError(validationErrors);
+        }
+        else {
+            dispatch(createPost(data))
+            .then(() => {
+                navigate('/profile');
+            })
+            .catch((error) => {
+                setFormError("Failed to process the request.");
+            });            
+        }        
     };
 
     const onFileChange = async (e) => {
@@ -22,27 +51,36 @@ function Post() {
         if (file) {
             const base64 = await convertToBase64(file);
             setValue('image', base64);
+            setPostImage(base64);
         }
     };
 
     
     return(
-        <div className="flex h-screen p-4 sm:ml-20 sm:w-2/5">
-            <form className="w-full" onSubmit={handleSubmit(submitForm)}>
-                <label htmlFor="form-status">Picture</label>
-                <input className="form-input" 
-                    type="file" accept="image/" 
-                    onChange={onFileChange} />
-                <input type="hidden" {...register('image')} />
-                <div className="py-1"></div>
-                <label htmlFor="form-status">Content</label>
-                <textarea className="form-input" rows={5} type="text" maxLength={1000} placeholder="Write your post info." {...register('content', {maxLength: 1000})} required></textarea>
-                <div className="py-1"></div>
-                <label htmlFor="form-about">Hashtags</label>
-                <textarea className="form-input" rows={2} type="text" maxLength={100} placeholder="#lovecats #nyan #meow" {...register('hashtags', {maxLength: 100})} required></textarea>
-                <div className="py-1"></div>                    
-                <button className="form-button">Post!</button>
-            </form>
+        <div className="flex p-4 sm:ml-20 sm:w-2/5">
+            <div className="flex flex-col w-full">
+                <div className="flex w-full ">
+                    <img src={postImage} className="aspect-square"/>
+                </div>
+                <form className="flex flex-col form-style" onSubmit={handleSubmit(submitForm)}>
+                    <FileInput type="file" accept="image/*" onChange={onFileChange} />
+                    <input type="hidden" {...register('image')} />
+                    <div>
+                        <div className="mb-1 block">
+                            <Label htmlFor="form-about" value="Content" />
+                        </div>
+                        <Textarea type="text" placeholder="Tell us more about your post." {...register('content', {maxLength: 1000})} required />                        
+                    </div>
+                    <div>
+                        <div className="mb-1 block">
+                            <Label htmlFor="form-hashtags" value="Hashtags" />                            
+                        </div>
+                        <TextInput type="text" placeholder="#lovecats #nyan #meow" {...register('hashtags', {maxLength: 100})} required />
+                    </div>
+                    <Button type="submit" size="md">Create Post</Button>                    
+                </form>
+                {formError && <AlertPopup error={formError} />}
+            </div>
         </div>
     );
 }

@@ -6,31 +6,97 @@
     @apply bg-grey-light;
   }
   
-  html button{
-    @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+  html .indigo-link {
+    @apply text-indigo-500 hover:text-indigo-600 transition-colors duration-300;
+  }
+  /* Desktop menu links classes for header. */
+  html .desk-nav {
+    @apply hidden sm:flex flex-col w-20 items-center;
   }
 
-  html a {
-    @apply text-purple-500;
+  html .desk-nav .desk-logo {
+    @apply border-b border-grey-light p-2 items-center justify-center flex w-full;
+  }
+
+  html .desk-nav .desk-links {
+    @apply flex flex-col justify-center items-center rounded p-2 text-white-medium space-y-2 py-2
+    bg-grey-medium hover:bg-grey-light hover:text-white-light transition-colors duration-300;
+  }
+
+  html .desk-nav .desk-links-active {
+    @apply flex flex-col justify-center items-center rounded p-1 text-white-light space-y-2 py-2
+    bg-grey-light;
+  }
+  
+  html .desk-nav .desk-links svg {
+    @apply text-lg;
+  }
+
+  html .desk-nav .desk-links-active svg {
+    @apply text-lg;
+  }
+
+  html .desk-nav span {
+    @apply font-light uppercase text-xs;
+  }
+
+  html .desk-nav .desk-footer {
+    @apply flex flex-col space-y-6 items-center my-6;
+  }
+
+  html .desk-nav .desk-footer img {
+    @apply p-0 ring-white-medium hover:ring-indigo-500 transition-all duration-300;
+  }
+
+
+  /* Mobile menu links classes for header. */
+  html .mobile-nav {
+    @apply px-3 py-2 flex w-full sm:hidden;
+  }
+
+  html .mobile-nav svg{
+    @apply text-[20px];
+  }
+
+  html .mobile-nav .mob-icons img{
+    @apply p-[2px] ring-indigo-500;
+  }
+
+  /* Mobile footer links classes. */
+
+  html .mob-footer {
+    @apply flex w-full fixed sm:hidden bottom-0 left-0 justify-between py-1 px-8 bg-grey-medium;
+  }
+
+  html .mob-footer div {
+    @apply text-white-medium font-light text-[20px] p-2 rounded-full;
+  }
+
+  html .mob-footer .link-active {
+    @apply text-white-light bg-grey-light;
   }
 
 
   /* Base form styles. */
   html .form-style {
-    @apply gap-4;
+    @apply gap-2;
   }
-  
+ 
   html .form-style label{
     @apply font-medium text-white-medium;
   }
   
-  html .form-style input {
+  html .form-style input, .form-style textarea {
     @apply bg-grey-heavy text-white-light rounded-sm border-grey-medium focus:border-purple-500 focus:ring-purple-500;
   }
+
   
   html .form-style button{
-    @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
-         text-white-light  focus:border-purple-500 focus:ring-purple-500;
+    @apply text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
+    }
+
+  html .form-style button:hover{
+    @apply hover:bg-indigo-700 hover:text-white-light;
   }
 }
 
