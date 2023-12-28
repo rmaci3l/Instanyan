@@ -1,4 +1,4 @@
-import { HiOutlineHome, HiOutlineUserCircle, HiOutlineUser, HiMagnifyingGlass, HiBell, HiOutlinePlusCircle, HiOutlineCog6Tooth, HiArrowLeftOnRectangle } from 'react-icons/hi2'
+import { HiOutlineHome, HiArrowUpTray, HiOutlineUserCircle, HiOutlineUser, HiMagnifyingGlass, HiBell, HiOutlinePlusCircle, HiOutlineCog6Tooth, HiArrowLeftOnRectangle } from 'react-icons/hi2'
 
 const iconMapping = {
     home: HiOutlineHome,
@@ -9,6 +9,7 @@ const iconMapping = {
     settings: HiOutlineCog6Tooth,
     logout: HiArrowLeftOnRectangle,
     profile: HiOutlineUserCircle,
+    upload: HiArrowUpTray,
 };
 
 const UserIcon = ({ iconName }) => {

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useGetProfileQuery } from "../../redux/profile/profileService";
-import { followProfile } from "../../redux/reduxActions";
-import { setProfile } from "../../redux/profile/profileSlice";
 import { useDispatch, useSelector } from 'react-redux'
+import { useGetProfileQuery, setProfile, followProfile } from "../../redux/profile/";
+import Loading from "../utils/Loading";
 
 const ProfileInfo = ({username}) => {
     const { data, error, isLoading, isSuccess } = useGetProfileQuery({origin: 'profile', username: username});
@@ -21,7 +20,7 @@ const ProfileInfo = ({username}) => {
     }
 
     if (isLoading) {
-        return <div>Loading...</div>; 
+        return <Loading />; 
     }
 
     if (error) {

@@ -15,7 +15,7 @@ const PostGrid = ({username}) => {
     }, [data, dispatch]);
 
     if (isLoading) {
-        return <div>Loading...</div>; 
+        return null; 
     }
 
     if (error) {

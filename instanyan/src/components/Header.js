@@ -5,7 +5,7 @@ import { useGetUserDetailsQuery, setCredentials } from '../redux/auth';
 import {navLinks} from '../constants';
 import { Logo, LogoIcon } from '../assets/';
 import { toggleSearchPopup } from '../redux/popup/popupSlice';
-import  SearchPopUp  from './popup/Search';
+import  SearchPopUp  from './utils/Search';
 import UserIcon from './utils/userIcon';
 import { Avatar } from 'flowbite-react';
 
@@ -81,7 +81,7 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className="flex text-xl">
-                        <div className={location.pathname === '/settings' ? 'text-white-light' : 'text-white-medium'}>
+                        <div className={location.pathname === '/settings' ? 'text-indigo-500' : 'text-white-medium'}>
                             <Link to="/settings">
                                 <UserIcon iconName="settings"/>
                             </Link>

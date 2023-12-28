@@ -19,9 +19,9 @@ function AlertPopup({error}) {
 
 
   return (
-    <div className={`flex absolute inset-x-0 bottom-0 text-xs justify-center 
+    <div className={`flex absolute inset-x-0 bottom-16 sm:bottom-8 text-xs justify-center 
       transition-opacity ease-in-out duration-1000 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="w-2/3 m-8">
+      <div className="w-11/12 sm:w-2/3">
         <Alert color="failure" icon={HiInformationCircle}>
           <span>{error}</span>
         </Alert>

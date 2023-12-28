@@ -5,10 +5,22 @@
     @apply text-white-light;
     @apply bg-grey-light;
   }
-  
+
   html .indigo-link {
     @apply text-indigo-500 hover:text-indigo-600 transition-colors duration-300;
   }
+
+
+  /* Default custom styles. */
+
+  html .title-style {
+    @apply flex w-full py-1 mb-4 border-b border-grey-lighter sm:py-6;
+  }
+
+  html .title-style h1 {
+      @apply text-white-medium font-normal text-xl sm:text-3xl tracking-wide;    
+  }
+
   /* Desktop menu links classes for header. */
   html .desk-nav {
     @apply hidden sm:flex flex-col w-20 items-center;
@@ -24,7 +36,7 @@
   }
 
   html .desk-nav .desk-links-active {
-    @apply flex flex-col justify-center items-center rounded p-1 text-white-light space-y-2 py-2
+    @apply flex flex-col justify-center items-center rounded p-1 text-indigo-500 space-y-2 py-2
     bg-grey-light;
   }
   
@@ -73,7 +85,7 @@
   }
 
   html .mob-footer .link-active {
-    @apply text-white-light bg-grey-light;
+    @apply text-indigo-500 bg-grey-light;
   }
 
 
@@ -99,6 +111,15 @@
     @apply hover:bg-indigo-700 hover:text-white-light;
   }
 }
+
+  html .form-style .form-upload {
+    @apply cursor-pointer justify-center p-2 absolute bottom-2 right-2 text-white-medium font-normal 
+         bg-grey-medium bg-opacity-30 hover:bg-opacity-80 border border-dashed rounded-md border-white-medium;
+  }
+
+  html .form-style .form-upload-image {
+    @apply flex w-full h-full bg-contain bg-center bg-no-repeat rounded-md ;
+  }
 
 .h-80-screen {
   height: 80vh;

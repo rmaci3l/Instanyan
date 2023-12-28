@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { likePost } from "../../redux/reduxActions";
 import { useGetPostsQuery } from "../../redux/post/postService";
 import { setPosts } from "../../redux/post/postSlice";
+import Loading from "../utils/Loading";
 
 function Feed(){     
     const { data: feedPosts, error, isLoading, isSuccess, refetch } = useGetPostsQuery({ origin: 'feed' })
@@ -23,7 +24,7 @@ function Feed(){
     }, [refetch]);
 
     if (isLoading) {
-        return <div>Loading...</div>; 
+        return <Loading />; 
     }
 
     if (error) {

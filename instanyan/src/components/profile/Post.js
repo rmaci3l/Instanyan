@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form'
 import { Label, Input, FileInput, Textarea, TextInput, Button, Alert } from "flowbite-react";
 import { convertToBase64 } from '../utils/Utils'
 import { createPost } from "../../redux/reduxActions";
-import AlertPopup from "../popup/Alert";
+import AlertPopup from "../utils/Alert";
 import { useNavigate } from "react-router-dom";
+import UserIcon from "../utils/userIcon";
+import { UploadDefault } from "../../assets"
 
 function Post() {    
     const dispatch = useDispatch();
@@ -57,14 +59,26 @@ function Post() {
 
     
     return(
-        <div className="flex p-4 sm:ml-20 sm:w-2/5">
+        <div className="flex p-4 sm:ml-20 sm:w-2/5 sm:bg-grey-medium">
             <div className="flex flex-col w-full">
-                <div className="flex w-full ">
-                    <img src={postImage} className="aspect-square"/>
+                <div className="title-style">
+                    <h1>Create a new post</h1>
                 </div>
-                <form className="flex flex-col form-style" onSubmit={handleSubmit(submitForm)}>
-                    <FileInput type="file" accept="image/*" onChange={onFileChange} />
-                    <input type="hidden" {...register('image')} />
+                <form className="flex flex-col form-style mt-2" onSubmit={handleSubmit(submitForm)}>
+                    <div className="flex w-full h-80 sm:h-96 bg-grey-heavy rounded relative">
+                        <div style={{ backgroundImage: `url('${postImage || UploadDefault}')` }} className="form-upload-image">
+
+                        </div>
+                        <Label htmlFor="file-upload" className="form-upload">
+                            <div className="flex justify-center items-center space-x-2">
+                                <UserIcon iconName="upload" />
+                                <p>Upload Image</p>
+                            </div>
+                            <FileInput id="file-upload" type="file" accept="image/*" className="hidden" onChange={onFileChange} />
+                        </Label> 
+                        <input type="hidden" {...register('image')} />
+                    </div>    
+                    
                     <div>
                         <div className="mb-1 block">
                             <Label htmlFor="form-about" value="Content" />

@@ -6,7 +6,7 @@ import { userLogin } from "../../redux/reduxActions";
 import { Button, Label, TextInput } from 'flowbite-react'
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import AuthHeader from "./AuthHeader";
-import AlertPopup from "../popup/Alert";
+import AlertPopup from "../utils/Alert";
 
 function Login() {
     const { loading, userInfo, userToken, isLoading, error, success } = useSelector((state) => state.auth)

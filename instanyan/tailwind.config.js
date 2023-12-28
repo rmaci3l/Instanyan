@@ -12,6 +12,7 @@ module.exports = {
         sans: ['Outfit', 'system-ui'],
       },
       colors: {
+        'grey-lighter' : '#3f4147',
         'grey-light' : '#313338',
         'grey-medium' : '#2b2d31',
         'grey-heavy' : '#1e1f22',

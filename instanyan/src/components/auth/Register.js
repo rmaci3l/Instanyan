@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/reduxActions";
-import AlertPopup from "../popup/Alert";
+import AlertPopup from "../utils/Alert";
 import { TextInput, Label, Button } from "flowbite-react";
 import { HiMail, HiLockClosed, HiOutlineUser, HiOutlineGlobe } from 'react-icons/hi';
 import AuthHeader from "./AuthHeader";
