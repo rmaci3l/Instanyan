@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { registerUser, userLogin } from '../reduxActions'
+import { registerUser, userLogin, updateProfile } from '../reduxActions'
 
 const userToken = localStorage.getItem('userToken')
     ? localStorage.getItem('userToken')
@@ -58,6 +58,12 @@ const authSlice = createSlice({
             state.loading = false
             state.error = payload
         },
+        // Update profile reducer
+        [updateProfile.fulfilled] : (state, {payload}) =>{
+            state.userInfo.avatar = payload.data.profile.avatar
+            state.userInfo.about = payload.data.profile.about
+            state.userInfo.status = payload.data.profile.status
+        }
     },
 })
 

@@ -11,17 +11,34 @@
   }
 
 
-  /* Default custom styles. */
-
-  html .title-style {
-    @apply flex w-full py-1 mb-4 border-b border-grey-lighter sm:py-6;
+  /* Default custom heading styles. */
+  html .title-style .title-options {
+    @apply hover:bg-grey-lighter hover:text-white-light rounded;
   }
 
   html .title-style h1 {
-      @apply text-white-medium font-normal text-xl sm:text-3xl tracking-wide;    
+    @apply text-white-light font-normal text-xl sm:text-3xl tracking-wide;    
   }
 
-  /* Desktop menu links classes for header. */
+  html .title-style h2 {
+    @apply font-medium text-white-medium text-xs uppercase tracking-wide;
+  }
+
+  html .title-style p {
+    @apply font-light text-white-medium hover:text-white-light sm:p-2;
+  }
+
+  /* Single-page styles. */
+
+  html .single-page {
+    @apply p-4 rounded flex-col sm:w-2/5;
+  }
+
+  html .single-page h1 {
+    @apply text-lg text-white-light tracking-wide;
+  }
+
+  /* Desktop navmenu links classes for header. */
   html .desk-nav {
     @apply hidden sm:flex flex-col w-20 items-center;
   }
@@ -61,7 +78,7 @@
   }
 
 
-  /* Mobile menu links classes for header. */
+  /* Mobile navmenu links classes for header. */
   html .mobile-nav {
     @apply px-3 py-2 flex w-full sm:hidden;
   }
@@ -101,8 +118,7 @@
   html .form-style input, .form-style textarea {
     @apply bg-grey-heavy text-white-light rounded-sm border-grey-medium focus:border-purple-500 focus:ring-purple-500;
   }
-
-  
+ 
   html .form-style button{
     @apply text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
     }
@@ -117,6 +133,10 @@
          bg-grey-medium bg-opacity-30 hover:bg-opacity-80 border border-dashed rounded-md border-white-medium;
   }
 
+  html .form-style .form-upload-alt {
+    @apply cursor-pointer justify-center items-center absolute -top-1 right-1 text-white-light bg-grey-medium p-2 rounded-full;
+  }
+
   html .form-style .form-upload-image {
     @apply flex w-full h-full bg-contain bg-center bg-no-repeat rounded-md ;
   }
@@ -124,6 +144,17 @@
 .h-80-screen {
   height: 80vh;
 }
+
+
+/* Config section social links. */
+ html .social-links {
+  @apply flex space-x-2 hover:text-white-light transition-colors duration-300;
+ }
+
+ html .social-links p {
+  @apply text-xs uppercase;
+ }
+
 
 body {
   margin: 0;

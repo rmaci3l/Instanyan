@@ -8,7 +8,9 @@ function About({setClassSettings}){
         };
       },[setClassSettings]);
     return(
-            <div>About</div>
+        <div className="single-page">
+            <h1>About</h1>
+        </div>
         );
     }
 

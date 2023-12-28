@@ -9,7 +9,9 @@ function Language({setClassSettings}){
       },[setClassSettings]);
       
     return(
-            <div>Language</div>
+            <div className="single-page">
+                <h1>Language</h1>
+            </div>
         );
     }
 

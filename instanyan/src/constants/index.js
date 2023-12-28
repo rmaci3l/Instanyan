@@ -94,6 +94,33 @@ export const configLinks = [
     }
 ];
 
+export const socialLinks = [
+    {
+        id: "github",
+        name: "Github",
+        icon: "github",
+        link: "https://github.com/rmaci3l"
+    },
+    {
+        id: "email",
+        name: "E-mail",
+        icon: "email",
+        link: "mailto:"
+    },
+    {
+        id: "youtube",
+        name: "Youtube",
+        icon: "youtube",
+        link: "https://youtube.com"
+    },
+    {
+        id: "twitter",
+        name: "Twitter",
+        icon: "twitter",
+        path: "https://x.com"
+    }
+]
+
 export const postIcons = [faHeart, faComment, faShare];
 
 export const postTemplate = [

@@ -8,7 +8,9 @@ function Help({setClassSettings}){
         };
       },[setClassSettings]);    
     return(
-        <div>Help</div>
+        <div className="single-page">
+            <h1>Help</h1>
+        </div>
     );
 }
 

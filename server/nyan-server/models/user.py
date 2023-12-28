@@ -44,7 +44,7 @@ class User(Base):
     def serialize(self):
         return {
             "username": self.username,
-            "profile_image": self.profile.profile_image,
+            "avatar": self.profile.profile_image,
             "status": self.profile.status,
             "about": self.profile.about,
             "posts_qty": self.profile.posts,

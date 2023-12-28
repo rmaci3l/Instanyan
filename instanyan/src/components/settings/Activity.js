@@ -9,7 +9,9 @@ function Activity({setClassSettings}){
       },[setClassSettings]);
 
     return(
-        <div>Activity</div>
+        <div className="single-page">
+            <h1>Activity</h1>
+        </div>
     );
 }
 

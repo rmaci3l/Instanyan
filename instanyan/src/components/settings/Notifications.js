@@ -9,7 +9,9 @@ function Notifications({setClassSettings}){
       },[setClassSettings]);
 
     return(
-        <div>Notifications</div>
+        <div className="single-page">
+            <h1>Notifications</h1>
+        </div>
     );
 }
 

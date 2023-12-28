@@ -9,7 +9,9 @@ function Issue({setClassSettings}){
       },[setClassSettings]);
 
     return(
-        <div>Issue</div>
+        <div className="single-page">
+            <h1>Report an Issue</h1>
+        </div>
     );
 }
 

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { Label, Input, FileInput, Textarea, TextInput, Button, Alert } from "flowbite-react";
-import { convertToBase64 } from '../utils/Utils'
+import { Label, FileInput, Textarea, TextInput, Button } from "flowbite-react";
 import { createPost } from "../../redux/reduxActions";
-import AlertPopup from "../utils/Alert";
+import{ AlertPopup, UserIcon, convertToBase64 } from "../utils/";
 import { useNavigate } from "react-router-dom";
-import UserIcon from "../utils/userIcon";
 import { UploadDefault } from "../../assets"
 
 function Post() {    
@@ -44,7 +42,7 @@ function Post() {
             })
             .catch((error) => {
                 setFormError("Failed to process the request.");
-            });            
+            });
         }        
     };
 
@@ -61,7 +59,7 @@ function Post() {
     return(
         <div className="flex p-4 sm:ml-20 sm:w-2/5 sm:bg-grey-medium">
             <div className="flex flex-col w-full">
-                <div className="title-style">
+                <div className="title-style border-b border-grey-lighter mb-4 py-1 sm:py-6">
                     <h1>Create a new post</h1>
                 </div>
                 <form className="flex flex-col form-style mt-2" onSubmit={handleSubmit(submitForm)}>

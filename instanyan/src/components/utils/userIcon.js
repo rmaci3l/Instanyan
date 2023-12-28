@@ -1,4 +1,6 @@
-import { HiOutlineHome, HiArrowUpTray, HiOutlineUserCircle, HiOutlineUser, HiMagnifyingGlass, HiBell, HiOutlinePlusCircle, HiOutlineCog6Tooth, HiArrowLeftOnRectangle } from 'react-icons/hi2'
+import { HiOutlineHome, HiEnvelope, HiArrowPath, HiArrowUpTray, HiOutlineUserCircle, HiOutlineUser, HiMagnifyingGlass, HiBell, HiOutlinePlusCircle, HiOutlineCog6Tooth, HiArrowLeftOnRectangle } from 'react-icons/hi2'
+import { FaGithub, FaYoutube, FaTwitter } from 'react-icons/fa6'
+
 
 const iconMapping = {
     home: HiOutlineHome,
@@ -10,6 +12,11 @@ const iconMapping = {
     logout: HiArrowLeftOnRectangle,
     profile: HiOutlineUserCircle,
     upload: HiArrowUpTray,
+    email: HiEnvelope,
+    github: FaGithub,
+    youtube: FaYoutube,
+    twitter: FaTwitter,
+    edit: HiArrowPath,
 };
 
 const UserIcon = ({ iconName }) => {

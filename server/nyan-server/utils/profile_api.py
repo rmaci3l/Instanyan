@@ -43,14 +43,14 @@ def request_profile(profile_args, user_id):
                 if user_profile:
                     users_list.append({
                         'username' : user_profile.username,
-                        'profile_image' : user_profile.profile.profile_image,
+                        'avatar' : user_profile.profile.profile_image,
                         'status' : user_profile.profile.status,
                         'followers' : user_profile.profile.followers
                         })                          
                 similar_users = session.query(User).filter(User.username.like(f"%{first}%{last}%")).limit(10).all()
                 users_list.extend([{
                     'username' : user.username,
-                    'profile_image' : user.profile.profile_image,
+                    'avatar' : user.profile.profile_image,
                     'status' : user.profile.status,
                     'followers' : user.profile.followers
                     } for user in similar_users])
@@ -82,10 +82,14 @@ def update_data(user_id, user_data):
             return {'message' : "User not found!", 'status' : 404}
         db_user.about = user_data.get('about', db_user.about)
         db_user.status = user_data.get('status', db_user.status)
-        if (user_data.get('profile_image') != ""):
-            db_user.profile_image = user_data.get('profile_image', db_user.profile_image)       
+        if (user_data.get('avatar') != ""):
+            db_user.profile_image = user_data.get('avatar', db_user.profile_image)       
+        profile = session.query(User).get(user_id).serialize()
         session.commit()
-        return { 'message' : "Profile updated successfully", 'redirect' : "/profile", 'status' : 200}
+        return { 'profile' : profile, 
+                 'message' : "Profile updated successfully", 
+                 'error' : "", 
+                 'status' : 200 }
 
 
 def profile_follow(username, user_id):
