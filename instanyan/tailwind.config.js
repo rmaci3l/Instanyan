@@ -18,6 +18,7 @@ module.exports = {
         'grey-heavy' : '#1e1f22',
         'white-light' : '#eff5ff',
         'white-medium' : '#b5bac1',
+        'white-heavy' : '#888b8f',
       },
     },
   },

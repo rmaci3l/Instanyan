@@ -46,7 +46,7 @@ const EditProfile = ({setClassSettings}) => {
     return(
         <div className="single-page">
             <div className="flex">
-                <h1>Update Profile</h1>
+                <h1>Update Purrfile</h1>
             </div>
             
             <form className="flex flex-col form-style mt-6" onSubmit={handleSubmit(submitForm)}>
@@ -69,13 +69,13 @@ const EditProfile = ({setClassSettings}) => {
                     <div className="mb-1 block">
                         <Label htmlFor="form-status" value="Status" />
                     </div>
-                    <TextInput type="text" placeholder={userInfo.status} {...register('status', {maxLength: 60})} />
+                    <Textarea type="text" placeholder={userInfo.status} {...register('status', {maxLength: 60})} rows={2}/>
                 </div>
                 <div>
                     <div className="mb-1 block">
                         <Label htmlFor="form-about" value="About" />
                     </div>                    
-                    <Textarea type="text" className="" placeholder={userInfo.about} {...register('about', {maxLength:150})} />
+                    <Textarea type="text" className="" placeholder={userInfo.about} {...register('about', {maxLength:150})} rows={6} />
                 </div>
                 <Button type="submit" size="md">Update Profile</Button>
             </form>

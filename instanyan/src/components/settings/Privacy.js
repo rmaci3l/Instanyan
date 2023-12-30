@@ -1,38 +1,39 @@
-import React, {useEffect, useState} from "react";
-import { useForm } from "react-hook-form";
+import React, {useEffect, useState}  from "react";
+import { Form } from "react-hook-form";
 import { Button, Label, Input, ToggleSwitch } from "flowbite-react";
-import { activity_settings } from "../../constants";
+import { privacy_settings } from "../../constants";
 
-function Activity({ setClassSettings }) {
-    const initialToggleStates = activity_settings.reduce((acc, option) => {
+function Privacy({setClassSettings}){
+    const initialToggleStates = privacy_settings.reduce((acc, option) => {
         acc[option.id] = false;
         return acc;
     }, {});
 
     const [ toggleStates, setToggleStates ] = useState(initialToggleStates);
-    
+
     useEffect(() => {
         setClassSettings('hidden sm:block');
         return() => {
             setClassSettings('block');
         };
-      },[setClassSettings]);
+      },[setClassSettings]);    
 
-      const handleToggleChange = (id, newValue) => {
-        setToggleStates(prevState => ({
-            ...prevState, [id]: newValue
-        }));
-      };
+    const handleToggleChange = (id, newValue) => {
+    setToggleStates(prevState => ({
+        ...prevState, [id]: newValue
+    }));
+    };
+
 
     return(
         <div className="single-page">
             <div>
-                <h1>Activity</h1>
+                <h1>Privacy</h1>
             </div>            
             <div className="flex flex-col">    
             <form className="flex flex-col w-full">
                 <div>                    
-                    {activity_settings.map((option) => (
+                    {privacy_settings.map((option) => (
                     <div className="flex flex-col border-b py-4 border-grey-lighter">
                         <div className="flex justify-between py-2">
                             <h2 htmlFor={option.label} className="text-base text-white-light font-light">{option.name} </h2>
@@ -58,4 +59,4 @@ function Activity({ setClassSettings }) {
     );
 }
 
-export default Activity;
+export default Privacy;

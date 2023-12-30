@@ -13,7 +13,7 @@
 
   /* Default custom heading styles. */
   html .title-style .title-options {
-    @apply hover:bg-grey-lighter hover:text-white-light rounded;
+    @apply hover:bg-grey-lighter text-white-medium sm:p-2 sm:pl-0 hover:text-white-light rounded transition-all duration-300;
   }
 
   html .title-style h1 {
@@ -21,11 +21,23 @@
   }
 
   html .title-style h2 {
-    @apply font-medium text-white-medium text-xs uppercase tracking-wide;
+    @apply text-white-light tracking-wide;
   }
 
   html .title-style p {
-    @apply font-light text-white-medium hover:text-white-light sm:p-2;
+    @apply font-light text-white-medium text-base text-justify leading-relaxed;
+  }
+
+  html .title-style ul {
+    @apply list-disc list-inside font-light text-white-medium;    
+  }
+
+  html .title-style svg {
+    @apply text-lg;
+  }
+
+  html .sub-title {
+    @apply font-medium text-white-medium text-xs uppercase tracking-wide;
   }
 
   /* Single-page styles. */
@@ -116,17 +128,28 @@
   }
   
   html .form-style input, .form-style textarea {
-    @apply bg-grey-heavy text-white-light rounded-sm border-grey-medium focus:border-purple-500 focus:ring-purple-500;
+    @apply bg-grey-heavy text-white-light rounded-md border-grey-medium focus:border-purple-500 focus:ring-purple-500;
   }
  
   html .form-style button{
-    @apply text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
+    @apply mt-2 text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
     }
 
   html .form-style button:hover{
     @apply hover:bg-indigo-700 hover:text-white-light;
   }
-}
+
+  html .form-style .radio {
+    @apply rounded-full text-grey-heavy border-none ring-0 focus:border-none focus:ring-0;
+  }
+
+  html .toggle-button[aria-checked="true"] div {
+    @apply rounded-full bg-green-400 ring-green-400 border-none;
+  }
+
+  html .toggle-button[aria-checked="false"] div {
+    @apply rounded-full bg-grey-lighter ring-2 ring-grey-lighter border-none;
+  }
 
   html .form-style .form-upload {
     @apply cursor-pointer justify-center p-2 absolute bottom-2 right-2 text-white-medium font-normal 
@@ -141,20 +164,37 @@
     @apply flex w-full h-full bg-contain bg-center bg-no-repeat rounded-md ;
   }
 
+  html .form-style select {
+    @apply bg-grey-heavy text-white-light rounded-md border-grey-medium focus:border-purple-500 focus:ring-purple-500;
+  }
+
+  html .form-style select option {
+    @apply text-white-medium bg-grey-light;
+  }
+
+  /* Config section social links. */
+  html .social-links {
+    @apply flex space-x-2 hover:text-white-light transition-colors duration-300;
+  }
+
+  html .social-links p {
+    @apply text-xs uppercase;
+  }
+
+  html .social-links-alt {
+    @apply flex w-full space-x-1 rounded-md items-center p-2 
+    bg-grey-medium hover:bg-grey-lighter hover:text-white-light transition-colors duration-300;
+  }
+
+  html .social-links-alt p {
+    @apply font-semibold text-[10px] sm:text-xs uppercase sm:tracking-wider;
+  }
+
+}
+
 .h-80-screen {
   height: 80vh;
 }
-
-
-/* Config section social links. */
- html .social-links {
-  @apply flex space-x-2 hover:text-white-light transition-colors duration-300;
- }
-
- html .social-links p {
-  @apply text-xs uppercase;
- }
-
 
 body {
   margin: 0;

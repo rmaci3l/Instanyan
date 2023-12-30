@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Routes, Route } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { configLinks, socialLinks } from "../../constants";
-import {About, Activity, EditProfile, Help, Issue, Language, Notifications} from '.'
+import {About, Activity, EditProfile, Help, Issue, Language, Notifications, Privacy, Theme } from '.'
 import { logout } from "../../redux/auth/authSlice";
 import UserIcon from "../utils/userIcon";
 
@@ -10,10 +10,11 @@ const ConfigSection = ({type}) => {
     return(
         <div className="flex flex-col mt-3 title-style">
             <div className="space-y-3 sm:space-y-1">
-                <h2>{type}</h2>
+                <h2 className="sub-title">{type}</h2>
                     {configLinks.filter(opt => opt.type === type).map((opt) =>(
                         <div key={opt.id} className="title-options">
-                            <Link to={`/settings/${opt.path}`}>
+                            <Link to={`/settings/${opt.path}`} className="flex px-2 items-center space-x-2">
+                                <UserIcon iconName={opt.icon} />
                                 <p>{opt.id}</p>
                             </Link>
                         </div>
@@ -37,7 +38,8 @@ const ConfigPage = () => {
             <div className="flex flex-col sm:w-1/5 sm:border-x sm:border-grey-lighter px-4">
                 <div className={`${classSettings} mt-2`}>
                     <ConfigSection type="account" />
-                    <ConfigSection type="company" />
+                    <ConfigSection type="interface" />
+                    <ConfigSection type="support" />
                     <div className="mt-3">
                         <h2 className="font-medium text-white-medium text-xs uppercase tracking-wide">SOCIAL</h2>
                         <div className="flex space-x-2 text-white-medium py-3 border-b border-grey-lighter">                        
@@ -62,11 +64,12 @@ const ConfigPage = () => {
             <div className="sm:flex sm:flex-grow">
                 <Routes>
                     <Route path="/edit" element={<EditProfile setClassSettings={setClassSettings} />}></Route>
-                    <Route path="/language" element={<Language setClassSettings={setClassSettings} />}></Route>
-                    <Route path="/activity" element={<Activity setClassSettings={setClassSettings} />}></Route>
                     <Route path="/notifications" element={<Notifications setClassSettings={setClassSettings} />}></Route>
+                    <Route path="/activity" element={<Activity setClassSettings={setClassSettings} />}></Route>
+                    <Route path="/privacy" element={<Privacy setClassSettings={setClassSettings} />}></Route>                    
+                    <Route path="/language" element={<Language setClassSettings={setClassSettings} />}></Route>
+                    <Route path="/theme" element={<Theme setClassSettings={setClassSettings} />}></Route>
                     <Route path="/about" element={<About setClassSettings={setClassSettings} />}></Route>
-                    <Route path="/help" element={<Help setClassSettings={setClassSettings} />}></Route>
                     <Route path="/report" element={<Issue setClassSettings={setClassSettings} />}></Route>
                 </Routes>           
             </div>
