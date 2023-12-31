@@ -12,10 +12,6 @@
 
 
   /* Default custom heading styles. */
-  html .title-style .title-options {
-    @apply hover:bg-grey-lighter text-white-medium sm:p-2 sm:pl-0 hover:text-white-light rounded transition-all duration-300;
-  }
-
   html .title-style h1 {
     @apply text-white-light font-normal text-xl sm:text-3xl tracking-wide;    
   }
@@ -49,74 +45,7 @@
   html .single-page h1 {
     @apply text-lg text-white-light tracking-wide;
   }
-
-  /* Desktop navmenu links classes for header. */
-  html .desk-nav {
-    @apply hidden sm:flex flex-col w-20 items-center;
-  }
-
-  html .desk-nav .desk-logo {
-    @apply border-b border-grey-light p-2 items-center justify-center flex w-full;
-  }
-
-  html .desk-nav .desk-links {
-    @apply flex flex-col justify-center items-center rounded p-2 text-white-medium space-y-2 py-2
-    bg-grey-medium hover:bg-grey-light hover:text-white-light transition-colors duration-300;
-  }
-
-  html .desk-nav .desk-links-active {
-    @apply flex flex-col justify-center items-center rounded p-1 text-indigo-500 space-y-2 py-2
-    bg-grey-light;
-  }
   
-  html .desk-nav .desk-links svg {
-    @apply text-lg;
-  }
-
-  html .desk-nav .desk-links-active svg {
-    @apply text-lg;
-  }
-
-  html .desk-nav span {
-    @apply font-light uppercase text-xs;
-  }
-
-  html .desk-nav .desk-footer {
-    @apply flex flex-col space-y-6 items-center my-6;
-  }
-
-  html .desk-nav .desk-footer img {
-    @apply p-0 ring-white-medium hover:ring-indigo-500 transition-all duration-300;
-  }
-
-
-  /* Mobile navmenu links classes for header. */
-  html .mobile-nav {
-    @apply px-3 py-2 flex w-full sm:hidden;
-  }
-
-  html .mobile-nav svg{
-    @apply text-[20px];
-  }
-
-  html .mobile-nav .mob-icons img{
-    @apply p-[2px] ring-indigo-500;
-  }
-
-  /* Mobile footer links classes. */
-
-  html .mob-footer {
-    @apply flex w-full fixed sm:hidden bottom-0 left-0 justify-between py-1 px-8 bg-grey-medium;
-  }
-
-  html .mob-footer div {
-    @apply text-white-medium font-light text-[20px] p-2 rounded-full;
-  }
-
-  html .mob-footer .link-active {
-    @apply text-indigo-500 bg-grey-light;
-  }
-
 
   /* Base form styles. */
   html .form-style {
@@ -170,6 +99,99 @@
 
   html .form-style select option {
     @apply text-white-medium bg-grey-light;
+  }
+
+
+  /* Desktop navmenu links classes for header. */
+  html .desk-nav {
+    @apply hidden sm:flex flex-col w-20 items-center;
+  }
+
+  html .desk-nav .desk-logo {
+    @apply border-b border-grey-light p-2 items-center justify-center flex w-full;
+  }
+
+  html .desk-nav .desk-links {
+    @apply flex flex-col justify-center items-center rounded p-2 text-white-medium space-y-2 py-2
+    bg-grey-medium hover:bg-grey-light hover:text-white-light transition-colors duration-300;
+  }
+
+  html .desk-nav .desk-links-active {
+    @apply flex flex-col justify-center items-center rounded p-1 text-indigo-500 space-y-2 py-2
+    bg-grey-light;
+  }
+  
+  html .desk-nav .desk-links svg {
+    @apply text-lg;
+  }
+
+  html .desk-nav .desk-links-active svg {
+    @apply text-lg;
+  }
+
+  html .desk-nav span {
+    @apply font-light uppercase text-xs;
+  }
+
+  html .desk-nav .desk-footer {
+    @apply flex flex-col space-y-6 items-center my-6;
+  }
+
+  html .desk-nav .desk-footer img {
+    @apply p-0 ring-white-medium hover:ring-indigo-500 transition-all duration-300;
+  }
+
+  /* Mobile navmenu links classes for header. */
+  html .mobile-nav {
+    @apply px-3 py-2 flex w-full sm:hidden;
+  }
+
+  html .mobile-nav svg{
+    @apply text-[20px];
+  }
+
+  html .mobile-nav .mob-icons img{
+    @apply p-[2px] ring-indigo-500;
+  }
+
+  /* Mobile footer links classes. */
+
+  html .mob-footer {
+    @apply flex w-full fixed sm:hidden bottom-0 left-0 justify-between py-1 px-8 bg-grey-medium;
+  }
+
+  html .mob-footer div {
+    @apply text-white-medium font-light text-[20px] p-2 rounded-full;
+  }
+
+  html .mob-footer .link-active {
+    @apply text-indigo-500 bg-grey-light;
+  }
+
+
+  /* Profile section. */
+  /* Profile Info. */
+
+  html .profile-info {
+
+  }
+
+  html .profile-info img {
+    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full sm:w-44 sm:h-44 p-[2px] sm:p-[4px];
+  }
+
+
+  /* Config section. */
+  html .config-options {
+    @apply hover:bg-grey-lighter text-white-medium sm:p-2 sm:pl-0 hover:text-white-light rounded transition-all duration-300;
+  }
+
+  html .config-options p {
+    @apply font-light text-base text-justify leading-relaxed;
+  }
+
+  html .config-options svg {
+    @apply text-lg;
   }
 
   /* Config section social links. */

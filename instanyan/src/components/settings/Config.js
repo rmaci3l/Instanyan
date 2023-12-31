@@ -8,11 +8,11 @@ import UserIcon from "../utils/userIcon";
 
 const ConfigSection = ({type}) => {
     return(
-        <div className="flex flex-col mt-3 title-style">
+        <div className="flex flex-col mt-3">
             <div className="space-y-3 sm:space-y-1">
                 <h2 className="sub-title">{type}</h2>
                     {configLinks.filter(opt => opt.type === type).map((opt) =>(
-                        <div key={opt.id} className="title-options">
+                        <div key={opt.id} className="config-options hover:text-white-light">
                             <Link to={`/settings/${opt.path}`} className="flex px-2 items-center space-x-2">
                                 <UserIcon iconName={opt.icon} />
                                 <p>{opt.id}</p>

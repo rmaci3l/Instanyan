@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { useGetProfileQuery, setProfile, followProfile } from "../../redux/profile/";
+import { Avatar } from "flowbite-react";
 import Loading from "../utils/Loading";
 
 const ProfileInfo = ({username}) => {
@@ -29,39 +30,46 @@ const ProfileInfo = ({username}) => {
 
 
     return(
-
-        <div>
-            <div className="flex w-full p-4 sm:p-0 space-x-2">
-                <div className="flex">
-                    <img className="border border-neutral-50 rounded-full h-14 w-14 sm:h-40 sm:w-40" alt={profileDetails.username} src={profileDetails.profile_image}></img>
+        <div className="flex flex-col bg-grey-medium rounded-md profile-info sm:px-8 sm:py-4">
+            <div className="flex w-full px-3 py-2 space-x-2 border-b border-grey-light sm:items-center">
+                <div className="flex basis-1/4 py-2">                    
+                    <img src={profileDetails.avatar} alt={`Profile image of ${profileDetails.username}`} />
                 </div>
-                <div className="pl-6 flex-1 flex-col justify-center">
-                    <span className=" text-lg">{profileDetails.username}</span>
+                <div className="flex basis-3/4 pl-2 pt-1 flex-col">
                     <div>
-                        <span>{profileDetails.status} </span>                            
+                        <span className="text-white-light text-md sm:text-lg">@{profileDetails.username}</span>
+                    </div>
+                    <div>
+                        <span className="text-sm sm:text-base font-light text-white-medium">{profileDetails.status} </span>                            
+                    </div>
+                    <div className="hidden sm:block">
+                        <div className="flex flex-col w-full mt-4">
+                            <h2 className="text-white-light">About me</h2>
+                            <p className="mt-1 text-sm font-light flex-wrap sm:text-base sm:text-white-medium">{profileDetails.about}</p>
+                        </div>
                     </div>             
                 </div>
                 {username !== userInfo.username &&
                     <button onClick={() => handleFollow(username)} className="border rounded-sm border-neutral-50">Follow</button>
                 }
             </div>
-            <div className="flex w-full flex-wrap p-4">
-                <h2 className="flex">About me</h2>
-                <p className="flex w-full font-thin">{profileDetails.about}</p>
-            </div>
-            <div className="user-stats flex border-y border-gray-800 p-4 px-6 justify-between space-x-6">
+            <div className="flex border-b border-grey-light sm:border-none py-3 px-6 justify-between sm:mt-2">
                 <div className="flex flex-col items-center">
-                    <h2>{profileDetails.posts_qty}</h2>
-                    <p>Publications</p>
+                    <p className="text-sm text-white-medium sm:text-lg">{profileDetails.posts_qty}</p>
+                    <p className="sub-title">Publications</p>
                 </div>
                 <div className="flex flex-col items-center">
-                    <h2>{profileDetails.followers}</h2>
-                    <p>Followers</p>
+                    <p className="text-sm text-white-medium sm:text-lg">{profileDetails.followers}</p>
+                    <p className="sub-title">Followers</p>
                 </div>
                 <div className="flex flex-col items-center">
-                    <h2>{profileDetails.following}</h2>
-                    <p>Following</p>
+                    <p className="text-sm text-white-medium sm:text-lg">{profileDetails.following}</p>
+                    <p className="sub-title">Following</p>
                 </div>
+            </div>            
+            <div className="flex flex-col w-full p-3 sm:hidden">
+                <h2 className="sub-title">About me</h2>
+                <p className="mt-1 text-sm font-light flex-wrap">{profileDetails.about}</p>
             </div>
         </div>
     );

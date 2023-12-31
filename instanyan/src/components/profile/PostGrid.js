@@ -23,7 +23,7 @@ const PostGrid = ({username}) => {
     }
     
     return(
-        <div className="">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {posts.map((post, index) => (
                 <div key={index} className="p-4 border border-gray-200 rounded-lg">
                     <div className="mb-2">
