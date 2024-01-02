@@ -40,12 +40,12 @@ def send_like(user_id, post_id):
         if user in post.liked_by:
             post.liked_by.remove(user)
             post.likes-= 1
-            action = "No"
+            action = "no"
                         
         else:
             post.liked_by.append(user)
             post.likes += 1
-            action = "Yes"    
+            action = "yes"    
         session.commit()
         return { 'message' : "Success.", 'liked' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
     
@@ -54,6 +54,7 @@ def request_post(user_id, post_args):
     username = post_args.get('username')
     hashtags = post_args.get('hashtags')
     origin = post_args.get('origin')
+    post_id = post_args.get('id')
     
     with Session() as session:
         try:
@@ -106,6 +107,21 @@ def request_post(user_id, post_args):
                          'message' : "Post(s) retrieved successfully.",
                          'error' : "",
                          'status' : 200 }
+                
+            # If origin is single-post, retrieve the post according to the id.
+            if (origin == 'single'):
+                post = session.query(Post).get(post_id)
+                if post:
+                    return {'posts' : post.serialize(),
+                            'message' : "Post retrieved successfully.",
+                            'error' : "",
+                            'status' : 200 }
+                return { 'posts' : "",
+                         'message' : "Could not find this post by the ID." ,
+                         'error' : "postnotfound",
+                         'status' : 400 }
+                    
+            
             return { 'message' : " Invalid request, no or invalid origin specified.",
                      'error' : "invalid",
                      'status' : 400}

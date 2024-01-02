@@ -6,6 +6,7 @@ const initialState = {
     error: null,
     message: null,
     profileDetails: {},
+    follows: null,
     exploreProfiles: []
 }
 
@@ -18,6 +19,7 @@ const profileSlice = createSlice({
             state.message = payload.message;
             state.error = payload.error;
             state.exploreProfiles = null;
+            state.follows = payload.follows;
         },
         setExplore: (state, {payload}) => {
             state.exploreProfiles = payload.users;
@@ -26,7 +28,10 @@ const profileSlice = createSlice({
         }
     },
     extraReducers: {
-
+        // profile follow reducer
+        [followProfile.fulfilled] : (state, {payload}) => {
+            state.follows = payload.data.follows;
+        }
     },
 });
 

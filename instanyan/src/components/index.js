@@ -11,10 +11,12 @@ import NotFound from './NotFound';
 import SearchPopUp from './utils/Search';
 import NotificationPopUp from './utils/Notifications'
 import Explore from './explore/Explore';
+import SinglePost from "./explore/SinglePost";
 
 export {
     Feed,
     Explore,
+    SinglePost,
     ConfigPage,
     Post,
     Profile,

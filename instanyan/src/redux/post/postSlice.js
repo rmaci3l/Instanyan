@@ -27,7 +27,7 @@ const postSlice = createSlice({
     },
     extraReducers: {
         [likePost.fulfilled] : (state, {payload}) => {
-            state.currentPost = payload.data.id;
+            state.currentPost = payload.data;
             const post = state.posts.find(p => p.id === state.currentPost.id);
             post.likes = state.currentPost.likes;
             post.liked = state.currentPost.liked;           

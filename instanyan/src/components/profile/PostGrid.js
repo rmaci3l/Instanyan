@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGetPostsQuery } from "../../redux/post/postService";
 import { setPosts } from "../../redux/post/postSlice";
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from "react-router-dom";
 
 const PostGrid = ({username}) => {
     const { data, error, isLoading, isSuccess } = useGetPostsQuery({ origin: 'profile', username: `${username}` })
@@ -23,17 +24,14 @@ const PostGrid = ({username}) => {
     }
     
     return(
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="mt-2 pb-10 grid grid-cols-3 gap-1 sm:gap-4">
             {posts.map((post, index) => (
-                <div key={index} className="p-4 border border-gray-200 rounded-lg">
-                    <div className="mb-2">
-                        <img src={post.image} alt="Post" className="w-full h-auto object-cover rounded" />
+                <Link to={`/p?id=${post.id}`} key={index}>                
+                    <div className="post-grid">
+                        <img src={post.image} className="" alt="Post"/>
+                        <span className="">{post.likes} Likes</span>                        
                     </div>
-                    <div>{post.likes} Likes</div>
-                    <div>
-                        <p className="text-gray-50 text-sm">{post.content}</p>"
-                    </div>
-                </div>
+                </Link>
             ))} 
         </div>
     );

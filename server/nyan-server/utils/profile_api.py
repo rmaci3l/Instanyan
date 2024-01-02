@@ -19,10 +19,10 @@ def request_profile(profile_args, user_id):
             if (origin == 'profile'):
                 current_user = session.query(User).get(user_id)
                 if user_profile:
-                    follows = 'No'
+                    follows = 'Follow'
                     profile = user_profile.serialize()
                     if user_profile and current_user in user_profile.followers:
-                        follows = 'Yes'
+                        follows = 'Following'
                     return { 'profile' : profile, 
                              'follows' : follows, 
                              'message' : f"Retrieved user {username} from server.",  
@@ -99,10 +99,10 @@ def profile_follow(username, user_id):
         message = ''
         if user_to_follow and current_user not in user_to_follow.followers:
             user_to_follow.followers.append(current_user)
-            message = { 'message' : "User followed! ", 'current' : "Followed", 'status' : 200}
+            message = { 'message' : "User followed! ", 'follows' : "Following", 'status' : 200}
         else:
             user_to_follow.followers.remove(current_user)
-            message = { 'message' : "User unfollowed! ", 'current' : "Unfollowed", 'status' : 200}
+            message = { 'message' : "User unfollowed! ", 'follows' : "Follow", 'status' : 200}
         user_to_follow.profile.followers = user_to_follow.followers.count()
         current_user.profile.following = current_user.followed.count()
         session.commit()
