@@ -17,17 +17,24 @@ const postSlice = createSlice({
             state.posts = payload.posts;
             state.message = payload.message;
             state.error = payload.error;
-        }
+        },
+        setSingle: (state, {payload}) => {
+            state.posts = [];
+            state.posts[0] = payload.posts;
+            state.message = payload.message;
+            state.error = payload.error;
+        },
     },
     extraReducers: {
-        [likePost.fulfilled] : (state, action) => {
-            state.currentPost = action.payload.data;
+        [likePost.fulfilled] : (state, {payload}) => {
+            state.currentPost = payload.data.id;
             const post = state.posts.find(p => p.id === state.currentPost.id);
             post.likes = state.currentPost.likes;
-            post.liked = state.currentPost.liked;
+            post.liked = state.currentPost.liked;           
+           
         }
     },
 });
 
-export const { setPosts } = postSlice.actions
+export const { setPosts, setSingle } = postSlice.actions
 export default postSlice.reducer
