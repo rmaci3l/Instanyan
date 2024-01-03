@@ -112,8 +112,14 @@ def request_post(user_id, post_args):
             if (origin == 'single'):
                 post = session.query(Post).get(post_id)
                 if post:
-                    return {'posts' : post.serialize(),
-                            'message' : "Post retrieved successfully.",
+                    user = post.user_id
+                    recent_posts = (session.query(Post).filter(Post.user_id == user, Post.id != post_id).order_by(Post.created_at.desc()).limit(6).all())
+                    post_data = [post.serialize()]
+                    recent_posts_data = [p.serialize() for p in recent_posts]
+                    post_data.extend(recent_posts_data)
+                    
+                    return {'posts' : post_data,
+                            'message' : "Posts retrieved successfully.",
                             'error' : "",
                             'status' : 200 }
                 return { 'posts' : "",

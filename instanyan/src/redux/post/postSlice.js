@@ -5,7 +5,7 @@ const initialState = {
     loading: false,
     error: null,
     message: null,
-    posts: [],
+    posts: [{}],
     currentPost: {id: "", likes: "", liked:""},
 }
 
@@ -19,8 +19,7 @@ const postSlice = createSlice({
             state.error = payload.error;
         },
         setSingle: (state, {payload}) => {
-            state.posts = [];
-            state.posts[0] = payload.posts;
+            state.posts = payload.posts;
             state.message = payload.message;
             state.error = payload.error;
         },

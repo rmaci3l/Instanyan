@@ -175,11 +175,11 @@
   }
 
   html .post-section .profile img {
-    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full h-[43px] sm:w-44 sm:h-44 p-[2px] sm:p-[4px];
+    @apply ring-2 ring-indigo-500 rounded-full h-[43px] sm:h-16 p-[2px] sm:p-[4px] z-0;
   }
 
   html .post-section .username {
-    @apply text-white-light font-medium text-sm;
+    @apply text-white-light font-medium text-sm sm:text-lg sm:font-light ;
   }
 
   html .post-section .date {

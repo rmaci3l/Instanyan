@@ -34,7 +34,7 @@ const Header = () => {
     };  
 
     return(     
-        <div className='flex w-full sm:w-auto sticky top-0 left-0 bg-grey-medium sm:h-screen'>            
+        <div className="flex w-full sm:w-auto sticky z-10 top-0 left-0 bg-grey-medium sm:h-screen">            
             <div className="mobile-nav">
                 <div>
                     <Link to="/" >                    

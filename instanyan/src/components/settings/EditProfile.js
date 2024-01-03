@@ -50,8 +50,8 @@ const EditProfile = ({setClassSettings}) => {
             </div>
             
             <form className="flex flex-col form-style mt-6" onSubmit={handleSubmit(submitForm)}>
-                <div className="flex w-full bg-grey-medium p-4 rounded-md">
-                    <Avatar img={`${uploadedImage || userInfo.avatar}`} size="lg" bordered rounded className="relative">
+                <div className="flex w-full bg-grey-medium p-4 px-2 sm:px-4 rounded-md">
+                    <Avatar img={`${uploadedImage || userInfo.avatar}`} size="lg" bordered rounded className="relative basis-3/5 sm:basis-auto">
                         <Label htmlFor="file-upload" className="form-upload-alt">
                             <div className="hover:animate-spin hover:text-indigo-500 transition-colors duration-300">
                                 <UserIcon iconName="edit" />

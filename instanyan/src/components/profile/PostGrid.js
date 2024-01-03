@@ -22,6 +22,10 @@ const PostGrid = ({username}) => {
     if (error) {
         return <div>User not found</div>;
     }
+
+    if (posts.length === 0){
+        return <div>No posts found.</div>
+    }
     
     return(
         <div className="mt-2 pb-10 grid grid-cols-3 gap-1 sm:gap-4">
@@ -37,4 +41,4 @@ const PostGrid = ({username}) => {
     );
 };
 
-export default PostGrid
+export default PostGrid;
