@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import {postIcons} from '../../constants';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { likePost } from "../../redux/reduxActions";
-import { useGetPostsQuery } from "../../redux/post/postService";
-import { setPosts } from "../../redux/post/postSlice";
-import Loading from "../utils/Loading";
+import { useGetPostsQuery, setPosts } from "../../redux/post/";
+import{ Loading, UserIcon } from "../utils/";
 
 function Feed(){     
-    const { data: feedPosts, error, isLoading, isSuccess, refetch } = useGetPostsQuery({ origin: 'feed' })
+    const { data: feedPosts, error, isLoading, refetch } = useGetPostsQuery({ origin: 'feed' })
     const { posts } = useSelector((state) => state.posts)
     const dispatch = useDispatch();
 
@@ -36,36 +33,44 @@ function Feed(){
     }
     
     return(
-        <div className="sm:ml-20 flex flex-col bg-stone-950 sm:w-2/3 flex-grow">
+        <div className="flex flex-col w-full mt-2 space-y-4 sm:mt-4 sm:justify-center sm:items-center">
             {posts.map((post, index) => (
-                <div key={index} className="my-4">
-                    <div style={{backgroundImage: `url(${post.image})`}} className='shadow-inner bg-cover 
-                    bg-center flex p-4 flex-col h-80-screen w-full'>                        
+                <div key={index} className="bg-grey-medium sm:w-2/5 sm:rounded-md">
+                    <div className="flex w-full">
                         <Link to={`profile/${post.username}`}>
-                            <div class="flex space-x-2">
-                                <img className="border border-neutral-50 rounded-full h-14 w-14" src={post.avatar} />
-                                <div className="flex-col">
-                                    <span className="flex">{post.username}</span>
-                                    <span className="flex">{post.created_at}</span>
-                                    <span className="flex">{post.followers} followers</span>                                
-                                </div>                            
-                            </div>
+                            <div className="flex w-full p-2 px-3 items-center">
+                                <img className="ring-2 ring-indigo-500 rounded-full h-[43px] w-[43px] sm:w-[52px] sm:h-[52px] p-[2px] z-0" src={post.avatar} />                            
+                                <div className="flex flex-col ml-4">
+                                    <span className="flex username">@{post.username}</span>
+                                    <div className="flex-col post-date">
+                                        <span>{post.created_at} ago</span>
+                                        <span> 🞄 </span>
+                                        <span>{post.followers} followers</span>                                
+                                    </div>
+                                </div>
+                            </div>   
                         </Link>
-                        <div className="flex flex-grow"></div>
-                        <div className="flex w-full justify-start space-x-4">
-                                <button onClick={() => handleLike(post.id)}><FontAwesomeIcon icon={postIcons[0]} /></button>
-                                <span>{post.likes}</span>
-                                <span>Liked: {post.liked}</span>
-                                <FontAwesomeIcon icon={postIcons[2]} />
+                    </div>
+                    <div className="flex flex-col w-full post-image">                        
+                        <img src={post.image} className="w-full h-full object-cover object-center bg-grey-heavy" />
+                        <div className="post-icons absolute flex ">
+                            <div className={`cursor-pointer ${post.liked === "yes" && "post-liked"}`} onClick={() => handleLike(post.id)}>
+                                <UserIcon iconName="heart"/>
+                            </div>
+                            <span className="sub-title-alt">{post.likes} Likes </span>
+                            <span> 🞄</span>
+                            <div className={`cursor-pointer`}>
+                                <UserIcon iconName="share"/>
+                            </div>                            
                         </div>
                     </div>
-                    <div className="flex w-full flex-col p-4">
+                    <div className="flex w-full flex-col p-4 post-about">
                         <div className="flex w-full">
-                            <span>{post.username}</span>
+                            <span className="uppercase text-xs sm:text-sm">{post.username}</span>
                         </div>
-                        <div className="flex w-full font-light">
-                            <span className="break-words text-justify">{post.content}</span>
-                            <span className="break-words text-justify">{post.hashtags}</span>
+                        <div className="flex flex-col w-full ">
+                            <span className="content">{post.content}</span>
+                            <span className="hashtags">{post.hashtags}</span>
                         </div>
                     </div>
                 </div>

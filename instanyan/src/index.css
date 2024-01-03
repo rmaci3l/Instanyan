@@ -36,6 +36,10 @@
     @apply font-medium text-white-medium text-xs uppercase tracking-wide;
   }
 
+  html .sub-title-alt {
+    @apply font-medium text-white-medium text-xs sm:text-sm uppercase tracking-wide;
+  }
+
   /* Single-page styles. */
 
   html .single-page {
@@ -86,7 +90,7 @@
   }
 
   html .form-style .form-upload-alt {
-    @apply cursor-pointer justify-center items-center absolute -top-1 right-1 text-white-light bg-grey-medium p-2 rounded-full;
+    @apply cursor-pointer justify-center items-center absolute top-0 right-6 text-white-light bg-grey-medium p-[5px] rounded-full ring-1 ring-white-light;
   }
 
   html .form-style .form-upload-image {
@@ -168,35 +172,81 @@
     @apply text-indigo-500 bg-grey-light;
   }
 
-  /* Post/Feed section. */
   
+  /* Single Post/Feed section. */
+  /* Default post style */
+  html .post-date {
+    @apply text-white-medium text-sm lowercase;
+  }
+
+  html .username {
+    @apply text-white-light font-medium text-sm sm:text-lg sm:font-light;
+  }
+
   html .post-section {
-
+    @apply flex flex-col w-full sm:flex-row sm:w-2/3 bg-grey-medium;
+  }
+  
+  html .post-image {
+    @apply relative h-[60vh] sm:h-[70vh];
   }
 
-  html .post-section .profile img {
-    @apply ring-2 ring-indigo-500 rounded-full h-[43px] sm:h-16 p-[2px] sm:p-[4px] z-0;
+  html .post-icons {
+    @apply items-center space-x-2 bottom-4 left-3;
   }
-
-  html .post-section .username {
-    @apply text-white-light font-medium text-sm sm:text-lg sm:font-light ;
-  }
-
-  html .post-section .date {
-    @apply text-white-medium lowercase text-sm;
-  }
-
-  html .post-section .post-img {
-    @apply w-full h-full object-cover object-center;
-  }
-
-  html .post-section .post-liked svg{
+  
+  html .post-icons .post-liked svg{
     @apply text-red-500;
   }
 
-  html .post-section svg {
-    @apply text-white-medium text-xl;
+  html .post-icons svg {
+    @apply text-white-medium text-base sm:text-xl;
   }
+
+  
+  html .post-section .post-image img {
+    @apply w-full h-full object-cover object-center bg-grey-heavy;
+  }
+
+  html .post-about {
+    @apply space-y-2 px-4 py-3 sm:max-h-fit max-h-[160px] sm:min-h-fit min-h-[60px] items-start;
+  }
+
+  html .post-about .username {
+    @apply text-xs uppercase tracking-wide sm:text-sm;
+  }
+
+  html .post-about .content {
+    @apply text-white-medium text-sm sm:text-sm overflow-auto;
+  }
+
+  html .post-about .hashtags {
+    @apply text-indigo-500 font-light text-sm;
+  }
+
+  /* Default post style for mobile view. */
+  html .post-section .profile-mob {
+    @apply flex w-full px-3 py-2 sm:hidden;
+  }
+
+  html .post-section .profile-mob img {
+    @apply ring-2 ring-indigo-500 rounded-full h-[43px] p-[2px] z-0 object-cover object-center;
+  }
+
+  /* Default post style for desktop. */
+  html .post-section-desk {
+    @apply hidden sm:border-l sm:border-grey-light sm:flex sm:basis-2/6 sm:space-y-2 sm:flex-col sm:order-2 sm:px-4 sm:rounded-sm;
+  }
+
+  html .post-section-desk .profile-desk {
+    @apply flex border-b py-4 border-grey-lighter;
+  }
+
+  html .post-section-desk .profile-desk img {
+    @apply ring-2 ring-indigo-500 rounded-full h-16 p-[4px] object-cover object-center;
+  }
+
+
   /* Profile section. */
   /* Profile Info. */
 
@@ -260,6 +310,10 @@
 
 .h-80-screen {
   height: 80vh;
+}
+
+.h-60-screen {
+  height: 60vh;
 }
 
 body {

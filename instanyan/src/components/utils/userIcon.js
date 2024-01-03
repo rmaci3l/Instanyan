@@ -1,4 +1,4 @@
-import { HiOutlineHome, HiUserCircle, HiCheckBadge, HiHeart, HiOutlinePaintBrush, HiOutlineLockClosed, HiOutlineExclamationCircle, HiOutlineQuestionMarkCircle, HiOutlineChartBar, HiOutlineInformationCircle, HiEnvelope, HiOutlinePencil , HiArrowPath, HiArrowUpTray, HiOutlineUserCircle, HiOutlineUser, HiMagnifyingGlass, HiOutlineBell, HiOutlinePlusCircle, HiOutlineCog6Tooth, HiArrowLeftOnRectangle } from 'react-icons/hi2'
+import { HiOutlineHome, HiUserCircle, HiCheckBadge, HiShare, HiHeart, HiOutlinePaintBrush, HiOutlineLockClosed, HiOutlineExclamationCircle, HiOutlineQuestionMarkCircle, HiOutlineChartBar, HiOutlineInformationCircle, HiEnvelope, HiOutlinePencil , HiArrowPath, HiArrowUpTray, HiOutlineUserCircle, HiOutlineUser, HiMagnifyingGlass, HiOutlineBell, HiOutlinePlusCircle, HiOutlineCog6Tooth, HiArrowLeftOnRectangle } from 'react-icons/hi2'
 import { HiOutlineTranslate } from 'react-icons/hi';
 import { FaGithub, FaYoutube, FaTwitter } from 'react-icons/fa6'
 
@@ -29,7 +29,7 @@ const iconMapping = {
     follow: HiUserCircle,
     following: HiCheckBadge,
     heart: HiHeart,
-
+    share: HiShare,
 };
 
 const UserIcon = ({ iconName }) => {
