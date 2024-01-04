@@ -18,7 +18,6 @@ const profileSlice = createSlice({
             state.profileDetails = payload.profile;
             state.message = payload.message;
             state.error = payload.error;
-            state.exploreProfiles = null;
             state.follows = payload.follows;
         },
         setExplore: (state, {payload}) => {

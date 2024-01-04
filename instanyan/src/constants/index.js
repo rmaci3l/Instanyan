@@ -11,7 +11,7 @@ export const navLinks = [
     {
         id: "search",
         title: "Search",
-        path: "",
+        path: "#",
         icon: "search",
         function: "search"
     },

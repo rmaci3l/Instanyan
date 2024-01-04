@@ -65,7 +65,7 @@
   }
  
   html .form-style button{
-    @apply mt-2 text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
+    @apply text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
     }
 
   html .form-style button:hover{
@@ -249,15 +249,9 @@
 
   /* Profile section. */
   /* Profile Info. */
-
-  html .profile-info {
-
-  }
-
   html .profile-info img {
     @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full h-[77px] sm:w-44 sm:h-44 p-[2px] sm:p-[4px];
   }
-
 
   /* Post grid. */
 
@@ -306,14 +300,6 @@
     @apply font-semibold text-[10px] sm:text-xs uppercase sm:tracking-wider;
   }
 
-}
-
-.h-80-screen {
-  height: 80vh;
-}
-
-.h-60-screen {
-  height: 60vh;
 }
 
 body {

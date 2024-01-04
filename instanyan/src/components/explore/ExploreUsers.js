@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { useGetProfileQuery } from "../../redux/profile/profileService";
+import { setExplore, useGetProfileQuery } from "../../redux/profile/";
 import { useDispatch, useSelector } from "react-redux";
-import { setExplore } from "../../redux/profile/profileSlice";
+import { Loading } from "../utils";
+import { Link } from "react-router-dom";
+import { Avatar } from "flowbite-react";
 
 const ExploreUsers = ({ username }) => {
-    const { data: users, isLoading, error, isSuccess } = useGetProfileQuery({origin: 'explore', username: username.slice(1)})
-    const { exploreProfiles } = useSelector((state) => state.posts);
+    const { data: users, isLoading, error, isSuccess, isError } = useGetProfileQuery({origin: 'explore', username: username.slice(1)})
+    const { exploreProfiles } = useSelector((state) => state.profile);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,14 +16,46 @@ const ExploreUsers = ({ username }) => {
         }
     }, [users, dispatch])
 
-    
-    // Loading.
     if (isLoading) {
-        return <div>Loading...</div>
+        return <Loading />
     }
+
+    if (users.error === "nouserfound") {
+        return(
+            <div>Oops. NO user found!</div>
+        )
+    }
+
     return (
-        <div>
-            Explore users
+        <div className="flex flex-col w-full mt-2 items-center sm:justify-center">
+            <div className="space-y-4 px-2 sm:w-1/3">
+                <div className="flex-col w-full px-2">
+                    <div>
+                        <span className="uppercase text-white-medium tracking-wide">User Search</span>
+                    </div>
+                    <div className="flex font-light text-sm text-white-medium ">
+                        <span>{`Found ${exploreProfiles.length} user(s) similar to "`}</span>
+                        <span className="text-indigo-500">{`${username}`}</span>
+                        <span>":</span>
+                    </div>                    
+                </div>
+                {exploreProfiles.map((profile) => (    
+                <Link to={`/profile/${profile.username}`} className="flex">
+                    <div key={profile.id} className="flex w-full p-2 rounded-md bg-grey-medium hover:ring-2 sm:ring-indigo-500 sm:transition-all sm:duration-300">                    
+                        <div className="flex w-fit justify-center shrink-0 items-center sm:mx-2">
+                            <img className="ring-2 ring-indigo-500 rounded-full h-[52px] w-[52px] sm:w-[62px] sm:h-[62px] p-[2px] z-0" src={profile.avatar} />
+                        </div>
+                        <div className="flex flex-col space-y-1 p-2">
+                            <span className="username">@{profile.username}</span>
+                            <span className="text-white-medium tracking-wider uppercase text-xs">{profile.followers} followers</span>
+                            <div className="w-11/12 sm:w-full">
+                                <p className="text-white-medium font-light text-sm truncate">{profile.status}</p>
+                            </div>                        
+                        </div>                    
+                    </div>            
+                </Link>
+                ))}
+            </div>
         </div>
     )   
 }

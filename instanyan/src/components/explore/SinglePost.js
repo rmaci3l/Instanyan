@@ -24,7 +24,9 @@ const SinglePost = () => {
     }
 
     if (isLoading) {
-        <Loading />
+        <div className="flex w-full justify-center items-center">
+            <Loading />
+        </div>        
     }
 
     if (posts.length === 0) {

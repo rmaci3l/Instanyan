@@ -12,7 +12,7 @@ const Explore = () => {
     
 
     return (
-        <div>
+        <div className="flex flex-col w-full items-center">
             {isUserSearch ?
             <ExploreUsers username={searchTerm} /> :
             <ExplorePosts hashtags={searchTerm} /> }

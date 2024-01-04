@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { Link, Outlet } from 'react-router-dom'
-import { NotFound } from '../../components'
+import { Outlet } from 'react-router-dom'
+import { Unauthorized } from '../../components'
 
 const ProtectedRoute = () => {
   const { userToken } = useSelector((state) => state.auth)
@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   if (!userToken) {
     return (
       <div>
-        <NotFound />
+        <Unauthorized />
       </div>
     )
   }

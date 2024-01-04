@@ -12,6 +12,7 @@ import SearchPopUp from './utils/Search';
 import NotificationPopUp from './utils/Notifications'
 import Explore from './explore/Explore';
 import SinglePost from "./explore/SinglePost";
+import Unauthorized from './Unauthorized';
 
 export {
     Feed,
@@ -24,6 +25,7 @@ export {
     Register,
     ProtectedRoute,
     NotFound,
+    Unauthorized,
     Header,
     Footer,
     SearchPopUp,
