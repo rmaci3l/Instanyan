@@ -43,7 +43,7 @@
   /* Single-page styles. */
 
   html .single-page {
-    @apply p-4 rounded flex-col sm:w-2/5;
+    @apply p-4 rounded flex-col sm:w-full lg:w-11/12 xl:w-4/5;
   }
 
   html .single-page h1 {
@@ -184,7 +184,7 @@
   }
 
   html .post-section {
-    @apply flex flex-col w-full sm:flex-row sm:w-2/3 bg-grey-medium;
+    @apply flex flex-col w-full sm:flex-row sm:w-11/12 xl:w-2/3 bg-grey-medium;
   }
   
   html .post-image {
@@ -250,7 +250,7 @@
   /* Profile section. */
   /* Profile Info. */
   html .profile-info img {
-    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full h-[77px] sm:w-44 sm:h-44 p-[2px] sm:p-[4px];
+    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full h-full sm:w-44 p-[2px] sm:p-[4px];
   }
 
   /* Post grid. */
@@ -283,12 +283,16 @@
   }
 
   /* Config section social links. */
-  html .social-links {
-    @apply flex space-x-2 hover:text-white-light transition-colors duration-300;
+  html .social-links div{
+    @apply flex ml-2 space-x-4 hover:text-white-light transition-colors duration-300;
   }
 
   html .social-links p {
     @apply text-xs uppercase;
+  }
+
+  html .social-links svg{
+    @apply text-lg;
   }
 
   html .social-links-alt {

@@ -16,12 +16,14 @@ const Header = () => {
     const dispatch = useDispatch();
     const showSearch = useSelector(state => state.popup.isSearchVisibile);
     const avatar = useSelector(state => state.auth.userInfo.avatar);
+    const { userToken } = useSelector((state) => state.auth);
+    const { userInfo } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (isSuccess && userDetails){
               dispatch(setCredentials({userInfo: userDetails}));       
           }
-      }, [userDetails, isSuccess, dispatch]);
+      }, [userDetails, isSuccess, dispatch, userInfo]);
 
     const handleSearchPopUp = (confirm) => {
         if (confirm === 'search') {
@@ -33,8 +35,12 @@ const Header = () => {
         return null;
     };  
 
+    if (!userToken) {
+        return null;
+    }
+
     return(     
-        <div className="flex w-full sm:w-auto sticky z-10 top-0 left-0 bg-grey-medium sm:h-screen">            
+        <div className="flex w-screen sm:w-auto sticky z-10 top-0 left-0 bg-grey-medium sm:h-screen">            
             <div className="mobile-nav">
                 <div>
                     <Link to="/" >                    
@@ -47,7 +53,7 @@ const Header = () => {
                         <UserIcon iconName="search" />
                     </button>
                     <Link to="/profile">
-                        <Avatar img={avatar} size="sm" bordered rounded statusPosition="top-right" />           
+                        <Avatar img={userInfo.avatar} size="sm" bordered rounded statusPosition="top-right" />           
                     </Link>
                 </div>
             </div>
@@ -76,7 +82,7 @@ const Header = () => {
                 <div className="desk-footer">
                     <div className="flex">
                         <Link to="/profile">
-                            <Avatar img={avatar} size="md" bordered rounded status="online" statusPosition="top-right" />
+                            <Avatar img={userInfo.avatar} size="md" bordered rounded status="online" statusPosition="top-right" />
                         </Link>
                     </div>
                     <div className="flex text-xl">

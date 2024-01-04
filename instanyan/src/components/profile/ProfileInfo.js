@@ -37,7 +37,7 @@ const ProfileInfo = ({username}) => {
     return(
         <div className="flex flex-col bg-grey-medium rounded-md profile-info sm:px-8 sm:py-4">
             <div className="relative flex w-full px-3 py-2 space-x-2 border-b border-grey-light sm:items-center">
-                <div className="flex basis-1/4 py-2">
+                <div className="flex basis-1/4 py-2 shrink-0 items-center justify-center">
                     <img src={profileDetails.avatar} alt={`Profile image of ${profileDetails.username}`} className="object-cover object-center"/>
                 </div>
                 <div className="flex basis-3/4 pl-2 pt-1 flex-col h-full w-full">

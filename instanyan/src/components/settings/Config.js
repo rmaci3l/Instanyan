@@ -35,19 +35,18 @@ const ConfigPage = () => {
 
     return(       
         <div className="flex flex-col w-full sm:flex-row">
-            <div className="flex flex-col sm:w-1/5 sm:border-x sm:border-grey-lighter px-4">
+            <div className="flex flex-col sm:w-2/5 xl:w-1/4 sm:border-x sm:border-grey-lighter px-4">
                 <div className={`${classSettings} mt-2`}>
                     <ConfigSection type="account" />
                     <ConfigSection type="interface" />
                     <ConfigSection type="support" />
                     <div className="mt-3">
                         <h2 className="font-medium text-white-medium text-xs uppercase tracking-wide">SOCIAL</h2>
-                        <div className="flex space-x-2 text-white-medium py-3 border-b border-grey-lighter">                        
+                        <div className="flex space-x-2 text-white-medium py-3 border-b border-grey-lighter ">                        
                             {socialLinks.map((social) => (
-                            <Link to={social.link}>
-                                <div className="social-links" key={social.id}>
+                            <Link to={social.link} className="social-links">
+                                <div key={social.id}>
                                     <UserIcon iconName={social.icon} />
-                                    <p>{social.name}</p>
                                 </div>
                             </Link>
                             ))}                                                                                                                                           

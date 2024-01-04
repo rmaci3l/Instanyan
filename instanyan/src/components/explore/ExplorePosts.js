@@ -32,7 +32,7 @@ const ExplorePosts = ({ hashtags }) => {
     
     return (
         <div className="flex flex-col w-full my-2 space-y-4 sm:my-4 sm:justify-center sm:items-center">
-            <div className="flex flex-col w-full sm:w-4/5 lg:w-2/5 px-2">
+            <div className="flex flex-col w-full sm:w-4/5 lg:w-3/5 2xl:w-2/5 px-2">
                 <div>
                     <span className="uppercase text-white-medium tracking-wide">Post Search</span>
                 </div>
@@ -43,7 +43,7 @@ const ExplorePosts = ({ hashtags }) => {
                 </div>                    
             </div>
             {posts.map((post, index) => (
-                <div key={index} className="bg-grey-medium sm:w-4/5 lg:w-2/5 sm:rounded-md">
+                <div key={index} className="bg-grey-medium sm:w-4/5 lg:w-3/5 2xl:w-2/5 sm:rounded-md">
                     <div className="flex w-full">
                         <Link to={`profile/${post.username}`}>
                             <div className="flex w-full p-2 px-3 items-center">

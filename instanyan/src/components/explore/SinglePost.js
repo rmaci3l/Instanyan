@@ -38,7 +38,7 @@ const SinglePost = () => {
         <div className="flex flex-col w-full mt-2 sm:mt-4 sm:justify-center sm:items-center">
             <div className="post-section ">                
                 <div className="profile-mob">
-                    <div className="flex basis-1/6">
+                    <div className="flex basis-1/6 items-center justify-center">
                         <img src={posts[0].avatar} alt={`User ${posts[0].username}`} />
                     </div>
                     <div className="flex flex-col basis-5/6">
@@ -104,7 +104,7 @@ const SinglePost = () => {
             </div>
 
             {posts.length > 1 &&(
-            <div className="flex w-full sm:w-2/3 p-3 sm:p-0 mt-6">
+            <div className="flex w-full sm:w-11/12 xl:w-2/3 p-3 sm:p-0 mt-6">
                 <div className="flex flex-col w-full space-y-6 border-t border-grey-lighter">
                     <span className="uppercase text-xs text-white-medium sm:text-sm mt-6">More posts from {posts[0].username}</span>
                     <div className="pb-10 grid grid-cols-3 gap-1 sm:gap-4">

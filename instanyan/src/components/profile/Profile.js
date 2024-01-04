@@ -12,7 +12,7 @@ function Profile({ match }) {
 
     return(
         <div className="flex p-4 w-full sm:justify-center sm:flex-row">
-            <div className="flex flex-col w-full sm:w-2/3">                
+            <div className="flex flex-col w-full sm:w-11/12 2xl:w-2/3">                
                 <ProfileInfo username={username} />
                 <div className="flex w-full">
                     <PostGrid username={username} />
