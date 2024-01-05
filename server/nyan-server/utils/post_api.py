@@ -9,17 +9,18 @@ session = Session()
 # User posts create/update/delete.   
 def create_post(user_id, post_data):
     with Session() as session:
-        db_user = session.query(UserProfile).get(user_id)
-        if not db_user:
+        current_user = session.query(User).get(user_id)
+        current_profile = current_user.profile
+        if not current_user:
             return {'message' : "user not found", 'status' : 404}
-        new_post = Post(user_id=db_user.user_id,
+        new_post = Post(user_id=current_profile.user_id,
                         image=post_data['image'],
                         content=post_data['content'],
                         hashtags=post_data['hashtags'],
                         )
         session.add(new_post)        
-        count = session.query(func.count(Post.id)).filter(Post.user_id == db_user.user_id).scalar()
-        db_user.posts = count
+        count = session.query(func.count(Post.id)).filter(Post.user_id == current_profile.user_id).scalar()
+        current_profile.posts = count
         session.commit()
         return {'message' : "Post created successfuly.", 'redirect' : "/profile", 'status' : 200}
 

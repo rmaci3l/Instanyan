@@ -77,13 +77,14 @@ def request_profile(profile_args, user_id):
 def update_data(user_id, user_data):
     with Session() as session:
         # To-do: Implement some data validation here.
-        db_user = session.query(UserProfile).get(user_id)
-        if not db_user:
+        current_user = session.query(User).get(user_id)
+        user_profile = current_user.profile
+        if not current_user:
             return {'message' : "User not found!", 'status' : 404}
-        db_user.about = user_data.get('about', db_user.about)
-        db_user.status = user_data.get('status', db_user.status)
+        user_profile.about = user_data.get('about', user_profile.about)
+        user_profile.status = user_data.get('status', user_profile.status)
         if (user_data.get('avatar') != ""):
-            db_user.profile_image = user_data.get('avatar', db_user.profile_image)       
+            user_profile.profile_image = user_data.get('avatar', user_profile.profile_image)       
         profile = session.query(User).get(user_id).serialize()
         session.commit()
         return { 'profile' : profile, 

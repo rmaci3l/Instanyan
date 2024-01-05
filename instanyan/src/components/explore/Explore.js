@@ -1,13 +1,21 @@
 import React from "react";
-import { useSelector } from 'react-redux';
 import ExplorePosts from "./ExplorePosts"
 import ExploreUsers from "./ExploreUsers"
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const Explore = () => {
     const [searchParams] = useSearchParams();
     const searchTerm = searchParams.get('search');
-    const isUserSearch = searchTerm.startsWith('@');
+    const navigate = useNavigate();
+    let isUserSearch = '';
+
+    if (searchTerm === null){
+        navigate('/');
+    }
+    else{
+        isUserSearch = searchTerm.startsWith('@');
+    }
+
 
     
 

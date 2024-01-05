@@ -39,6 +39,7 @@ class User(Base):
         self.email = email
         self.username = username
         self.password = password
+        self.profile = profile
         
         
     def serialize(self):
@@ -60,9 +61,9 @@ class UserProfile(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="profile")
     
-    profile_image = Column(String, default="https://i.imgur.com/A5b1S4n.jpg")
-    status = Column(String(60), default="Nyandit me!")
-    about = Column(String(150), default="Nyandit me too!")
+    profile_image = Column(String, default="https://i.imgur.com/qr6ZuJx.jpg")
+    status = Column(String(60), default="Go to settings and edit your status!")
+    about = Column(String(150), default="Go to settings and edit your about!")
     posts = Column(Integer, default=0)
     followers = Column(Integer, default=0)
     following = Column(Integer, default=0)

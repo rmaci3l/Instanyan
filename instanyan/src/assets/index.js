@@ -3,6 +3,7 @@ import LogoIcon from "./logo1x1.svg";
 import UploadDefault from "./upload-default.jpg";
 import Detective from "./instanyan-detective.webp";
 import Officer from "./instanyan-officer.webp";
+import Technician from "./instanyan-ti.webp";
 
 export { 
     Logo,
@@ -10,4 +11,5 @@ export {
     UploadDefault,
     Detective,
     Officer,
+    Technician
 }

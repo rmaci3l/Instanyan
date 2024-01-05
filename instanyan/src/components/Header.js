@@ -15,7 +15,6 @@ const Header = () => {
     const { data: userDetails, isSuccess } = useGetUserDetailsQuery();
     const dispatch = useDispatch();
     const showSearch = useSelector(state => state.popup.isSearchVisibile);
-    const avatar = useSelector(state => state.auth.userInfo.avatar);
     const { userToken } = useSelector((state) => state.auth);
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -53,7 +52,7 @@ const Header = () => {
                         <UserIcon iconName="search" />
                     </button>
                     <Link to="/profile">
-                        <Avatar img={userInfo.avatar} size="sm" bordered rounded statusPosition="top-right" />           
+                        <Avatar img={userInfo.avatar ? userInfo.avatar : undefined} size="sm" bordered rounded statusPosition="top-right" />           
                     </Link>
                 </div>
             </div>
@@ -82,7 +81,7 @@ const Header = () => {
                 <div className="desk-footer">
                     <div className="flex">
                         <Link to="/profile">
-                            <Avatar img={userInfo.avatar} size="md" bordered rounded status="online" statusPosition="top-right" />
+                            <Avatar img={userInfo.avatar ? userInfo.avatar : undefined} size="md" bordered rounded status="online" statusPosition="top-right" />
                         </Link>
                     </div>
                     <div className="flex text-xl">

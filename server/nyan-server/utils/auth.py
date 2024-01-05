@@ -60,16 +60,16 @@ def register_user(auth_data):
             return { 'message' : "User already registered!", 'status': 409}
         else:
             try:
-                password = generate_password_hash(user_info['password'])
+                password = generate_password_hash(auth_data['password'])
                 new_profile = UserProfile()
-                new_user = User(name=user_data['name'], 
-                                email=user_data['email'], 
-                                username=user_data['username'], 
+                new_user = User(name=auth_data['name'], 
+                                email=auth_data['email'], 
+                                username=auth_data['username'], 
                                 password=password,
                                 profile=new_profile
                                 )
                 session.add(new_user)
-                session.commit
+                session.commit()
                 return { 'message' : "User registered successfully", 'status': 201}
             except SQLAlchemyError as e:
                 print("Database error: ", str(e))

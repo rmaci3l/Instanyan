@@ -1,6 +1,5 @@
-import {  faComment, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
-
-
+// Header constants.
+// desktop-links
 export const navLinks = [
     {
         id: "home",
@@ -29,6 +28,7 @@ export const navLinks = [
     }, 
 ];
 
+// mobile-links
 export const mobLinks = [    
     {
         id: "home",
@@ -50,7 +50,35 @@ export const mobLinks = [
     }       
 ];
 
+export const socialLinks = [
+    {
+        id: "github",
+        name: "Github",
+        icon: "github",
+        link: "https://github.com/rmaci3l"
+    },
+    {
+        id: "email",
+        name: "E-mail",
+        icon: "email",
+        link: "mailto:"
+    },
+    {
+        id: "youtube",
+        name: "Youtube",
+        icon: "youtube",
+        link: "https://youtube.com"
+    },
+    {
+        id: "twitter",
+        name: "Twitter",
+        icon: "twitter",
+        link: "https://x.com"
+    }
+]
 
+// Settings page constants.
+// settings-options.
 export const configLinks = [    
     {
         id: "Edit Profile",
@@ -101,36 +129,6 @@ export const configLinks = [
         icon: "about"
     },    
 ];
-
-export const socialLinks = [
-    {
-        id: "github",
-        name: "Github",
-        icon: "github",
-        link: "https://github.com/rmaci3l"
-    },
-    {
-        id: "email",
-        name: "E-mail",
-        icon: "email",
-        link: "mailto:"
-    },
-    {
-        id: "youtube",
-        name: "Youtube",
-        icon: "youtube",
-        link: "https://youtube.com"
-    },
-    {
-        id: "twitter",
-        name: "Twitter",
-        icon: "twitter",
-        link: "https://x.com"
-    }
-]
-
-// Settings page constants.
-
 
 // settings-language
 export const countries = [
@@ -252,4 +250,3 @@ export const themes = [
         color: "from-indigo-500 to-indigo-700",
     },
 ]
-export const postIcons = [faHeart, faComment, faShare];

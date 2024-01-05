@@ -4,10 +4,10 @@ import { likePost } from "../../redux/reduxActions";
 import { useGetPostsQuery, setPosts } from "../../redux/post/";
 import { UserIcon, Loading } from "../utils";
 import { Link } from "react-router-dom";
-
+import { Technician } from "../../assets/";
 
 const ExplorePosts = ({ hashtags }) => {
-    const { data, isLoading, isSuccess, isError, error } = useGetPostsQuery({origin: 'explore', hashtags: hashtags} )
+    const { data, isLoading } = useGetPostsQuery({origin: 'explore', hashtags: hashtags} )
     const { posts } = useSelector((state) => state.posts)
     const dispatch = useDispatch();
 
@@ -26,8 +26,17 @@ const ExplorePosts = ({ hashtags }) => {
         return <Loading />
     }
 
-    if (isError) {
-        return <div>{error.data.message}</div>
+    if (data.error === "noposts") {
+        return(
+            <div className="flex flex-col w-full items-center justify-center">       
+                <div className="flex flex-col w-4/5 sm:w-3/4 mt-10 text-center items-center">
+                    <img className="rounded-full ring-4 ring-indigo-500 p-2 w-fit sm:h-[380px]" src={Technician} alt=""/>
+                    <h1 className="text-white-light font-bold text-3xl tracking-wider mt-8">Oops... Not Found!</h1>
+                    <span className="text-white-medium font-light text-lg text-center p-4">It seems we found no posts with the <span className="text-indigo-500 font-medium">{hashtags}</span> hashtag...</span>
+                    <span className="text-white-light font-light text-lg text-center p-4"> You can return to <Link to='/' className="text-indigo-500">home</Link>.</span>
+                </div>
+            </div>
+        )
     }
     
     return (
@@ -47,7 +56,7 @@ const ExplorePosts = ({ hashtags }) => {
                     <div className="flex w-full">
                         <Link to={`profile/${post.username}`}>
                             <div className="flex w-full p-2 px-3 items-center">
-                                <img className="ring-2 ring-indigo-500 rounded-full h-[43px] w-[43px] sm:w-[52px] sm:h-[52px] p-[2px] z-0" src={post.avatar} />                            
+                                <img className="ring-2 ring-indigo-500 rounded-full h-[43px] w-[43px] sm:w-[52px] sm:h-[52px] p-[2px] z-0" src={post.avatar} alt="" />                            
                                 <div className="flex flex-col ml-4">
                                     <span className="flex username">@{post.username}</span>
                                     <div className="flex-col post-date">
@@ -60,7 +69,7 @@ const ExplorePosts = ({ hashtags }) => {
                         </Link>
                     </div>
                     <div className="flex flex-col w-full post-image">                        
-                        <img src={post.image} className="w-full h-full object-cover object-center bg-grey-heavy" />
+                        <img src={post.image} className="w-full h-full object-cover object-center bg-grey-heavy" alt=""/>
                         <div className="post-icons absolute flex ">
                             <div className={`cursor-pointer ${post.liked === "yes" && "post-liked"}`} onClick={() => handleLike(post.id)}>
                                 <UserIcon iconName="heart"/>
