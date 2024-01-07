@@ -57,7 +57,7 @@ function Post() {
 
     
     return(
-        <div className="flex w-full sm:justify-center">
+        <div className="flex w-full sm:justify-center mb-20">
             <div className="flex flex-col w-full sm:w-1/3 sm:bg-grey-medium p-4">
                 <div className="title-style border-b border-grey-lighter mb-4 py-1 sm:py-6">
                     <h1>Create a new post</h1>

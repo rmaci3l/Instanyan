@@ -61,7 +61,7 @@ const ExplorePosts = ({ hashtags }) => {
                                     <span className="flex username">@{post.username}</span>
                                     <div className="flex-col post-date">
                                         <span>{post.created_at} ago</span>
-                                        <span> 🞄 </span>
+                                        <span> - </span>
                                         <span>{post.followers} followers</span>                                
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@ const ExplorePosts = ({ hashtags }) => {
                                 <UserIcon iconName="heart"/>
                             </div>
                             <span className="sub-title-alt">{post.likes} Likes </span>
-                            <span> 🞄</span>
+                            <span> -</span>
                             <div className={`cursor-pointer`}>
                                 <UserIcon iconName="share"/>
                             </div>                            

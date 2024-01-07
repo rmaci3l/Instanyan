@@ -33,7 +33,7 @@ function Feed(){
     }
     
     return(
-        <div className="flex flex-col w-full mt-2 space-y-4 sm:mt-4 sm:justify-center sm:items-center">
+        <div className="flex flex-col w-full mt-2 mb-20 space-y-4 sm:mt-4 sm:justify-center sm:items-center">
             {posts.map((post, index) => (
                 <div key={index} className="bg-grey-medium sm:w-4/5 lg:w-3/5 2xl:w-2/5 sm:rounded-md">
                     <div className="flex w-full">
@@ -44,7 +44,7 @@ function Feed(){
                                     <span className="flex username">@{post.username}</span>
                                     <div className="flex-col post-date">
                                         <span>{post.created_at} ago</span>
-                                        <span> 🞄 </span>
+                                        <span> - </span>
                                         <span>{post.followers} followers</span>                                
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@ function Feed(){
                                 <UserIcon iconName="heart"/>
                             </div>
                             <span className="sub-title-alt">{post.likes} Likes </span>
-                            <span> 🞄</span>
+                            <span> -</span>
                             <div className={`cursor-pointer`}>
                                 <UserIcon iconName="share"/>
                             </div>                            

@@ -45,7 +45,7 @@ const SinglePost = () => {
                         <span className="username">@{posts[0].username}</span>
                         <div className="flex-col post-date">
                             <span className="date">{posts[0].created_at} ago</span> 
-                            <span> 🞄 </span>
+                            <span> - </span>
                             <span>{posts[0].followers} followers</span>    
                         </div>                                               
                     </div>
@@ -57,7 +57,7 @@ const SinglePost = () => {
                             <UserIcon iconName="heart"/>
                         </div>                        
                         <span className="sub-title-alt">{posts[0].likes} Likes</span>
-                        <span> 🞄</span>
+                        <span> -</span>
                         <div className={`cursor-pointer`}>
                                 <UserIcon iconName="share"/>
                         </div>  
@@ -88,7 +88,7 @@ const SinglePost = () => {
                             <UserIcon iconName="heart" />
                         </div>
                         <span className="sub-title-alt">{posts[0].likes} Likes</span>
-                        <span> 🞄</span>
+                        <span> -</span>
                         <div className={`cursor-pointer`}>
                                 <UserIcon iconName="share"/>
                         </div> 
