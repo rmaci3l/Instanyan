@@ -9,17 +9,18 @@ session = Session()
 # User posts create/update/delete.   
 def create_post(user_id, post_data):
     with Session() as session:
-        db_user = session.query(UserProfile).get(user_id)
-        if not db_user:
+        current_user = session.query(User).get(user_id)
+        current_profile = current_user.profile
+        if not current_user:
             return {'message' : "user not found", 'status' : 404}
-        new_post = Post(user_id=db_user.user_id,
+        new_post = Post(user_id=current_profile.user_id,
                         image=post_data['image'],
                         content=post_data['content'],
                         hashtags=post_data['hashtags'],
                         )
         session.add(new_post)        
-        count = session.query(func.count(Post.id)).filter(Post.user_id == db_user.user_id).scalar()
-        db_user.posts = count
+        count = session.query(func.count(Post.id)).filter(Post.user_id == current_profile.user_id).scalar()
+        current_profile.posts = count
         session.commit()
         return {'message' : "Post created successfuly.", 'redirect' : "/profile", 'status' : 200}
 
@@ -40,20 +41,25 @@ def send_like(user_id, post_id):
         if user in post.liked_by:
             post.liked_by.remove(user)
             post.likes-= 1
-            action = "No"
+            action = "no"
                         
         else:
             post.liked_by.append(user)
             post.likes += 1
-            action = "Yes"    
+            action = "yes"    
         session.commit()
-        return { 'message' : "Success.", 'liked' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
+        return { 'message' : "Success.", 
+                'liked' : action, 
+                'likes' : post.likes, 
+                'id' : post.id, 
+                'status': 200 }
     
 def request_post(user_id, post_args):
     post_quantity = post_args.get('quantity', '20')
     username = post_args.get('username')
     hashtags = post_args.get('hashtags')
     origin = post_args.get('origin')
+    post_id = post_args.get('id')
     
     with Session() as session:
         try:
@@ -80,7 +86,7 @@ def request_post(user_id, post_args):
                               'message' : "User not found.",
                               'error' : "usernotfound",
                               'status' : 200 }
-                posts_data = session.query(Post).filter(Post.user_id == current_profile.id).all()
+                posts_data = session.query(Post).filter(Post.user_id == current_profile.id).order_by(Post.created_at.desc()).all()
                 if not posts_data:
                     return  { 'posts' : [],
                               'message' : "User has no posts.",
@@ -106,6 +112,27 @@ def request_post(user_id, post_args):
                          'message' : "Post(s) retrieved successfully.",
                          'error' : "",
                          'status' : 200 }
+                
+            # If origin is single-post, retrieve the post according to the id.
+            if (origin == 'single'):
+                post = session.query(Post).get(post_id)
+                if post:
+                    user = post.user_id
+                    recent_posts = (session.query(Post).filter(Post.user_id == user, Post.id != post_id).order_by(Post.created_at.desc()).limit(6).all())
+                    post_data = [post.serialize()]
+                    recent_posts_data = [p.serialize() for p in recent_posts]
+                    post_data.extend(recent_posts_data)
+                    
+                    return {'posts' : post_data,
+                            'message' : "Posts retrieved successfully.",
+                            'error' : "",
+                            'status' : 200 }
+                return { 'posts' : "",
+                         'message' : "Could not find this post by the ID." ,
+                         'error' : "postnotfound",
+                         'status' : 400 }
+                    
+            
             return { 'message' : " Invalid request, no or invalid origin specified.",
                      'error' : "invalid",
                      'status' : 400}

@@ -1,21 +1,309 @@
-/* Form */
-.form-input {
-  @apply w-full p-1 rounded text-black;
-}
-.form-button {
-  @apply mt-6 p-2 rounded-md w-full bg-gradient-to-r from-cyan-500 to-blue-500;
-}
+@tailwind base;
 
-/* Profile */
+@layer base {
+  html {
+    @apply text-white-light;
+    @apply bg-grey-light;
+  }
 
-.user-stats p {
-  @apply font-light text-sm text-stone-300;
-}
+  html .indigo-link {
+    @apply text-indigo-500 hover:text-indigo-600 transition-colors duration-300;
+  }
 
-/* Feed */
 
-.h-80-screen {
-  height: 80vh;
+  /* Default custom heading styles. */
+  html .title-style h1 {
+    @apply text-white-light font-normal text-xl sm:text-3xl tracking-wide;    
+  }
+
+  html .title-style h2 {
+    @apply text-white-light tracking-wide;
+  }
+
+  html .title-style p {
+    @apply font-light text-white-medium text-base text-justify leading-relaxed;
+  }
+
+  html .title-style ul {
+    @apply list-disc list-inside font-light text-white-medium;    
+  }
+
+  html .title-style svg {
+    @apply text-lg;
+  }
+
+  html .sub-title {
+    @apply font-medium text-white-medium text-xs uppercase tracking-wide;
+  }
+
+  html .sub-title-alt {
+    @apply font-medium text-white-medium text-xs sm:text-sm uppercase tracking-wide;
+  }
+
+  /* Single-page styles. */
+
+  html .single-page {
+    @apply p-4 rounded flex-col sm:w-full lg:w-11/12 xl:w-4/5;
+  }
+
+  html .single-page h1 {
+    @apply text-lg text-white-light tracking-wide;
+  }
+  
+
+  /* Base form styles. */
+  html .form-style {
+    @apply gap-2;
+  }
+ 
+  html .form-style label{
+    @apply font-medium text-white-medium;
+  }
+  
+  html .form-style input, .form-style textarea {
+    @apply bg-grey-heavy text-white-light rounded-md border-grey-medium focus:border-purple-500 focus:ring-purple-500;
+  }
+ 
+  html .form-style button{
+    @apply text-white-medium transition-colors ease-in-out duration-300 bg-indigo-600 focus:border-purple-500 focus:ring-purple-500;
+    }
+
+  html .form-style button:hover{
+    @apply hover:bg-indigo-700 hover:text-white-light;
+  }
+
+  html .form-style .radio {
+    @apply rounded-full text-grey-heavy border-none ring-0 focus:border-none focus:ring-0;
+  }
+
+  html .toggle-button[aria-checked="true"] div {
+    @apply rounded-full bg-green-400 ring-green-400 border-none;
+  }
+
+  html .toggle-button[aria-checked="false"] div {
+    @apply rounded-full bg-grey-lighter ring-2 ring-grey-lighter border-none;
+  }
+
+  html .form-style .form-upload {
+    @apply cursor-pointer justify-center p-2 absolute bottom-2 right-2 text-white-medium font-normal 
+         bg-grey-medium bg-opacity-30 hover:bg-opacity-80 border border-dashed rounded-md border-white-medium;
+  }
+
+  html .form-style .form-upload-alt {
+    @apply cursor-pointer justify-center items-center absolute top-0 right-6 text-white-light bg-grey-medium p-[5px] rounded-full ring-1 ring-white-light;
+  }
+
+  html .form-style .form-upload-image {
+    @apply flex w-full h-full bg-contain bg-center bg-no-repeat rounded-md ;
+  }
+
+  html .form-style select {
+    @apply bg-grey-heavy text-white-light rounded-md border-grey-medium focus:border-purple-500 focus:ring-purple-500;
+  }
+
+  html .form-style select option {
+    @apply text-white-medium bg-grey-light;
+  }
+
+
+  /* Desktop navmenu links classes for header. */
+  html .desk-nav {
+    @apply hidden sm:flex flex-col w-20 items-center;
+  }
+
+  html .desk-nav .desk-logo {
+    @apply border-b border-grey-light p-2 items-center justify-center flex w-full;
+  }
+
+  html .desk-nav .desk-links {
+    @apply flex flex-col justify-center items-center rounded p-2 text-white-medium space-y-2 py-2
+    bg-grey-medium hover:bg-grey-light hover:text-white-light transition-colors duration-300;
+  }
+
+  html .desk-nav .desk-links-active {
+    @apply flex flex-col justify-center items-center rounded p-1 text-indigo-500 space-y-2 py-2
+    bg-grey-light;
+  }
+  
+  html .desk-nav .desk-links svg {
+    @apply text-lg;
+  }
+
+  html .desk-nav .desk-links-active svg {
+    @apply text-lg;
+  }
+
+  html .desk-nav span {
+    @apply font-light uppercase text-xs;
+  }
+
+  html .desk-nav .desk-footer {
+    @apply flex flex-col space-y-6 items-center my-6;
+  }
+
+  html .desk-nav .desk-footer img {
+    @apply p-0 ring-white-medium hover:ring-indigo-500 transition-all duration-300;
+  }
+
+  /* Mobile navmenu links classes for header. */
+  html .mobile-nav {
+    @apply px-3 py-2 flex w-full sm:hidden;
+  }
+
+  html .mobile-nav svg{
+    @apply text-[20px];
+  }
+
+  html .mobile-nav .mob-icons img{
+    @apply p-[2px] ring-indigo-500;
+  }
+
+  /* Mobile footer links classes. */
+
+  html .mob-footer {
+    @apply flex w-full fixed sm:hidden bottom-0 left-0 justify-between py-1 px-8 bg-grey-medium;
+  }
+
+  html .mob-footer div {
+    @apply text-white-medium font-light text-[20px] p-2 rounded-full;
+  }
+
+  html .mob-footer .link-active {
+    @apply text-indigo-500 bg-grey-light;
+  }
+
+  
+  /* Single Post/Feed section. */
+  /* Default post style */
+  html .post-date {
+    @apply text-white-medium text-sm lowercase;
+  }
+
+  html .username {
+    @apply text-white-light font-medium text-sm sm:text-lg sm:font-light;
+  }
+
+  html .post-section {
+    @apply flex flex-col w-full sm:flex-row sm:w-11/12 xl:w-2/3 bg-grey-medium;
+  }
+  
+  html .post-image {
+    @apply relative h-[60vh] sm:h-[70vh];
+  }
+
+  html .post-icons {
+    @apply items-center space-x-2 bottom-4 left-3;
+  }
+  
+  html .post-icons .post-liked svg{
+    @apply text-red-500;
+  }
+
+  html .post-icons svg {
+    @apply text-white-medium text-base sm:text-xl;
+  }
+
+  
+  html .post-section .post-image img {
+    @apply w-full h-full object-cover object-center bg-grey-heavy;
+  }
+
+  html .post-about {
+    @apply space-y-2 px-4 py-3 sm:max-h-fit max-h-[160px] sm:min-h-fit min-h-[60px] items-start;
+  }
+
+  html .post-about .username {
+    @apply text-xs uppercase tracking-wide sm:text-sm;
+  }
+
+  html .post-about .content {
+    @apply text-white-medium text-sm sm:text-sm overflow-auto;
+  }
+
+  html .post-about .hashtags {
+    @apply text-indigo-500 font-light text-sm;
+  }
+
+  /* Default post style for mobile view. */
+  html .post-section .profile-mob {
+    @apply flex w-full px-3 py-2 sm:hidden;
+  }
+
+  html .post-section .profile-mob img {
+    @apply ring-2 ring-indigo-500 rounded-full h-[43px] p-[2px] z-0 object-cover object-center;
+  }
+
+  /* Default post style for desktop. */
+  html .post-section-desk {
+    @apply hidden sm:border-l sm:border-grey-light sm:flex sm:basis-2/6 sm:space-y-2 sm:flex-col sm:order-2 sm:px-4 sm:rounded-sm;
+  }
+
+  html .post-section-desk .profile-desk {
+    @apply flex border-b py-4 border-grey-lighter;
+  }
+
+  html .post-section-desk .profile-desk img {
+    @apply ring-2 ring-indigo-500 rounded-full h-16 p-[4px] object-cover object-center;
+  }
+
+
+  /* Profile section. */
+  /* Profile Info. */
+  html .profile-info img {
+    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full h-full sm:w-44 p-[2px] sm:p-[4px];
+  }
+
+  /* Post grid. */
+
+  html .post-grid {
+    @apply flex w-full rounded-md h-28 sm:h-96 relative bg-grey-medium text-white-medium hover:text-white-light hover:ring-2 hover:ring-indigo-500 hover:shadow-md hover:shadow-indigo-500 transition-all duration-300;
+  }
+
+
+  html .post-grid span {
+    @apply uppercase text-xs sm:text-sm font-medium absolute bottom-0 left-0 p-1 sm:p-3
+  }
+
+  html .post-grid img {
+    @apply w-full h-full object-cover object-center rounded-md;
+  }
+
+
+  /* Config section. */
+  html .config-options {
+    @apply hover:bg-grey-lighter text-white-medium sm:p-2 sm:pl-0 hover:text-white-light rounded transition-all duration-300;
+  }
+
+  html .config-options p {
+    @apply font-light text-base text-justify leading-relaxed;
+  }
+
+  html .config-options svg {
+    @apply text-lg;
+  }
+
+  /* Config section social links. */
+  html .social-links div{
+    @apply flex ml-2 space-x-4 hover:text-white-light transition-colors duration-300;
+  }
+
+  html .social-links p {
+    @apply text-xs uppercase;
+  }
+
+  html .social-links svg{
+    @apply text-lg;
+  }
+
+  html .social-links-alt {
+    @apply flex w-full space-x-1 rounded-md items-center p-2 
+    bg-grey-medium hover:bg-grey-lighter hover:text-white-light transition-colors duration-300;
+  }
+
+  html .social-links-alt p {
+    @apply font-semibold text-[10px] sm:text-xs uppercase sm:tracking-wider;
+  }
+
 }
 
 body {
@@ -31,3 +319,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@tailwind components;
+@tailwind utilities;

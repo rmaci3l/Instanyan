@@ -11,10 +11,10 @@ function Profile({ match }) {
     const username = userprofile ? userprofile : userInfo.username;
 
     return(
-        <div className='flex h-screen sm:flex-row w-full sm:w-2/3 flex-col sm:gap-20'>
-            <div className="flex flex-col sm:w-full sm:py-8">                
+        <div className="flex p-4 w-full sm:justify-center sm:flex-row">
+            <div className="flex flex-col w-full sm:w-11/12 2xl:w-2/3">                
                 <ProfileInfo username={username} />
-                <div className="flex space-y-4">
+                <div className="flex w-full">
                     <PostGrid username={username} />
                 </div>
             </div>

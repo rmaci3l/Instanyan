@@ -59,7 +59,6 @@ def delete_post(post_id):
     result = erase_post(user_id, post_id)
     return jsonify(result), result['status']
 
-
 @api_blueprint.route('/post/like/<post_id>', methods=['POST'])
 @jwt_required()
 def like_post(post_id):   

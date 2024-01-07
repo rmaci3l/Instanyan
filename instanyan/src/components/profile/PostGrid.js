@@ -1,42 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { useGetPostsQuery } from "../../redux/post/postService";
-import { setPosts } from "../../redux/post/postSlice";
+import React, { useEffect } from "react";
+import { useGetPostsQuery, setPosts, setPostCreated } from "../../redux/post/";
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from "react-router-dom";
+
 
 const PostGrid = ({username}) => {
-    const { data, error, isLoading, isSuccess } = useGetPostsQuery({ origin: 'profile', username: `${username}` })
-    const { posts } = useSelector((state) => state.posts);
+    const { data, isLoading, refetch } = useGetPostsQuery({ origin: 'profile', username: `${username}` })
+    const { posts, postCreated } = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     
     useEffect(() => {
         if (data){
             dispatch(setPosts(data))
         }
-    }, [data, dispatch]);
+        if (postCreated) {
+            refetch();
+            dispatch(setPostCreated(false));
+        }
+    }, [data, refetch, dispatch]);
 
     if (isLoading) {
-        return <div>Loading...</div>; 
+        return null; 
     }
 
-    if (error) {
-        return <div>User not found</div>;
+    if (posts.length === 0){
+        return (
+            <div className="mt-2 py-8 flex flex-col w-full bg-grey-medium rounded-md justify-center items-center text-white-medium text-xl tracking-wide">
+                    <p className="text-white-light font-medium">Oops!</p>
+                    <p className="text-white-medium">No posts found.</p>
+            </div>
+        )
     }
     
     return(
-        <div className="">
+        <div className="mt-2 pb-10 grid grid-cols-3 gap-1 sm:gap-4">
             {posts.map((post, index) => (
-                <div key={index} className="p-4 border border-gray-200 rounded-lg">
-                    <div className="mb-2">
-                        <img src={post.image} alt="Post" className="w-full h-auto object-cover rounded" />
+                <Link to={`/p?id=${post.id}`} key={index}>                
+                    <div className="post-grid">
+                        <img src={post.image} className="" alt="Post"/>
+                        <span className="">{post.likes} Likes</span>                        
                     </div>
-                    <div>{post.likes} Likes</div>
-                    <div>
-                        <p className="text-gray-50 text-sm">{post.content}</p>"
-                    </div>
-                </div>
+                </Link>
             ))} 
         </div>
     );
 };
 
-export default PostGrid
+export default PostGrid;

@@ -1,14 +1,19 @@
-import React, {useEffect, useState}  from "react";
+import React, { useEffect, useState }  from "react";
+import { useForm } from 'react-hook-form'
 import { updateProfile } from "../../redux/reduxActions";    
 import { useDispatch, useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
 import {convertToBase64 } from '../utils/Utils'
+import UserIcon from "../utils/userIcon";
+import { Label, FileInput, Textarea, TextInput, Button, Avatar } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = ({setClassSettings}) => {
     const { userInfo } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    const { register, handleSubmit, setValue } = useForm()
-    
+    const dispatch = useDispatch();    
+    const navigate = useNavigate();
+    const { register, handleSubmit, setValue } = useForm();
+    const [ uploadedImage, setUploadedImage ] = useState();
+
     useEffect(() => {
         setClassSettings('hidden sm:block');
         return() => {
@@ -16,41 +21,64 @@ const EditProfile = ({setClassSettings}) => {
         };
       },[setClassSettings]);
 
-    const submitForm = (data) => {       
+    const submitForm = (data) => {
+        if (data.status === '') {
+            data.status = userInfo.status;
+        }
+        if (data.about === '') {
+            data.about = userInfo.about;
+        }
         dispatch(updateProfile(data))
+        .then(() => {
+            navigate('/profile');
+        });
     };
 
     const onFileChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
             const base64 = await convertToBase64(file);
-            setValue('profile_image', base64);
+            setValue('avatar', base64);
+            setUploadedImage(base64);
         }
     };
 
     return(
-        <div className="p-4 rounded shadow-lg flex-col">
+        <div className="single-page">
             <div className="flex">
-                <h1>Profile Update</h1>
+                <h1>Update Purrfile</h1>
             </div>
             
-            <div className="flex w-full justify-center mt-12">
-                <form className="w-full" onSubmit={handleSubmit(submitForm)}>
-                    <label htmlFor="form-status">Picture</label>
-                    <input className="form-input" 
-                        type="file" accept="image/" 
-                        onChange={onFileChange} />
-                    <input type="hidden" {...register('profile_image')} />
-                    <div className="py-1"></div>
-                    <label htmlFor="form-status">Status</label>
-                    <textarea className="form-input" type="text" maxLength={60} defaultValue={userInfo.status} {...register('status', {maxLength: 60})} required></textarea>
-                    <div className="py-1"></div>
-                    <label htmlFor="form-about">About</label>
-                    <textarea className="form-input" rows={3} type="text" maxLength={150} defaultValue={userInfo.about} {...register('about', {maxLength: 150})} required></textarea>
-                    <div className="py-1"></div>                    
-                    <button className="form-button" type="submit">Update</button>
-                </form>
-            </div>              
+            <form className="flex flex-col form-style mt-6" onSubmit={handleSubmit(submitForm)}>
+                <div className="flex w-full bg-grey-medium p-4 px-2 sm:px-4 rounded-md">
+                    <Avatar img={`${uploadedImage || userInfo.avatar}`} size="lg" bordered rounded className="relative basis-3/5 sm:basis-auto sm:shrink-0">
+                        <Label htmlFor="file-upload" className="form-upload-alt">
+                            <div className="hover:animate-spin hover:text-indigo-500 transition-colors duration-300">
+                                <UserIcon iconName="edit" />
+                            </div>
+                            <FileInput id="file-upload" type="file" accept="image/*" className="hidden" onChange={onFileChange} />
+                        </Label>
+                        <input type="hidden" {...register('avatar')} />
+                    </Avatar>
+                    <div className="flex flex-col">
+                        <span className="text-white-light">{userInfo.username}</span>
+                        <span className="text-white-medium font-light text-sm">{userInfo.status}</span>
+                    </div>                    
+                </div>
+                <div className="mt-4">
+                    <div className="mb-1 block">
+                        <Label htmlFor="form-status" value="Status" />
+                    </div>
+                    <Textarea type="text" placeholder={userInfo.status} {...register('status', {maxLength: 60})} rows={2}/>
+                </div>
+                <div>
+                    <div className="mb-1 block">
+                        <Label htmlFor="form-about" value="About" />
+                    </div>                    
+                    <Textarea type="text" className="" placeholder={userInfo.about} {...register('about', {maxLength:150})} rows={6} />
+                </div>
+                <Button type="submit" size="md">Update Profile</Button>
+            </form>
         </div>
     );
 }
