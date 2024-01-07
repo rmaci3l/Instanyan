@@ -1,5 +1,5 @@
-from models.user import User, UserProfile, Post
-from models.base import Session, engine, Base
+from ..models.user import User, UserProfile, Post
+from ..models.base import Session, engine, Base
 from sqlalchemy import func
 
 User.metadata.create_all(engine)

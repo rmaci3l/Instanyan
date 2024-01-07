@@ -1,8 +1,8 @@
-from models.user import User, UserProfile
-from models.base import Session, engine, Base
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
+from ..models.user import User, UserProfile
+from ..models.base import Session, engine, Base
 from datetime import timedelta
 
 User.metadata.create_all(engine)

@@ -1,10 +1,9 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils.profile_api import request_profile, update_data, profile_follow
-from utils.post_api import create_post, erase_post, send_like, request_post
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-
+from ..utils.profile_api import request_profile, update_data, profile_follow
+from ..utils.post_api import create_post, erase_post, send_like, request_post
 
 api_blueprint = Blueprint('api', __name__)
 CORS(api_blueprint)

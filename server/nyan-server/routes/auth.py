@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify
-from utils.auth import register_user, log_user, user_data
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_cors import CORS
-
+from ..utils.auth import register_user, log_user, user_data
 
 auth_blueprint = Blueprint('auth', __name__)
 CORS(auth_blueprint)
