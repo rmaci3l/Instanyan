@@ -48,7 +48,11 @@ def send_like(user_id, post_id):
             post.likes += 1
             action = "yes"    
         session.commit()
-        return { 'message' : "Success.", 'liked' : action, 'likes' : post.likes, 'id' : post.id, 'status': 200 }
+        return { 'message' : "Success.", 
+                'liked' : action, 
+                'likes' : post.likes, 
+                'id' : post.id, 
+                'status': 200 }
     
 def request_post(user_id, post_args):
     post_quantity = post_args.get('quantity', '20')
@@ -82,7 +86,7 @@ def request_post(user_id, post_args):
                               'message' : "User not found.",
                               'error' : "usernotfound",
                               'status' : 200 }
-                posts_data = session.query(Post).filter(Post.user_id == current_profile.id).all()
+                posts_data = session.query(Post).filter(Post.user_id == current_profile.id).order_by(Post.created_at.desc()).all()
                 if not posts_data:
                     return  { 'posts' : [],
                               'message' : "User has no posts.",

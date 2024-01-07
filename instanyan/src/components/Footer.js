@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {mobLinks} from '../constants';
-import UserIcon from './utils/userIcon';
 import { useSelector } from 'react-redux';
+import { mobLinks } from '../constants';
+import UserIcon from './utils/userIcon';
+
 
 const Footer = () => {
     const location = useLocation();

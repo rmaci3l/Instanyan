@@ -1,7 +1,8 @@
 import { useGetUserDetailsQuery  } from "./authService";
-import { setCredentials } from "./authSlice";
+import { setCredentials, setProfileUpdated } from "./authSlice";
 
 export {
     useGetUserDetailsQuery,
     setCredentials,  
+    setProfileUpdated
 }

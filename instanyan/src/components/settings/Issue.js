@@ -1,6 +1,6 @@
 import React, {useEffect}  from "react";
 import { Form } from "react-hook-form";
-import { Select, Input, Textarea, Button, Label } from "flowbite-react";
+import { Select, Textarea, Button, Label } from "flowbite-react";
 
 function Issue({setClassSettings}){
     useEffect(() => {

@@ -9,6 +9,7 @@ const initialState = {
     loading: false,
     userInfo: {}, // user object
     userToken: userToken, // JWT
+    profileUpdated: false,
     error: null,
     success: false, // for registration monitor
 }
@@ -21,13 +22,16 @@ const authSlice = createSlice({
         logout: (state) =>{
             localStorage.removeItem('userToken')
             state.loading = false
-            state.userInfo = null
+            state.userInfo = {}
             state.userToken = null
             state.error = null
         },
         setCredentials: (state, {payload}) => {
             state.userInfo = payload.userInfo
         },
+        setProfileUpdated: (state, action) => {
+            state.profileUpdated = action.payload;
+        }
     },
     extraReducers: {
         // login reducer
@@ -59,13 +63,11 @@ const authSlice = createSlice({
             state.error = payload
         },
         // Update profile reducer
-        [updateProfile.fulfilled] : (state, {payload}) =>{
-            state.userInfo.avatar = payload.data.profile.avatar
-            state.userInfo.about = payload.data.profile.about
-            state.userInfo.status = payload.data.profile.status
+        [updateProfile.fulfilled] : (state, action) =>{
+            state.profileUpdated = true;
         }
     },
 })
 
-export const {logout, setCredentials} = authSlice.actions
+export const {logout, setCredentials, setProfileUpdated} = authSlice.actions;
 export default authSlice.reducer

@@ -5,7 +5,6 @@ from sqlalchemy import func
 User.metadata.create_all(engine)
 session = Session()
 
-# To-do: better error handling (see scrum log #17 & #19)
 # API requests functions.
 # Profile data handling.
 def request_profile(profile_args, user_id):

@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { likePost } from '../reduxActions';
+import { likePost, createPost } from '../reduxActions';
+import { logout } from '../auth/authSlice';
 
 const initialState = {
     loading: false,
     error: null,
     message: null,
     posts: [{}],
-    currentPost: {id: "", likes: "", liked:""},
+    postCreated : false,
+    currentPost: {id: "", likes: "", liked:""}
 }
 
 const postSlice = createSlice({
@@ -23,17 +25,34 @@ const postSlice = createSlice({
             state.message = payload.message;
             state.error = payload.error;
         },
-    },
-    extraReducers: {
-        [likePost.fulfilled] : (state, {payload}) => {
-            state.currentPost = payload.data;
-            const post = state.posts.find(p => p.id === state.currentPost.id);
-            post.likes = state.currentPost.likes;
-            post.liked = state.currentPost.liked;           
-           
+        setPostCreated: (state, action) => {
+            state.postCreated = action.payload;
         }
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(logout, (state, action) => {
+                // Reset state on logout
+                state.posts = [{}];
+                state.currentPost = {id: "", likes: "", liked: "" };
+                state.message = "";
+                state.error = null;
+            })
+            .addCase(likePost.fulfilled, (state, { payload }) => {
+                // Handle likePost.fulfilled
+                state.currentPost = payload.data;
+                const post = state.posts.find(p => p.id === state.currentPost.id);
+                if (post) {
+                    post.likes = state.currentPost.likes;
+                    post.liked = state.currentPost.liked;
+                }
+            })
+            .addCase(createPost.fulfilled, (state, action) => {
+                // Handle new post.
+                state.postCreated = true;
+            });
+    }
 });
 
-export const { setPosts, setSingle } = postSlice.actions
+export const { setPosts, setSingle, setPostCreated } = postSlice.actions
 export default postSlice.reducer

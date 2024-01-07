@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { updateProfile, createPost, followProfile } from '../reduxActions';
+import { logout } from '../auth/authSlice';
 
 const initialState = {
     loading: false,
@@ -24,14 +25,21 @@ const profileSlice = createSlice({
             state.exploreProfiles = payload.users;
             state.message = payload.message;
             state.error = payload.error;
-        }
+        },
     },
-    extraReducers: {
-        // profile follow reducer
-        [followProfile.fulfilled] : (state, {payload}) => {
-            state.follows = payload.data.follows;
-        }
-    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(logout, (state, action) => {
+                // Reset state on logout.
+                state.profileDetails = {};
+                state.follows = null;
+                state.exploreProfiles = [];
+                state.message = null;
+            })
+            .addCase(followProfile.fulfilled, (state, {payload}) => {
+                state.follows = payload.data.follows;
+            });
+    }
 });
 
 export const { setProfile, setExplore } = profileSlice.actions

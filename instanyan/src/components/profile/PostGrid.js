@@ -1,24 +1,29 @@
 import React, { useEffect } from "react";
-import { useGetPostsQuery, setPosts } from "../../redux/post/";
+import { useGetPostsQuery, setPosts, setPostCreated } from "../../redux/post/";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 
+
 const PostGrid = ({username}) => {
-    const { data, isLoading } = useGetPostsQuery({ origin: 'profile', username: `${username}` })
-    const { posts } = useSelector((state) => state.posts);
+    const { data, isLoading, refetch } = useGetPostsQuery({ origin: 'profile', username: `${username}` })
+    const { posts, postCreated } = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     
     useEffect(() => {
         if (data){
             dispatch(setPosts(data))
         }
-    }, [data, dispatch]);
+        if (postCreated) {
+            refetch();
+            dispatch(setPostCreated(false));
+        }
+    }, [data, refetch, dispatch]);
 
     if (isLoading) {
         return null; 
     }
 
-    if (posts.length !== 0){
+    if (posts.length === 0){
         return (
             <div className="mt-2 py-8 flex flex-col w-full bg-grey-medium rounded-md justify-center items-center text-white-medium text-xl tracking-wide">
                     <p className="text-white-light font-medium">Oops!</p>

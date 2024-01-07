@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { Label, Radio } from 'flowbite-react';
 import { countries } from "../../constants";
-import UserIcon from "../utils/userIcon";
 import "flag-icons/css/flag-icons.min.css";
 
 function Language({setClassSettings}){

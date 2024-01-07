@@ -9,7 +9,7 @@ import AuthHeader from "./AuthHeader";
 import AlertPopup from "../utils/Alert";
 
 function Login() {
-    const { loading, userInfo, userToken, isLoading, error, success } = useSelector((state) => state.auth)
+    const { loading, userInfo, userToken, error, success } = useSelector((state) => state.auth)
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm()

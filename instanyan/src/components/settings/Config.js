@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Routes, Route } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { configLinks, socialLinks } from "../../constants";
-import {About, Activity, EditProfile, Help, Issue, Language, Notifications, Privacy, Theme } from '.'
+import {About, Activity, EditProfile, Issue, Language, Notifications, Privacy, Theme } from '.'
 import { logout } from "../../redux/auth/authSlice";
 import UserIcon from "../utils/userIcon";
 

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import { NotFound, Unauthorized } from '../../components'
+import { Unauthorized } from '../../components'
 
 const ProtectedRoute = () => {
   const { userToken } = useSelector((state) => state.auth)

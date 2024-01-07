@@ -1,28 +1,32 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useGetUserDetailsQuery, setCredentials } from '../redux/auth';
+import { useGetUserDetailsQuery, setCredentials, setProfileUpdated } from '../redux/auth';
 import {navLinks} from '../constants';
 import { Logo, LogoIcon } from '../assets/';
 import { toggleSearchPopup } from '../redux/popup/popupSlice';
-import  SearchPopUp  from './utils/Search';
-import UserIcon from './utils/userIcon';
+import  {SearchPopUp, UserIcon}  from './utils/';
 import { Avatar } from 'flowbite-react';
+
 
 const Header = () => {
     const location = useLocation();
     const hideRoutes = ['/login', '/register'];
-    const { data: userDetails, isSuccess } = useGetUserDetailsQuery();
+    const { data: userDetails, isSuccess, refetch } = useGetUserDetailsQuery();
     const dispatch = useDispatch();
     const showSearch = useSelector(state => state.popup.isSearchVisibile);
-    const { userToken } = useSelector((state) => state.auth);
-    const { userInfo } = useSelector((state) => state.auth);
+    const { userInfo, profileUpdated, userToken } = useSelector((state) => state.auth);
+    
 
     useEffect(() => {
         if (isSuccess && userDetails){
               dispatch(setCredentials({userInfo: userDetails}));       
           }
-      }, [userDetails, isSuccess, dispatch, userInfo]);
+        if (profileUpdated) {
+            refetch();
+            dispatch(setProfileUpdated(false));
+        }
+      }, [userDetails, isSuccess, userInfo, profileUpdated, dispatch, refetch ]);
 
     const handleSearchPopUp = (confirm) => {
         if (confirm === 'search') {
