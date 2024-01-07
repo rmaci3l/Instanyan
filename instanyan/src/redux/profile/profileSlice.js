@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateProfile, createPost, followProfile } from '../reduxActions';
+import { followProfile } from '../reduxActions';
 import { logout } from '../auth/authSlice';
 
 const initialState = {
@@ -29,7 +29,7 @@ const profileSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(logout, (state, action) => {
+            .addCase(logout, (state) => {
                 // Reset state on logout.
                 state.profileDetails = {};
                 state.follows = null;

@@ -9,7 +9,7 @@ import { HiMail, HiLockClosed, HiOutlineUser, HiOutlineGlobe } from 'react-icons
 import AuthHeader from "./AuthHeader";
 
 function Register(){   
-    const {loading, userInfo, error, success } = useSelector((state) => state.auth)
+    const { error, success } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()

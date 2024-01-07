@@ -8,7 +8,7 @@ import { likePost } from "../../redux/reduxActions";
 const SinglePost = () => {
     const [searchParams] = useSearchParams();
     const postId = searchParams.get('id');
-    const {data: singlePost, isLoading, error } = useGetPostsQuery({origin: 'single', id: postId})
+    const {data: singlePost, isLoading } = useGetPostsQuery({origin: 'single', id: postId})
     const { posts } = useSelector((state) => state.posts);
     const dispatch = useDispatch();
 

@@ -6,7 +6,7 @@ import { Loading } from "../utils";
 import { Technician } from "../../assets";
 
 const ExploreUsers = ({ username }) => {
-    const { data: users, isLoading, error, isSuccess, isError } = useGetProfileQuery({origin: 'explore', username: username.slice(1)})
+    const { data: users, isLoading } = useGetProfileQuery({origin: 'explore', username: username.slice(1)})
     const { exploreProfiles } = useSelector((state) => state.profile);
     const dispatch = useDispatch();
 

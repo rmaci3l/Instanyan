@@ -15,10 +15,12 @@
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.2",
     "babel-plugin-macros": "^3.1.0",
+    "eslint": "^8.56.0",
     "flag-icon-css": "^4.1.7",
     "flag-icons": "^7.1.0",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
+    "lint": "^0.8.19",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,7 +37,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint" : "eslint ."
   },
   "eslintConfig": {
     "extends": [
