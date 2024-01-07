@@ -17,7 +17,7 @@ function About({setClassSettings}){
                 <h1>About Us</h1>
             </div>
             <div className="flex w-full items-center justify-center pt-6 pb-2 ">
-                <img src={Logo} className="w-1/2" />
+                <img src={Logo} className="w-1/2" alt="Instanyan"/>
             </div>
             <div className="title-style border-b border-grey-lighter py-4">
                 <h2>What is Instanyan?</h2>

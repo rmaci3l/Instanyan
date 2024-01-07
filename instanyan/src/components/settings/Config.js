@@ -44,8 +44,8 @@ const ConfigPage = () => {
                         <h2 className="font-medium text-white-medium text-xs uppercase tracking-wide">SOCIAL</h2>
                         <div className="flex space-x-2 text-white-medium py-3 border-b border-grey-lighter ">                        
                             {socialLinks.map((social) => (
-                            <Link to={social.link} className="social-links">
-                                <div key={social.id}>
+                            <Link to={social.link} className="social-links" key={social.id}>
+                                <div>
                                     <UserIcon iconName={social.icon} />
                                 </div>
                             </Link>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { Label, FileInput, Textarea, TextInput, Button } from "flowbite-react";
@@ -13,7 +13,8 @@ function Post() {
     const [ formError, setFormError ] = useState('');
     const [ postImage, setPostImage ] = useState();
     const navigate = useNavigate();
-
+        
+    // Post form validation.
     const validateInput = (value) => {
         if (value.content.length > 1000) {
             return "Your post is too big.";
@@ -30,6 +31,7 @@ function Post() {
         return null;
     }
     
+    // Submit post form.
     const submitForm = (data) => {       
         const validationErrors = validateInput(data);
         if (validationErrors) {
@@ -46,26 +48,46 @@ function Post() {
         }        
     };
 
+    // Uploaded file validation.
     const onFileChange = async (e) => {
+        const MAX_FILE_SIZE = 3 * 1024 * 1024; //3mb max file size
         const file = e.target.files[0];
         if (file) {
-            const base64 = await convertToBase64(file);
-            setValue('image', base64);
-            setPostImage(base64);
+            if (file.size > MAX_FILE_SIZE) {
+                setFormError("Image file is too large! (>3MB).");
+            }
+            else {
+                const base64 = await convertToBase64(file);
+                setValue('image', base64);
+                setPostImage(base64);
+            }
         }
     };
 
+
+    // Clear errors after 4 seconds.
+    useEffect(() => {
+        let timer
+            if (formError) {
+            timer = setTimeout(() => {
+                setFormError('');
+            }, 4000);  
+        }
+        return () => {
+        if (timer) clearTimeout(timer);
+        };
+    }, [formError]);
     
     return(
         <div className="flex w-full sm:justify-center mb-20">
-            <div className="flex flex-col w-full sm:w-1/3 sm:bg-grey-medium p-4">
+            <div className="flex flex-col w-full sm:w-4/5 md:w-4/6 lg:w-3/5 xl:w-2/4 2xl:w-2/5 sm:bg-grey-medium p-4">
                 <div className="title-style border-b border-grey-lighter mb-4 py-1 sm:py-6">
                     <h1>Create a new post</h1>
                 </div>
                 <form className="flex flex-col form-style mt-2" onSubmit={handleSubmit(submitForm)}>
                     <div className="flex w-full h-80 sm:h-96 bg-grey-heavy rounded relative">
-                        <div style={{ backgroundImage: `url('${postImage || UploadDefault}')` }} className="form-upload-image">
-
+                        <div className="form-upload-image">
+                            <img src={postImage || UploadDefault} className="object-cover object-center h-full w-full rounded-md" alt=""/>
                         </div>
                         <Label htmlFor="file-upload" className="form-upload">
                             <div className="flex justify-center items-center space-x-2">

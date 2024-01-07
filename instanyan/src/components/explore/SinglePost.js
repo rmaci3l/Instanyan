@@ -4,11 +4,12 @@ import { useSearchParams, Link } from "react-router-dom";
 import { useGetPostsQuery, setSingle } from "../../redux/post/";
 import { Loading, UserIcon } from "../utils/";
 import { likePost } from "../../redux/reduxActions";
+import { Technician } from "../../assets";
 
 const SinglePost = () => {
     const [searchParams] = useSearchParams();
     const postId = searchParams.get('id');
-    const {data: singlePost, isLoading } = useGetPostsQuery({origin: 'single', id: postId})
+    const {data: singlePost, isLoading, isRejected } = useGetPostsQuery({origin: 'single', id: postId})
     const { posts } = useSelector((state) => state.posts);
     const dispatch = useDispatch();
 
@@ -27,6 +28,19 @@ const SinglePost = () => {
         <div className="flex w-full justify-center items-center">
             <Loading />
         </div>        
+    }
+
+    if (isRejected) {
+        return(
+            <div className="flex flex-col w-full items-center justify-center">       
+                <div className="flex flex-col w-4/5 sm:w-3/4 mt-10 text-center items-center">
+                    <img className="rounded-full ring-4 ring-indigo-500 p-2 w-fit sm:h-[380px]" src={Technician} alt=""/>
+                    <h1 className="text-white-light font-bold text-3xl tracking-wider mt-8">Oops... there's an issue!</h1>
+                    <span className="text-white-medium font-light text-lg text-center p-4">It seems there was error while accessing our server. Our catnicians are trying to fix the problem.</span>
+                    <span className="text-white-light font-light text-lg text-center p-4"> You can return to <Link to='/' className="text-indigo-500">home</Link>.</span>
+                </div>
+            </div>
+        )
     }
 
     if (posts.length === 0) {
@@ -94,9 +108,9 @@ const SinglePost = () => {
                         </div> 
                     </div>
                     <div className="flex flex-col post-about -ml-3">
-                        <div className="flex">
-                            <span className="username">{posts[0].username} - </span>               
-                            <span className="content">{posts[0].content}</span>
+                        <div className="flex flex-col">
+                            <span className="username">{posts[0].username}</span>               
+                            <span className="content mt-2">{posts[0].content}</span>
                         </div>
                         <span className="hashtags">{posts[0].hashtags}</span>
                     </div>

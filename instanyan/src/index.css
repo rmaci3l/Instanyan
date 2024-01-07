@@ -90,7 +90,7 @@
   }
 
   html .form-style .form-upload-alt {
-    @apply cursor-pointer justify-center items-center absolute top-0 right-6 text-white-light bg-grey-medium p-[5px] rounded-full ring-1 ring-white-light;
+    @apply cursor-pointer justify-center items-center absolute top-0 right-2 text-white-light bg-grey-medium p-[5px] rounded-full ring-1 ring-white-light;
   }
 
   html .form-style .form-upload-image {
@@ -230,7 +230,7 @@
   }
 
   html .post-section .profile-mob img {
-    @apply ring-2 ring-indigo-500 rounded-full h-[43px] p-[2px] z-0 object-cover object-center;
+    @apply ring-2 ring-indigo-500 rounded-full w-12 h-12 p-[2px] z-0 object-cover object-center;
   }
 
   /* Default post style for desktop. */
@@ -243,20 +243,20 @@
   }
 
   html .post-section-desk .profile-desk img {
-    @apply ring-2 ring-indigo-500 rounded-full h-16 p-[4px] object-cover object-center;
+    @apply ring-2 ring-indigo-500 rounded-full sm:w-12 sm:h-12 md:h-16 md:w-16 p-[4px] object-cover object-center;
   }
 
 
   /* Profile section. */
   /* Profile Info. */
   html .profile-info img {
-    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full h-full sm:w-44 p-[2px] sm:p-[4px];
+    @apply ring-2 sm:ring-4 ring-indigo-500 rounded-full w-20 h-20 sm:h-28 sm:w-28 lg:h-44 lg:w-44 p-[2px] sm:p-[4px];
   }
 
   /* Post grid. */
 
   html .post-grid {
-    @apply flex w-full rounded-md h-28 sm:h-96 relative bg-grey-medium text-white-medium hover:text-white-light hover:ring-2 hover:ring-indigo-500 hover:shadow-md hover:shadow-indigo-500 transition-all duration-300;
+    @apply flex rounded-md aspect-square relative bg-grey-medium text-white-medium hover:text-white-light hover:ring-2 hover:ring-indigo-500 hover:shadow-md hover:shadow-indigo-500 transition-all duration-300;
   }
 
 

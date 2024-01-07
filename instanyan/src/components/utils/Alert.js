@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert } from 'flowbite-react';
 import { HiInformationCircle } from 'react-icons/hi';
 
-function AlertPopup({error}) {
+const AlertPopup = ({error}) => {
   const [visible, setVisible] = useState(true);
   
   useEffect(() => {
@@ -13,7 +13,7 @@ function AlertPopup({error}) {
     }, 3000);
 
       return () => {
-        clearTimeout(fadeOutTimeout);
+        clearTimeout(fadeOutTimeout);        
     };
   }, [error]);
 
