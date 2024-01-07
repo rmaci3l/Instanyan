@@ -1,8 +1,8 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from routes import auth, api
 from flask_jwt_extended import JWTManager
+from .routes import auth, api
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWTKEY')
