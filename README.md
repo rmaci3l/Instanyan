@@ -1,4 +1,16 @@
 # Instanyan
+<div align="left" >
+  <img src="https://github.com/rmaci3l/Instanyan/assets/148119434/4e1c20a2-df0a-4244-ae79-9d90aaeda038" style="width: 23%"  alt="Instanyan logo"/>
+</div>
+
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Static Badge](https://img.shields.io/badge/react-used-blue?logo=react)
+![Static Badge](https://img.shields.io/badge/tailwind--css-used-blue?logo=tailwindcss)
+![Static Badge](https://img.shields.io/badge/flask-used-grey?logo=flask&color=blue)
+
+
+
 Instanyan is a proto-social media project built with React and Flask that mimics social media (such as Instagram) with a basic interface and some features. Currently the **Instanyan** front-end is running over [**Netlify**](https://netlify.com/) and back-end (both flask server and postgresql database) over [**Render**](https://render.com/).
 
 ## Table of Contents
@@ -14,6 +26,7 @@ Instanyan is a proto-social media project built with React and Flask that mimics
 Running this application locally is quite easy!
 
 ### Requirements
+
 
   1. [Python **v3.10**](https://www.python.org/downloads/) or above.
   2. [Pipenv](https://pypi.org/project/pipenv/#installation).
@@ -121,3 +134,4 @@ One of the main challenges I've encountered was proper query handling using Redu
 ## Contributing
 
 Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
