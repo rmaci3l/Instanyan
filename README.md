@@ -1,13 +1,14 @@
-# Instanyan
-<div align="left" >
-  <img src="https://github.com/rmaci3l/Instanyan/assets/148119434/4e1c20a2-df0a-4244-ae79-9d90aaeda038" style="width: 23%"  alt="Instanyan logo"/>
-</div>
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Static Badge](https://img.shields.io/badge/react-used-blue?logo=react)
-![Static Badge](https://img.shields.io/badge/tailwind--css-used-blue?logo=tailwindcss)
-![Static Badge](https://img.shields.io/badge/flask-used-grey?logo=flask&color=blue)
+<div align="center" >
+  <img src="https://github.com/rmaci3l/Instanyan/assets/148119434/4e1c20a2-df0a-4244-ae79-9d90aaeda038" style="width: 23%"  alt="Instanyan logo"/>
+  <div>
+    <img src="https://img.shields.io/badge/build-passing-brightgreen" />
+    <img src="https://img.shields.io/badge/license-MIT-blue" />
+    <img src="https://img.shields.io/badge/react-used-blue?logo=react" />
+    <img src="https://img.shields.io/badge/tailwind--css-used-blue?logo=tailwindcss" />
+    <img src="https://img.shields.io/badge/flask-used-grey?logo=flask&color=blue" />
+  </div>
+</div>
 
 
 
