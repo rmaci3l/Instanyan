@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { backend_url } from "../constants/index";
 
-const backendURL = 'https://instanyan-server.onrender.com'
+const backendURL = `${backend_url}`
 
 
 // Auth actions.

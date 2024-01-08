@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { backend_url } from '../../constants';
 
 export const postApi = createApi({
     reducerPath: 'postApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://instanyan-server.onrender.com',
+        baseUrl: `${backend_url}`,
         prepareHeaders: (headers, { getState }) => {
             const token = getState().auth.userToken
             if (token) {
