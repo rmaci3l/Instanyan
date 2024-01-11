@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { Label, FileInput, Textarea, TextInput, Button } from "flowbite-react";
 import { createPost } from "../../redux/reduxActions";
-import{ AlertPopup, UserIcon, convertToBase64 } from "../utils/";
+import{ AlertPopup, Loading, UserIcon, convertToBase64 } from "../utils/";
 import { useNavigate } from "react-router-dom";
 import { UploadDefault } from "../../assets"
 
 function Post() {    
     const dispatch = useDispatch();
     const { handleSubmit, register, setValue  } = useForm();
+    const { loading } = useSelector((state) => state.posts);
     const [ formError, setFormError ] = useState('');
     const [ postImage, setPostImage ] = useState();
     const navigate = useNavigate();
@@ -115,6 +116,11 @@ function Post() {
                 </form>
                 {formError && <AlertPopup error={formError} />}
             </div>
+            {loading && 
+                <div className="fixed top-0 right-0 w-full h-screen bg-grey-heavy bg-opacity-70">
+                    <Loading />
+                </div>
+            } 
         </div>
     );
 }

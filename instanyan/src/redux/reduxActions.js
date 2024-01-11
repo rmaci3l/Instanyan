@@ -49,7 +49,8 @@ export const userLogin = createAsyncThunk(
         } catch (error) {
             if (error.response){
                 return rejectWithValue(error.response.data.message)
-            }else{
+            } else {
+                console.log(error.message)
                 return rejectWithValue(error.message)
             }
         }

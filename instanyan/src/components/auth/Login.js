@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
@@ -6,13 +6,15 @@ import { userLogin } from "../../redux/reduxActions";
 import { Button, Label, TextInput } from 'flowbite-react'
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import AuthHeader from "./AuthHeader";
-import AlertPopup from "../utils/Alert";
+import { Loading, AlertPopup } from "../utils";
+
 
 function Login() {
-    const { userInfo, userToken, error, success } = useSelector((state) => state.auth)
+    const { userInfo, userToken, error, success, loading } = useSelector((state) => state.auth)
     let navigate = useNavigate();
+    const [ formError, setFormError ] = useState('');
     const dispatch = useDispatch();
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit } = useForm();
     
     useEffect(() => {
         if (userToken !== null && userToken !== "undefined") navigate('/')
@@ -20,7 +22,25 @@ function Login() {
       
     const submitForm = (data) => {
         dispatch(userLogin(data))
-    }    
+    }  
+    
+    useEffect(() => {
+      setFormError(error);
+    }, [error])
+    
+
+    // Clear errors after 4 seconds.
+    useEffect(() => {
+        let timer
+            if (formError) {
+            timer = setTimeout(() => {
+                setFormError('');
+            }, 4000);  
+        }
+        return () => {
+        if (timer) clearTimeout(timer);
+        };
+    }, [formError]);
 
 
     return(
@@ -47,14 +67,16 @@ function Login() {
                         <span>Don't have an account?</span>
                         <Link className="ml-1 indigo-link" to="/register">
                             Sign-up!
-                        </Link>
-                    </div>   
+                        </Link>                         
+                    </div>     
+                    {loading && 
+                        <div className="fixed top-0 right-0 w-full h-screen bg-grey-heavy bg-opacity-70">
+                            <Loading />
+                        </div>
+                    }                    
                 </div>                   
-            </div>
-            <div className="flex">
-
-            </div>                  
-            {error && <AlertPopup error={error} />}
+            </div>          
+            {formError && <AlertPopup error={formError} />}
         </div>
     );
 }
