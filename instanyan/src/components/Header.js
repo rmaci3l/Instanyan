@@ -38,7 +38,7 @@ const Header = () => {
         return null;
     };  
 
-    if (!userToken) {
+    if (!userToken || userToken === "undefined") {
         return null;
     }
 

@@ -14,7 +14,7 @@ const Footer = () => {
         return null;
     }
 
-    if (!userToken) {
+    if (!userToken || userToken === "undefined") {
         return null;
     }
     

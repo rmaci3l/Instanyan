@@ -15,7 +15,7 @@ function Login() {
     const { register, handleSubmit } = useForm()
     
     useEffect(() => {
-        if (userInfo && userToken) navigate('/')
+        if (userToken !== null && userToken !== "undefined") navigate('/')
         }, [navigate, userInfo, userToken, success])
       
     const submitForm = (data) => {

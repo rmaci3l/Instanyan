@@ -49,7 +49,7 @@ function Register(){
     };
 
     return(
-        <div className="flex h-screen w-full">
+        <div className="flex h-full w-full">
             <div className="flex flex-col p-6 sm:justify-center sm:w-1/3 sm:bg-grey-heavy">
                 <AuthHeader sub={"Create your account and begin your journey to connect with hundreds of kittens!"} />            
                 <div className="w-full">
