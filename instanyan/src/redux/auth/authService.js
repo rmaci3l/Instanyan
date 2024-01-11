@@ -7,7 +7,7 @@ export const authApi = createApi({
         baseUrl: `${backend_url}`,
         prepareHeaders: (headers, { getState }) => {
             const token = getState().auth.userToken
-            if (token) {
+            if (token !== "undefined" && token !== null) {
                 headers.set('authorization', `Bearer ${token}`)
                 return headers;
             }

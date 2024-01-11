@@ -50,6 +50,10 @@ const postSlice = createSlice({
             .addCase(createPost.fulfilled, (state, action) => {
                 // Handle new post.
                 state.postCreated = true;
+                state.loading = false;
+            })
+            .addCase(createPost.pending, (state) => {
+                state.loading = true;
             });
     }
 });

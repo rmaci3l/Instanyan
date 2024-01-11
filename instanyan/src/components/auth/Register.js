@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/reduxActions";
-import AlertPopup from "../utils/Alert";
+import { AlertPopup, Loading } from "../utils/";
 import { TextInput, Label, Button } from "flowbite-react";
 import { HiMail, HiLockClosed, HiOutlineUser, HiOutlineGlobe } from 'react-icons/hi';
 import AuthHeader from "./AuthHeader";
 
 function Register(){   
-    const { error, success } = useSelector((state) => state.auth)
+    const { error, success, loading } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
@@ -49,7 +49,7 @@ function Register(){
     };
 
     return(
-        <div className="flex h-screen w-full">
+        <div className="flex h-full w-full">
             <div className="flex flex-col p-6 sm:justify-center sm:w-1/3 sm:bg-grey-heavy">
                 <AuthHeader sub={"Create your account and begin your journey to connect with hundreds of kittens!"} />            
                 <div className="w-full">
@@ -96,6 +96,11 @@ function Register(){
                 {error && <AlertPopup error={error} />}
                 {errors.message && <AlertPopup error={errors.message} />}        
             </div>
+            {loading && 
+                <div className="fixed top-0 right-0 w-full h-screen bg-grey-heavy bg-opacity-70">
+                    <Loading />
+                </div>
+            } 
         </div>
     );
 }
